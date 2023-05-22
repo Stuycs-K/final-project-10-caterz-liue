@@ -9,11 +9,11 @@
 - tested branch by modifying WORKLOG.md
 
 
-## GROUP MEMBER 2
+## Erica Liu
 
-### date x
+### 22 May 2023
 
-info
+- testing out working on WORKLOG.md at the same time as Zameen
 
 ### date y
 
