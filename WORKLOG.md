@@ -1,14 +1,12 @@
 # Work Log
 
-## GROUP MEMBER 1
+## Zameen Cater
 
-### date x
+### 22 May 2023
 
-info
-
-### date y
-
-info
+- created repository
+- created branch 'zammers'
+- tested branch by modifying WORKLOG.md
 
 
 ## GROUP MEMBER 2
