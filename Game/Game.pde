@@ -9,6 +9,7 @@ public class Game {
   public void draw() {
     background(255);
     fill(test.ballColor);
+    renderTable();
     circle(test.position.x, test.position.y, test.size);
   }
 }
