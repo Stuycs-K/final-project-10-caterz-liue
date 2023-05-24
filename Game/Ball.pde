@@ -28,7 +28,7 @@ public abstract class Ball {
     size = size_;
     type = type_;
     
-    circle(position.x,position.y,size);
+    //circle(position.x,position.y,size);
   }
   
   public Ball(){

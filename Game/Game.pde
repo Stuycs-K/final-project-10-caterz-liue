@@ -24,11 +24,15 @@ public void setup() {
     ball14 = new NormalBall(new PVector(150,150), 0, ball0.GREEN, 10, "striped");
     ball15 = new NormalBall(new PVector(150,200), 0, ball0.BROWN, 10, "striped");
     
-    table = new PoolTable(350, 175);
+    rectMode(CENTER);
+    ellipseMode(CENTER);
+    table = new PoolTable("rect", 300, 300);
   }
   
 public void draw() {
     background(255);
-    table.renderTable();
-    circle(test.position.x, test.position.y, test.size);
+
+    table.renderTable(200, 200);
+    fill(color(255));
+    circle(ball0.position.x, ball0.position.y, ball0.size);
   }
