@@ -13,5 +13,6 @@ public void draw() {
     background(255);
     fill(test.ballColor);
     table.renderTable(200, 200);
+    fill(color(255));
     circle(test.position.x, test.position.y, test.size);
   }

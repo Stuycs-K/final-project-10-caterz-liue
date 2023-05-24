@@ -25,7 +25,7 @@ public abstract class Ball {
     pocketed = false;
     size = size_;
     
-    circle(position.x,position.y,size);
+    //circle(position.x,position.y,size);
   }
   
   public Ball(){

@@ -9,6 +9,7 @@ public class PoolTable {
   }
   
   public void renderTable(int x, int y){
+    fill(color(10, 108, 3));
     if(shape.equals("rect")){
       rect(x, y, w, h);
     }
