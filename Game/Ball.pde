@@ -7,6 +7,7 @@ public abstract class Ball {
   boolean pocketed;
   int size;
   
+  color WHITE = color(255,255,255);
   color RED = color(255,0,0);
   color ORANGE = color(255,145,0);
   color YELLOW = color(255,247,0);
@@ -16,7 +17,7 @@ public abstract class Ball {
   color BROWN = color(165,80,0);
   color BLACK = color(0,0,0);
   
-  public Ball(PVector position_, int number_, color ballColor_, int size_){
+  public Ball(PVector position_, int number_, int ballColor_, int size_){
     position = position_;
     velocity = new PVector(0,0,0);
     acceleration = new PVector(0,0,0);
