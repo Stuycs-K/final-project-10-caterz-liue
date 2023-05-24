@@ -1,5 +1,14 @@
 public class PoolTable {
-  public void renderTable(){
-    rect(10,20,30,40);
+  int w, h;
+  
+  public PoolTable(int w_, int h_){
+    w = w_;
+    h = h_;
   }
+  
+  public void renderTable(){
+    rect(10,10,w,h);
+  }
+  
+  
 }
