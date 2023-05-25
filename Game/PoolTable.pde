@@ -21,7 +21,16 @@ public class PoolTable {
                                   new Hole(-magic_x,-magic_y), new Hole(magic_x,-magic_y),
                                                       new Hole(0,-h)};
     }
-    
+  }
+  
+  public PVector getNormal(float x, float y){ // doesn't technically get the normal since you can call it for any point: what is this
+    if(shape.equals("rect")){
+     // TODO
+    }
+    if(shape.equals("ellipse")){
+      return PVector.fromAngle(-atan(y/x * w*w/h/h));
+    }
+    return null;
   }
   
   public PoolTable(){
