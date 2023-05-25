@@ -3,10 +3,10 @@ Ball test;
 
 public void setup() {
     size(400,400);
-    rectMode(CENTER);
-    ellipseMode(CENTER);
-    test = new CueBall(new PVector(100,100), 8);
-    table = new PoolTable("rect", 300, 300);
+    rectMode(RADIUS);
+    ellipseMode(RADIUS);
+    test = new CueBall(new PVector(200,200), 8);
+    table = new PoolTable("ellipse", 54*3, 27*3);
   }
   
 public void draw() {
