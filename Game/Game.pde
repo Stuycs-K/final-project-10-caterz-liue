@@ -28,13 +28,17 @@ public void setup() {
   }
   
 public void draw() {
-    background(255);
+  background(255);
 
-    table.render(200, 200);
-    for(Ball curr : balls){
-      curr.render();
-    }
-    stick.render(ball0);
+  table.render(200, 200);
+  for(Ball curr : balls){
+    curr.render();
+  }
+  stick.render(ball0);
+}
+
+public void mousePressed(){
+  stick.strike(ball0);
 }
   
 public void makeBreak(float x, float y, int size){ // wip
