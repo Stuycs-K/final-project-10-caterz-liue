@@ -23,7 +23,7 @@ public void setup() {
     //makeBreak(200, 200, 5);
     ball0 = new CueBall(200, 200, 0, WHITE, 5);
     balls = new Ball[] {ball0};
-    stick = new CueStick();
+    stick = new CueStick(80);
     stick.show();
   }
   

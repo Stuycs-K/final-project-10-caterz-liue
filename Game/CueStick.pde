@@ -1,7 +1,10 @@
 public class CueStick {
   public boolean visible = false;
+  public float size;
   
-  public CueStick(){};
+  public CueStick(float size){
+    this.size = size;
+  }
   
   public void show(){
     visible = true;
@@ -13,7 +16,8 @@ public class CueStick {
   
   public void render(Ball target){
     if(!visible) return;
-    stroke(0);
-    line(target.position.x, target.position.y, mouseX, mouseY);
+    PVector pointing = new PVector(mouseX, mouseY).sub(target.position).normalize();
+    stroke(#664c28);
+    line(target.position.x+pointing.x*target.size*3, target.position.y+pointing.y*target.size*3, target.position.x+pointing.x*size, target.position.y+pointing.y*size);
   }
 }
