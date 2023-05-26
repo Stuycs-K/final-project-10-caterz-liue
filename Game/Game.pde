@@ -19,8 +19,9 @@ public void setup() {
     rectMode(RADIUS);
     ellipseMode(RADIUS);
     table = new PoolTable();
-    makeBreak(200, 200, 5);
-    
+    //makeBreak(200, 200, 5);
+    ball0 = new CueBall(200, 200, 0, WHITE, 5);
+    balls = new Ball[] {ball0};
   }
   
 public void draw() {
