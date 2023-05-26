@@ -37,7 +37,7 @@ public class PoolTable {
     this("rect", 54*3, 27*3); // standard pool table is roughly 108 by 54 inches
   }
   
-  public void renderTable(float x, float y){
+  public void render(float x, float y){
     fill(#0a6c03);
     stroke(#966F33); strokeWeight(5);
     

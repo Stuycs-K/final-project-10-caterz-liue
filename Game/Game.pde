@@ -3,6 +3,7 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
      ball6, ball7, ball8, ball9, ball10, 
      ball11, ball12, ball13, ball14, ball15;
 Ball[] balls;
+CueStick stick;
 
 public static final color WHITE = #ffffff;
 public static final color RED = #ff0000;
@@ -22,16 +23,18 @@ public void setup() {
     //makeBreak(200, 200, 5);
     ball0 = new CueBall(200, 200, 0, WHITE, 5);
     balls = new Ball[] {ball0};
+    stick = new CueStick();
+    stick.show();
   }
   
 public void draw() {
     background(255);
 
-    table.renderTable(200, 200);
+    table.render(200, 200);
     for(Ball curr : balls){
-      fill(curr.ballColor);
-      circle(curr.position.x, curr.position.y, curr.size);
+      curr.render();
     }
+    stick.render(ball0);
 }
   
 public void makeBreak(float x, float y, int size){ // wip

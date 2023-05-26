@@ -25,4 +25,9 @@ public abstract class Ball {
   
   public Ball(){
   }
+  
+  public void render(){
+    fill(ballColor);
+    circle(position.x, position.y, size);
+  }
 }
