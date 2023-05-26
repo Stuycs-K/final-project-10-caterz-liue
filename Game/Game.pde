@@ -19,25 +19,7 @@ public void setup() {
     rectMode(RADIUS);
     ellipseMode(RADIUS);
     table = new PoolTable();
-    ball0  = new CueBall(   200, 200, 0, WHITE,  5);
-    ball1  = new NormalBall( 50, 100, 0, YELLOW, 5, "solid");
-    ball2  = new NormalBall( 50, 150, 0, BLUE,   5, "solid");
-    ball3  = new NormalBall( 50, 200, 0, RED,    5, "solid");
-    ball4  = new NormalBall( 50, 250, 0, PURPLE, 5, "solid");
-    ball5  = new NormalBall( 50, 300, 0, ORANGE, 5, "solid");
-    ball6  = new NormalBall( 50, 350, 0, GREEN,  5, "solid");
-    ball7  = new NormalBall(100, 100, 0, BROWN,  5, "solid");
-    ball8  = new EightBall( 100, 150, 0, BLACK,  5);
-    ball9  = new NormalBall(100, 200, 0, YELLOW, 5, "striped");
-    ball10 = new NormalBall(100, 250, 0, BLUE,   5, "striped");
-    ball11 = new NormalBall(100, 300, 0, RED,    5, "striped");
-    ball12 = new NormalBall(100, 350, 0, PURPLE, 5, "striped");
-    ball13 = new NormalBall(150, 100, 0, ORANGE, 5, "striped");
-    ball14 = new NormalBall(150, 150, 0, GREEN,  5, "striped");
-    ball15 = new NormalBall(150, 200, 0, BROWN,  5, "striped");
-    balls = new Ball[] {ball0, ball1, ball2, ball3, ball4, ball5, 
-                        ball6, ball7, ball8, ball9, ball10, 
-                        ball11, ball12, ball13, ball14, ball15};
+    makeBreak(200, 200, 5);
     
   }
   
@@ -49,4 +31,28 @@ public void draw() {
       fill(curr.ballColor);
       circle(curr.position.x, curr.position.y, curr.size);
     }
-  }
+}
+  
+public void makeBreak(float x, float y, int size){ // wip
+  float x_off = size * sqrt(3);
+  float y_off = size * 1;
+  ball0  = new CueBall(   x-4*x_off, y+0*y_off, 0, WHITE,  size);
+  ball1  = new NormalBall(x+0*x_off, y+0*y_off, 0, YELLOW, size, "solid");
+  ball2  = new NormalBall(x+1*x_off, y-1*y_off, 0, BLUE,   size, "solid");
+  ball3  = new NormalBall(x+1*x_off, y+1*y_off, 0, RED,    size, "solid");
+  ball4  = new NormalBall(x+2*x_off, y-2*y_off, 0, PURPLE, size, "solid");
+  ball5  = new NormalBall(x+2*x_off, y+0*y_off, 0, ORANGE, size, "solid");
+  ball6  = new NormalBall(x+2*x_off, y+2*y_off, 0, GREEN,  size, "solid");
+  ball7  = new NormalBall(x+3*x_off, y-3*y_off, 0, BROWN,  size, "solid");
+  ball8  = new EightBall( x+3*x_off, y-1*y_off, 0, BLACK,  size);
+  ball9  = new NormalBall(x+3*x_off, y+1*y_off, 0, YELLOW, size, "striped");
+  ball10 = new NormalBall(x+3*x_off, y+3*y_off, 0, BLUE,   size, "striped");
+  ball11 = new NormalBall(x+4*x_off, y-4*y_off, 0, RED,    size, "striped");
+  ball12 = new NormalBall(x+4*x_off, y-2*y_off, 0, PURPLE, size, "striped");
+  ball13 = new NormalBall(x+4*x_off, y+0*y_off, 0, ORANGE, size, "striped");
+  ball14 = new NormalBall(x+4*x_off, y+2*y_off, 0, GREEN,  size, "striped");
+  ball15 = new NormalBall(x+4*x_off, y+4*y_off, 0, BROWN,  size, "striped");
+  balls = new Ball[] {ball0, ball1, ball2, ball3, ball4, ball5, 
+                      ball6, ball7, ball8, ball9, ball10, 
+                      ball11, ball12, ball13, ball14, ball15};
+}
