@@ -38,6 +38,8 @@ public abstract class Ball {
     if(velocity.mag()<.1){
       velocity.setMag(0);
     }
+    
+    
   }
   
   public void applyForce(PVector force){
