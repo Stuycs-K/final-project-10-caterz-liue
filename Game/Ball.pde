@@ -41,7 +41,7 @@ public abstract class Ball {
     
     if(!table.onTable(position)){
       position.sub(velocity);
-      float angle = PVector.mult(velocity,-1).heading() - table.awayFromWall(position).heading(); // angleBetween() doesn't give the sign 
+      float angle = PVector.mult(velocity,-1).heading() - table.inwardsFromWall(position).heading(); // angleBetween() doesn't give the sign 
       velocity.rotate(PI - angle*2); // could all be simpplified but this actually makes sense
     }
   }

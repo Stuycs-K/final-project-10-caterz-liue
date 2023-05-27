@@ -6,8 +6,8 @@ public class Hole {
     this.y = y;
   }
   
-  public void renderHole(float tableX, float tableY){
+  public void renderHole(){
     fill(0); noStroke();
-    circle(tableX+x,tableY+y,8);
+    circle(x,y,8);
   }
 }

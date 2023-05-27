@@ -21,7 +21,7 @@ public void setup() {
     size(400,400);
     rectMode(RADIUS);
     ellipseMode(RADIUS);
-    table = new PoolTable();
+    table = new RectangleTable(54*3, 27*3, .98);
     //makeBreak(0, 0, 5);
     ball0 = new CueBall(0, 0, 0, WHITE, 5);
     balls = new Ball[] {ball0};
@@ -33,7 +33,7 @@ public void draw() {
   background(255);
   
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
-  table.render(0, 0);
+  table.render();
   for(Ball curr : balls){
     curr.roll(table);
     curr.render();
