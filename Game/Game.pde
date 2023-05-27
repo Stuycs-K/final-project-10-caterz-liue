@@ -32,6 +32,7 @@ public void draw() {
 
   table.render(200, 200);
   for(Ball curr : balls){
+    curr.roll(table);
     curr.render();
   }
   stick.render(ball0);

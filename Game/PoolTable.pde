@@ -2,12 +2,14 @@ public class PoolTable {
   String shape;
   float w, h; // actually halfwidth and halfheight
   Hole[] pockets;
+  float smoothness;
   
   
-  public PoolTable(String shape, float w, float h){
+  public PoolTable(String shape, float w, float h, float smoothness){
     this.shape = shape;
     this.w = w;
     this.h = h;
+    this.smoothness = smoothness;
     
     if(shape.equals("rect")){
       this.pockets = new Hole[] {new Hole(-w,h), new Hole(0,h), new Hole(w,h),
@@ -34,7 +36,7 @@ public class PoolTable {
   }
   
   public PoolTable(){
-    this("rect", 54*3, 27*3); // standard pool table is roughly 108 by 54 inches
+    this("rect", 54*3, 27*3, .98); // standard pool table is roughly 108 by 54 inches
   }
   
   public void render(float x, float y){
