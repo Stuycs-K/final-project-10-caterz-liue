@@ -39,7 +39,10 @@ public abstract class Ball {
       velocity.setMag(0);
     }
     
-    
+    if(!table.onTable(position)){
+      position.sub(velocity);
+      velocity.setMag(0);
+    }
   }
   
   public void applyForce(PVector force){

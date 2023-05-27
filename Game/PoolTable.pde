@@ -25,6 +25,13 @@ public class PoolTable {
     }
   }
   
+  public boolean onTable(PVector pos){
+    if(shape.equals("rect")){
+      return abs(pos.x)<w && abs(pos.y)<h;
+    }
+    return false;
+  }
+  
   public PVector getNormal(float x, float y){ // doesn't technically get the normal since you can call it for any point: what is this
     if(shape.equals("rect")){
      // TODO
