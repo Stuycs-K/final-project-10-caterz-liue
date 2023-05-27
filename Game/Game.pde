@@ -5,6 +5,8 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
 Ball[] balls;
 CueStick stick;
 
+public static final PVector VISUAL_OFFSET = new PVector(200,200);
+
 public static final color WHITE = #ffffff;
 public static final color RED = #ff0000;
 public static final color ORANGE = #ff9100;
@@ -20,8 +22,8 @@ public void setup() {
     rectMode(RADIUS);
     ellipseMode(RADIUS);
     table = new PoolTable();
-    //makeBreak(200, 200, 5);
-    ball0 = new CueBall(200, 200, 0, WHITE, 5);
+    //makeBreak(0, 0, 5);
+    ball0 = new CueBall(0, 0, 0, WHITE, 5);
     balls = new Ball[] {ball0};
     stick = new CueStick(80);
     stick.show();
@@ -29,12 +31,14 @@ public void setup() {
   
 public void draw() {
   background(255);
-
-  table.render(200, 200);
+  
+  translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
+  table.render(0, 0);
   for(Ball curr : balls){
     curr.roll(table);
     curr.render();
   }
+  
   stick.render(ball0);
 }
 

@@ -16,7 +16,7 @@ public class CueStick {
   
   public void render(Ball target){
     if(!visible) return;
-    PVector pointing = new PVector(mouseX, mouseY).sub(target.position).setMag(-1);
+    PVector pointing = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position).setMag(-1);
     stroke(#664c28);
     line(target.position.x-pointing.x*target.size*3, target.position.y-pointing.y*target.size*3,
          target.position.x-pointing.x*size,          target.position.y-pointing.y*size);
@@ -24,7 +24,7 @@ public class CueStick {
   
   public void strike(Ball target){
     if(!visible) return;
-    PVector pointing = new PVector(mouseX, mouseY).sub(target.position).setMag(-1);
+    PVector pointing = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position).setMag(-1);
     target.applyForce(pointing.mult(5));
   }
 }
