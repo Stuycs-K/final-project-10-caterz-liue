@@ -32,12 +32,17 @@ public class PoolTable {
     return false;
   }
   
-  public PVector getNormal(float x, float y){ // doesn't technically get the normal since you can call it for any point: what is this
+  public PVector awayFromWall(PVector pos){ // doesn't technically get the normal since you can call it for any point: what is this
     if(shape.equals("rect")){
-     // TODO
+      if(abs(pos.x)/w > abs(pos.y)/h){
+        return new PVector(-Math.signum(pos.x), 0);
+      }
+      else{
+        return new PVector(0, -Math.signum(pos.y));
+      }
     }
     if(shape.equals("ellipse")){
-      return PVector.fromAngle(-atan(y/x * w*w/h/h));
+      return PVector.fromAngle(-atan(pos.y/pos.x * w*w/h/h));
     }
     return null;
   }
