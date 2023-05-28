@@ -35,12 +35,21 @@ public void draw() {
   
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
+  
+  boolean allStopped = true;
   for(Ball curr : balls){
     curr.roll(table, balls);
     curr.render();
+    if(curr.velocity.mag()!=0){
+      allStopped = false;
+    }
   }
-  
-  stick.render(ball0);
+  if(allStopped){
+    stick.show();
+    stick.render(ball0);
+  }else{
+    stick.hide();
+  }
 }
 
 public void mousePressed(){
