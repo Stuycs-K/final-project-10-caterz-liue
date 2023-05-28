@@ -8,7 +8,7 @@ public abstract class Ball {
   int size;
   String type;
   
-  public Ball(PVector position, int number, int ballColor, int size, String type){
+  public Ball(PVector position, int size, int number, color ballColor, String type){
     this.position = position;
     this.velocity = new PVector(0,0);
     this.acceleration = new PVector(0,0);
@@ -19,8 +19,8 @@ public abstract class Ball {
     this.type = type;
   }
   
-  public Ball(float x, float y, int number, int ballColor, int size, String type){
-    this(new PVector(x,y), number, ballColor, size, type);
+  public Ball(float x, float y, int size, int number, color ballColor, String type){
+    this(new PVector(x,y), size, number, ballColor, type);
   }
   
   public Ball(){
@@ -29,6 +29,8 @@ public abstract class Ball {
   public void render(){
     fill(ballColor);
     circle(position.x, position.y, size);
+    //fill(0); textSize(size*2);
+    //text(number, position.x, position.y);
   }
   
   public void roll(PoolTable table){
