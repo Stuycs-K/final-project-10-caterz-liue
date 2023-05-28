@@ -4,6 +4,7 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
      ball11, ball12, ball13, ball14, ball15;
 Ball[] balls;
 CueStick stick;
+boolean debugOn;
 
 public static final PVector VISUAL_OFFSET = new PVector(200,200);
 
@@ -16,12 +17,15 @@ public static final color BLUE = #0046d7;
 public static final color PURPLE = #9b00e6;
 public static final color BURGUNDY = #a55000;
 public static final color BLACK = #000000;
+public static final color BROWN = #664c28; // cue stick
 
 public void setup() {
     size(400,400);
     rectMode(RADIUS);
     ellipseMode(RADIUS);
     textAlign(CENTER,CENTER);
+    debugOn = false;
+    
     table = new EllipseTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
     //ball0 = new CueBall(0, 0, 5);
@@ -30,17 +34,49 @@ public void setup() {
     stick.show();
   }
   
+public void keyPressed(){
+  if(key==' '){
+    debugOn = !debugOn;
+  }
+  if(key=='x'){
+    table = new EllipseTable(54*3, 27*3, .98, 5);
+    makeBreak(0, 0, 5);
+  }
+  if(key=='c'){
+    table = new RectangleTable(54*3, 27*3, .98, 5);
+    makeBreak(0, 0, 5);
+  }
+}
+  
 public void draw() {
   background(255);
   
+  fill(BROWN); textSize(12);
+  if(!debugOn){
+    text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
+  }else{
+    text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
+  }
+  text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table", width/2, textAscent()*5);
+  
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
+  
+  boolean allStopped = true;
   for(Ball curr : balls){
     curr.roll(table, balls);
     curr.render();
+    if(curr.velocity.mag()!=0){
+      allStopped = false;
+    }
   }
   
-  stick.render(ball0);
+  if(allStopped || debugOn){
+    stick.show();
+    stick.render(ball0);
+  }else{
+    stick.hide();
+  }
 }
 
 public void mousePressed(){

@@ -31,8 +31,10 @@ public abstract class Ball {
   public void render(){
     fill(ballColor);
     circle(position.x, position.y, size);
-    //fill(0); textSize(size*2);
-    //text(number, position.x, position.y);
+    if(debugOn){
+      fill(0); textSize(size*2);
+      text(number, position.x, position.y);
+    }
   }
   
   public void roll(PoolTable table, Ball[] balls){
