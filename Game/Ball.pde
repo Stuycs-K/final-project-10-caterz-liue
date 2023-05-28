@@ -6,6 +6,7 @@ public abstract class Ball {
   color ballColor;
   boolean pocketed;
   int size;
+  int weight;
   String type;
   
   public Ball(PVector position, int size, int number, color ballColor, String type){
@@ -16,6 +17,7 @@ public abstract class Ball {
     this.ballColor = ballColor;
     this.pocketed = false;
     this.size = size;
+    this.weight = 1;
     this.type = type;
   }
   
@@ -57,20 +59,17 @@ public abstract class Ball {
   public boolean bounceAmong(Ball[] balls, PVector nextSpot){
     boolean hitSomething = false;
         
-    for(Ball other : balls){
-      if(other!=this){
-        if(nextSpot.dist(PVector.add(other.position,other.velocity)) < size+other.size){
-          hitSomething = true;
-          
-          PVector n = PVector.sub(position, other.position).normalize();
-          float a1 = PVector.dot(velocity, n);
-          float a2 = PVector.dot(other.velocity,n);
-          velocity.sub(PVector.mult(n, a1-a2));
-          other.velocity.add(PVector.mult(n, a1-a2));
-        }
+    for(int i = number+1; i <= 15; i++){
+      Ball other = balls[i];
+      if(nextSpot.dist(PVector.add(other.position,other.velocity)) < size+other.size){
+        hitSomething = true;
+        // https://www.gamedeveloper.com/programming/pool-hall-lessons-fast-accurate-collision-detection-between-circles-or-spheres
+        PVector dir = PVector.sub(position, other.position).normalize();
+        float momentumChange = 2 * (dir.dot(velocity) - dir.dot(other.velocity)) / (weight + other.weight);
+        velocity.sub(PVector.mult(dir, momentumChange));
+        other.velocity.add(PVector.mult(dir, momentumChange));
       }
     }
-    
     return hitSomething;
   }
   
