@@ -33,7 +33,7 @@ public abstract class Ball {
     //text(number, position.x, position.y);
   }
   
-  public void roll(PoolTable table){
+  public void roll(PoolTable table, Ball[] balls){
     position.add(velocity);
     velocity.add(acceleration);
     velocity.mult(table.smoothness);
@@ -45,6 +45,14 @@ public abstract class Ball {
       position.sub(velocity);
       float angle = PVector.mult(velocity,-1).heading() - table.inwardsFromWall(position).heading(); // angleBetween() doesn't give the sign 
       velocity.rotate(PI - angle*2); // could all be simpplified but this actually makes sense
+    }
+    
+    for(Ball curr : balls){
+      if(curr!=this){
+        if(position.dist(curr.position)<size*2){
+          System.out.println(curr.number + " and " + number + " are touching"); 
+        }
+      }
     }
   }
   

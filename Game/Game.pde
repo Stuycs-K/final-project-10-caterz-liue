@@ -36,7 +36,7 @@ public void draw() {
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
   for(Ball curr : balls){
-    curr.roll(table);
+    curr.roll(table, balls);
     curr.render();
   }
   
