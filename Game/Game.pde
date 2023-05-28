@@ -22,7 +22,7 @@ public void setup() {
     rectMode(RADIUS);
     ellipseMode(RADIUS);
     textAlign(CENTER,CENTER);
-    table = new EllipseTable(54*3, 27*3, .98);
+    table = new EllipseTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
     //ball0 = new CueBall(0, 0, 5);
     //balls = new Ball[] {ball0};
