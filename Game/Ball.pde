@@ -41,18 +41,31 @@ public abstract class Ball {
       velocity.setMag(0);
     }
     
+    boolean hitSomething = false;
+    PVector safeSpot = PVector.sub(position,velocity);
+    
     if(!table.onTable(position)){
-      position.sub(velocity);
-      float angle = PVector.mult(velocity,-1).heading() - table.inwardsFromWall(position).heading(); // angleBetween() doesn't give the sign 
+      hitSomething = true;
+      float angle = PVector.mult(velocity,-1).heading() - table.inwardsFromWall(safeSpot).heading(); // angleBetween() doesn't give the sign 
       velocity.rotate(PI - angle*2); // could all be simpplified but this actually makes sense
     }
     
-    for(Ball curr : balls){
-      if(curr!=this){
-        if(position.dist(curr.position)<size*2){
-          System.out.println(curr.number + " and " + number + " are touching"); 
+    for(Ball other : balls){
+      if(other!=this){
+        if(position.dist(other.position)<size*2){
+          //System.out.println(other.number + " and " + number + " are touching");
+          hitSomething = true;
+          
+          PVector temp = velocity;
+          velocity = other.velocity;
+          other.velocity = temp;
+          
         }
       }
+    }
+    
+    if(hitSomething){
+      position = safeSpot;
     }
   }
   
