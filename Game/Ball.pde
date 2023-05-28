@@ -59,14 +59,14 @@ public abstract class Ball {
         
     for(Ball other : balls){
       if(other!=this){
-        if(nextSpot.dist(PVector.add(other.position,other.velocity))<size*2){
-          //System.out.println(other.number + " and " + number + " are touching");
+        if(nextSpot.dist(PVector.add(other.position,other.velocity)) < size+other.size){
           hitSomething = true;
           
-          PVector temp = velocity;
-          velocity = other.velocity;
-          other.velocity = temp;
-          
+          PVector n = PVector.sub(position, other.position).normalize();
+          float a1 = PVector.dot(velocity, n);
+          float a2 = PVector.dot(other.velocity,n);
+          velocity.sub(PVector.mult(n, a1-a2));
+          other.velocity.add(PVector.mult(n, a1-a2));
         }
       }
     }

@@ -48,8 +48,8 @@ public void mousePressed(){
 }
   
 public void makeBreak(float x, float y, int size){ // wip
-  float x_off = size * sqrt(3);
-  float y_off = size * 1;
+  float x_off = (size+1) * sqrt(3);
+  float y_off = (size+1) * 1;
   ball0  = new CueBall(   x-4*x_off, y+0*y_off, size);
   ball1  = new NormalBall(x+0*x_off, y+0*y_off, size, 1,  YELLOW,   "solid");
   ball2  = new NormalBall(x+1*x_off, y-1*y_off, size, 2,  BLUE,     "solid");
