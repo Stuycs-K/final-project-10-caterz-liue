@@ -34,25 +34,32 @@ public abstract class Ball {
   }
   
   public void roll(PoolTable table, Ball[] balls){
+    PVector nextSpot = PVector.add(position,velocity);
+    boolean everHit = bounceCushion(table, nextSpot) | bounceAmong(balls, nextSpot);
     position.add(velocity);
-    velocity.add(acceleration);
-    velocity.mult(table.smoothness);
-    if(velocity.mag()<.1){
-      velocity.setMag(0);
+    if(!everHit){
+      velocity.mult(table.smoothness);
+      if(velocity.mag()<.1){
+        velocity.setMag(0);
+      }
     }
-    
+  }
+  
+  public boolean bounceCushion(PoolTable table, PVector nextSpot){
+    if(!table.onTable(nextSpot)){
+      float angle = PVector.mult(velocity,-1).heading() - table.inwardsFromWall(nextSpot).heading(); // angleBetween() doesn't give the sign 
+      velocity.rotate(PI - angle*2); // could all be simplified but this actually makes sense
+      return true;
+    }
+    return false;
+  }
+  
+  public boolean bounceAmong(Ball[] balls, PVector nextSpot){
     boolean hitSomething = false;
-    PVector safeSpot = PVector.sub(position,velocity);
-    
-    if(!table.onTable(position)){
-      hitSomething = true;
-      float angle = PVector.mult(velocity,-1).heading() - table.inwardsFromWall(safeSpot).heading(); // angleBetween() doesn't give the sign 
-      velocity.rotate(PI - angle*2); // could all be simpplified but this actually makes sense
-    }
-    
+        
     for(Ball other : balls){
       if(other!=this){
-        if(position.dist(other.position)<size*2){
+        if(nextSpot.dist(PVector.add(other.position,other.velocity))<size*2){
           //System.out.println(other.number + " and " + number + " are touching");
           hitSomething = true;
           
@@ -64,9 +71,7 @@ public abstract class Ball {
       }
     }
     
-    if(hitSomething){
-      position = safeSpot;
-    }
+    return hitSomething;
   }
   
   public void applyForce(PVector force){
