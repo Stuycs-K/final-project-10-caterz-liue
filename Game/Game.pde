@@ -21,7 +21,7 @@ public void setup() {
     size(400,400);
     rectMode(RADIUS);
     ellipseMode(RADIUS);
-    table = new RectangleTable(54*3, 27*3, .98);
+    table = new EllipseTable(54*3, 27*3, .98);
     //makeBreak(0, 0, 5);
     ball0 = new CueBall(0, 0, 0, WHITE, 5);
     balls = new Ball[] {ball0};

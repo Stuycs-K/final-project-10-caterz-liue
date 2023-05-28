@@ -12,12 +12,12 @@ public class EllipseTable extends PoolTable{
   }
   
   public boolean onTable(PVector pos){
-    return abs(pos.x)<w && abs(pos.y)<h;
+    return pos.x*pos.x/w/w + pos.y*pos.y/h/h < 1;
   }
   
   public PVector inwardsFromWall(PVector pos){
-    //return PVector.fromAngle(-atan(pos.y/pos.x * w*w/h/h));
-    return new PVector(-1,0);
+    return PVector.fromAngle(atan(pos.y/pos.x * w*w/h/h));
+    //return new PVector(-1,0);
   }
   
   public void renderHelper(){
