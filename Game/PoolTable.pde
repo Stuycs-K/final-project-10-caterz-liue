@@ -1,46 +1,35 @@
-public class PoolTable {
-  String shape;
+public abstract class PoolTable {
   float w, h; // actually halfwidth and halfheight
   Hole[] pockets;
+  float smoothness;
+  float wall;
   
   
-  public PoolTable(String shape, float w, float h){
-    this.shape = shape;
+  public PoolTable(float w, float h, float smoothness, float wall){
     this.w = w;
     this.h = h;
-    
-    if(shape.equals("rect")){
-      this.pockets = new Hole[] {new Hole(-w,h), new Hole(0,h), new Hole(w,h),
-                                 new Hole(-w,-h), new Hole(0,-h), new Hole(w,-h)};
-    }
-    if(shape.equals("ellipse")){ // placeholder
-      float magic_y = w*h / sqrt(3*h*h+w*w); // (magic_x,magic_y) is the point at which theta=pi/6 intersects the ellipse
-      float magic_x = sqrt(3) * magic_y;
-      this.pockets = new Hole[] {                     new Hole(0, h),
-                                  new Hole(-magic_x, magic_y), new Hole(magic_x, magic_y),
-                                  new Hole(-magic_x,-magic_y), new Hole(magic_x,-magic_y),
-                                                      new Hole(0,-h)};
-    }
-    
+    this.smoothness = smoothness;
+    this.wall = wall;
   }
   
-  public PoolTable(){
-    this("rect", 54*3, 27*3); // standard pool table is roughly 108 by 54 inches
-  }
+  public abstract boolean onTable(PVector pos);
   
-  public void renderTable(float x, float y){
+  public abstract PVector inwardsFromWall(PVector pos);
+  
+  public abstract void renderHelper();
+  
+  //public PoolTable(){
+    //this("rect", 54*3, 27*3, .98); // standard pool table is roughly 108 by 54 inches
+  //}
+  
+  public void render(){
     fill(#0a6c03);
-    stroke(#966F33); strokeWeight(5);
+    stroke(#966F33); strokeWeight(wall);
     
-    if(shape.equals("rect")){
-      rect(x, y, w, h);
-    }
-    if(shape.equals("ellipse")){
-      ellipse(x, y, w, h);
-    }
+    renderHelper();
     
     for(Hole pocket : pockets){
-      pocket.renderHole(x, y);
+      pocket.renderHole();
     } 
   }
   
