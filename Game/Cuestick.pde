@@ -1,6 +1,8 @@
 public class CueStick {
   public boolean visible = false;
   public float size;
+  public float strength;
+  public PVector startDrag = new PVector(0,0);
   
   public CueStick(float size){
     this.size = size;
@@ -29,5 +31,10 @@ public class CueStick {
     if(!visible) return;
     PVector pointing = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position).setMag(-1);
     target.applyForce(pointing.mult(5));
+  }
+  
+  public void setStart(){
+    startDrag = new PVector(mouseX-VISUAL_OFFSET.x, mouseY-VISUAL_OFFSET.y);
+
   }
 }
