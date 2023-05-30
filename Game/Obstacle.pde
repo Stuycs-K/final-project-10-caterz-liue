@@ -2,13 +2,11 @@ public abstract class Obstacle {
   String shape;
   PVector position;
   int strength;
-  String type;
   
-  public Obstacle(String shape, PVector position, int strength, String type){
+  public Obstacle(String shape, PVector position, int strength){
     this.shape = shape;
     this.position = position;
     this.strength = strength; // [0,1]; the closer to 1, the more it slows the acceleration
-    this.type = type;
   }
 
   public void affectBalls(){
@@ -25,7 +23,7 @@ public abstract class Obstacle {
   public static final color SANDCOLOR = #ffffcc;
   public static final color ICECOLOR = #33adff;
 
-  public void render(){
+  public void render(){/*
     if(shape.equals("circle") && type.equals("sand")){
       fill(SANDCOLOR);
       circle(position.x, position.y, 20);
@@ -41,7 +39,7 @@ public abstract class Obstacle {
     if(shape.equals("rect") && type.equals("ice")){
       fill(ICECOLOR);
       rect(position.x, position.y, 20, 20);
-    }
+    }*/
   }
 
 }
