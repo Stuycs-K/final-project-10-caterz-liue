@@ -1,3 +1,10 @@
+/*
+CHANGES MADE TO THIS FILE:
+- added this comment
+- makeObstacles(); in setup
+- makeObstacles method
+*/
+
 PoolTable table;
 Ball ball0, ball1, ball2, ball3, ball4, ball5, 
      ball6, ball7, ball8, ball9, ball10, 
@@ -32,6 +39,7 @@ public void setup() {
     //balls = new Ball[] {ball0};
     stick = new CueStick(80);
     stick.show();
+    makeObstacles();
   }
   
 public void keyPressed(){
@@ -105,4 +113,8 @@ public void makeBreak(float x, float y, int size){ // wip
   balls = new Ball[] {ball0, ball1, ball2, ball3, ball4, ball5, 
                       ball6, ball7, ball8, ball9, ball10, 
                       ball11, ball12, ball13, ball14, ball15};
+}
+
+public void makeObstacles(){
+  
 }
