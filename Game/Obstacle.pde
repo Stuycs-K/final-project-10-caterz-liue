@@ -21,6 +21,27 @@ public abstract class Obstacle {
     }
     */
   }
+  
+  public static final color SANDCOLOR = #ffffcc;
+  public static final color ICECOLOR = #33adff;
 
+  public void render(){
+    if(shape.equals("circle") && type.equals("sand")){
+      fill(SANDCOLOR);
+      circle(position.x, position.y, 20);
+    }
+    if(shape.equals("rect") && type.equals("sand")){
+      fill(SANDCOLOR);
+      rect(position.x, position.y, 20, 20);
+    }
+    if(shape.equals("circle") && type.equals("ice")){
+      fill(ICECOLOR);
+      circle(position.x, position.y, 20);
+    }
+    if(shape.equals("rect") && type.equals("ice")){
+      fill(ICECOLOR);
+      rect(position.x, position.y, 20, 20);
+    }
+  }
 
 }
