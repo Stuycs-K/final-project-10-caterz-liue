@@ -8,6 +8,8 @@ public abstract class Ball {
   int size;
   int weight;
   String type;
+  PVector northPole = new PVector(0,0,1);
+  float spin = 0;
   
   public Ball(PVector position, int size, int number, color ballColor, String type){
     this.position = position;
@@ -61,7 +63,7 @@ public abstract class Ball {
   public boolean bounceAmong(Ball[] balls, PVector nextSpot){
     boolean hitSomething = false;
         
-    for(int i = number+1; i <= 15; i++){
+    for(int i = number+1; i < balls.length; i++){
       Ball other = balls[i];
       if(nextSpot.dist(PVector.add(other.position,other.velocity)) < size+other.size){
         hitSomething = true;

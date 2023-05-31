@@ -27,9 +27,9 @@ public void setup() {
     debugOn = false;
     
     table = new EllipseTable(54*3, 27*3, .98, 5);
-    makeBreak(0, 0, 5);
-    //ball0 = new CueBall(0, 0, 5);
-    //balls = new Ball[] {ball0};
+    //makeBreak(0, 0, 5);
+    ball0 = new NormalBall(0, 0, 20, 3, BLUE, "solid");
+    balls = new Ball[] {ball0};
     stick = new CueStick(80);
     stick.show();
   }
