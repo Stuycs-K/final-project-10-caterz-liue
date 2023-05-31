@@ -26,3 +26,4 @@ replay_pid*
 # other things
 *.autosave
 *.swp
+.DS_Store
