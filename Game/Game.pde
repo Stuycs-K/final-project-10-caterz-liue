@@ -12,6 +12,7 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
 Ball[] balls;
 CueStick stick;
 boolean debugOn;
+UI ui = new UI();
 
 public static final PVector VISUAL_OFFSET = new PVector(200,200);
 
@@ -69,6 +70,7 @@ public void draw() {
   
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
+  ui.render();
   
   boolean allStopped = true;
   for(Ball curr : balls){
