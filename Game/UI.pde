@@ -1,5 +1,9 @@
 public class UI {
   
+  boolean stripesDone = false;
+  boolean solidsDone = false;
+  int nullCounter = 0;
+  
   PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
   new PVector(-170,170), new PVector(-150,170), new PVector(-130,170), new PVector(-110,170), new PVector(-90,170), new PVector(-70,170), new PVector(-50,170),
@@ -21,7 +25,28 @@ public class UI {
     textAlign(CENTER);
     text("PLAYER TWO", 110, 155);
     
-    System.out.println(balls);
+    // counting nulls
+    nullCounter = 0;
+    for(int i = 1; i <= 7; i++){
+      if(balls[i] == null){
+        nullCounter++;
+      }
+    }
+    if(nullCounter == 0){
+      for(int i = 0; i <= 7; i++){
+        if(balls[i] != null){
+          fill(balls[i].ballColor);
+          circle(trackerPositions[i].x, trackerPositions[i].y, balls[i].size * 1.5);
+          fill(255);
+          textSize(balls[i].size*2);
+          text(balls[i].number, trackerPositions[i].x, trackerPositions[i].y);
+        }
+      }
+    }
+    else{
+      // show 8ball
+    }
+    /*
     for(int i = 0; i <= 15; i++){
       if(balls[i] != null && i != 8 && i != 0){
         fill(balls[i].ballColor);
@@ -30,6 +55,6 @@ public class UI {
         textSize(balls[i].size*2);
         text(balls[i].number, trackerPositions[i].x, trackerPositions[i].y);
       }
-    }
+    }*/
   }
 }
