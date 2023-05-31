@@ -62,9 +62,6 @@ public void draw() {
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
   
-    fill(0);
-    square(stick.startDrag.x, stick.startDrag.y, 2);
-  
   boolean allStopped = true;
   for(Ball curr : balls){
     curr.roll(table, balls);
@@ -76,18 +73,16 @@ public void draw() {
   
   if(allStopped || debugOn){
     stick.show();
-    stick.render(ball0);
+    stick.render(table, ball0);
   }else{
     stick.hide();
   }
+  
+  circle(stick.aim.x, stick.aim.y, ball0.size);
 }
 
 public void mouseReleased(){
   stick.strike(ball0);
-}
-
-public void mousePressed(){
-  stick.setStart(ball0);
 }
   
 public void makeBreak(float x, float y, int size){ // wip
