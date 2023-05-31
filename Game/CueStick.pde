@@ -1,7 +1,6 @@
 public class CueStick {
   public boolean visible = false;
   public float size;
-  public PVector aim;
 
   public CueStick(float size) {
     this.size = size;
@@ -29,7 +28,6 @@ public class CueStick {
     PVector pointing = relativePos.copy().rotate(PI).div(size).mult(2);
     //pointing.mult(1-pow(table.smoothness, ceil(log(.1/pointing.mag())/log(table.smoothness)))).div(1-table.smoothness); // exact
     pointing.setMag(pointing.mag()-.1).div(1-table.smoothness); // approximate
-    aim = PVector.add(pointing, target.position);
     // starting velocity: pointing.mag() = v0
     // rate of change: table.smoothness = s
     // exact total velocity: finite geometric series, a(1-r^n)/(1-r)

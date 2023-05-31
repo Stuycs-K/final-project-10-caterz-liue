@@ -73,12 +73,11 @@ public void draw() {
   
   if(allStopped || debugOn){
     stick.show();
-    stick.render(table, ball0);
   }else{
     stick.hide();
   }
-  fill(WHITE);
-  circle(stick.aim.x, stick.aim.y, ball0.size);
+  
+  stick.render(table, ball0);
 }
 
 public void mouseReleased(){
