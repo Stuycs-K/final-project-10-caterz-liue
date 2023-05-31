@@ -87,7 +87,7 @@ public void mouseReleased(){
 }
 
 public void mousePressed(){
-  stick.setStart();
+  stick.setStart(ball0);
 }
   
 public void makeBreak(float x, float y, int size){ // wip

@@ -29,12 +29,14 @@ public class CueStick {
   
   public void strike(Ball target){
     if(!visible) return;
-    PVector pointing = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position).setMag(-1);
-    target.applyForce(pointing.mult(5));
+    PVector endDrag = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position);
+    PVector pointing = PVector.fromAngle(endDrag.heading()).setMag((endDrag.mag() - startDrag.mag()) / (size/2)).rotate(PI).mult(5);
+    //PVector pointing = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position).setMag(-1);
+    target.applyForce(pointing);
   }
   
-  public void setStart(){
-    startDrag = new PVector(mouseX-VISUAL_OFFSET.x, mouseY-VISUAL_OFFSET.y);
+  public void setStart(Ball target){
+    startDrag = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position);
 
   }
 }
