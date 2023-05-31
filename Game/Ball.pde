@@ -33,6 +33,12 @@ public abstract class Ball {
   public void render(Hole[] pockets){
     fill(ballColor);
     circle(position.x, position.y, size);
+    fill(255);
+    if(number != 0){
+      circle(position.x, position.y, size / 2);
+      fill(0); textSize(size*2);
+      text(number, position.x, position.y);
+    }
     checkSurroundings(pockets);
     if(debugOn){
       fill(0); textSize(size*2);
@@ -86,20 +92,25 @@ public abstract class Ball {
   
   public void checkSurroundings(Hole[] pockets){
     for (Hole h: pockets){
+      if(pocketed == true){
+        if(size > 0){
+          size--;
+        }
+        else{
+          if(size == 0){
+             if(number == 0){
+               size = originalSize;
+               position = new PVector(0,0);
+               velocity = new PVector(0,0);
+             }
+             else{
+               balls[number] = null;
+             }
+         }
+        }
+      }
        if(position.dist(new PVector(h.x,h.y)) < 10){
-           //size in renderBall needs to be changed to a variable
-           while(size > 0){
-             size--;
-             render(pockets);
-           }
-           if(number == 0){
-             size = originalSize;
-             position = new PVector(0,0);
-             velocity = new PVector(0,0);
-           }
-           else{
-             balls[number] = null;
-           }
+           pocketed = true;           
        }
     }
   }
