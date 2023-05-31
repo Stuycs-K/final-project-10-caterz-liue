@@ -70,7 +70,7 @@ public void draw() {
   
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
-  ui.render();
+  ui.render(balls);
   
   boolean allStopped = true;
   for(Ball curr : balls){
