@@ -6,6 +6,7 @@ public abstract class Ball {
   color ballColor;
   boolean pocketed;
   int size;
+  int originalSize;
   int weight;
   String type;
   
@@ -17,6 +18,7 @@ public abstract class Ball {
     this.ballColor = ballColor;
     this.pocketed = false;
     this.size = size;
+    originalSize = size;
     this.weight = 1;
     this.type = type;
   }
@@ -90,7 +92,14 @@ public abstract class Ball {
              size--;
              render(pockets);
            }
-           balls[number] = null;
+           if(number == 0){
+             size = originalSize;
+             position = new PVector(0,0);
+             velocity = new PVector(0,0);
+           }
+           else{
+             balls[number] = null;
+           }
        }
     }
   }
