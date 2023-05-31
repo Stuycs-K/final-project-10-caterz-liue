@@ -28,9 +28,10 @@ public abstract class Ball {
   public Ball(){
   }
   
-  public void render(){
+  public void render(Hole[] pockets){
     fill(ballColor);
     circle(position.x, position.y, size);
+    checkSurroundings(pockets);
     if(debugOn){
       fill(0); textSize(size*2);
       text(number, position.x, position.y);
@@ -62,14 +63,16 @@ public abstract class Ball {
     boolean hitSomething = false;
         
     for(int i = number+1; i <= 15; i++){
-      Ball other = balls[i];
-      if(nextSpot.dist(PVector.add(other.position,other.velocity)) < size+other.size){
-        hitSomething = true;
-        // https://www.gamedeveloper.com/programming/pool-hall-lessons-fast-accurate-collision-detection-between-circles-or-spheres
-        PVector dir = PVector.sub(position, other.position).normalize();
-        float momentumChange = 2 * (dir.dot(velocity) - dir.dot(other.velocity)) / (weight + other.weight);
-        velocity.sub(PVector.mult(dir, momentumChange));
-        other.velocity.add(PVector.mult(dir, momentumChange));
+      if(balls[i] != null){
+        Ball other = balls[i];
+        if(nextSpot.dist(PVector.add(other.position,other.velocity)) < size+other.size){
+          hitSomething = true;
+          // https://www.gamedeveloper.com/programming/pool-hall-lessons-fast-accurate-collision-detection-between-circles-or-spheres
+          PVector dir = PVector.sub(position, other.position).normalize();
+          float momentumChange = 2 * (dir.dot(velocity) - dir.dot(other.velocity)) / (weight + other.weight);
+          velocity.sub(PVector.mult(dir, momentumChange));
+          other.velocity.add(PVector.mult(dir, momentumChange));
+        }
       }
     }
     return hitSomething;
@@ -78,4 +81,18 @@ public abstract class Ball {
   public void applyForce(PVector force){
     velocity.add(force);
   }
+  
+  public void checkSurroundings(Hole[] pockets){
+    for (Hole h: pockets){
+       if(position.dist(new PVector(h.x,h.y)) < 10){
+           //size in renderBall needs to be changed to a variable
+           while(size > 0){
+             size--;
+             render(pockets);
+           }
+           balls[number] = null;
+       }
+    }
+  }
+
 }

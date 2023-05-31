@@ -72,10 +72,12 @@ public void draw() {
   
   boolean allStopped = true;
   for(Ball curr : balls){
-    curr.roll(table, balls);
-    curr.render();
-    if(curr.velocity.mag()!=0){
-      allStopped = false;
+    if(curr != null){
+      curr.roll(table, balls);
+      curr.render(table.pockets);
+      if(curr.velocity.mag()!=0){
+        allStopped = false;
+      }
     }
   }
   
