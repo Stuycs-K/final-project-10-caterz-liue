@@ -36,6 +36,20 @@
 
 - testing out working on WORKLOG.md at the same time as Zameen
 
-### date y
+### 30 May 2023
 
-info
+(away in Kentucky from 5/25 - 5/29)
+- trying to fix Cuestick/CueStick renaming issues
+- not able to, so I did coding on a Google Doc and would transfer it onto GitHub later
+- added render() to Obstacle
+- added methods into Sand and Ice (Water needs to renamed to Ice)
+- made changes to Game to start a makeObstacles() method
+
+### 31 May 2023
+
+- added balls able to be pocketed, but it doesn't account for the CueBall being pocketed yet,
+and the ball disappears instantly since it doesn't get re-rendered
+- made CueBall respawn, but it may respawn in a spot with a ball there already,
+and the CueBall should go back to the break position if it got pocketed first move
+- started the UI, which keeps track of how many balls each player has left
+(made rectangles and lables)
