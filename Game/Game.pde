@@ -77,7 +77,7 @@ public void draw() {
   }else{
     stick.hide();
   }
-  
+  fill(WHITE);
   circle(stick.aim.x, stick.aim.y, ball0.size);
 }
 
