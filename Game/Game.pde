@@ -62,11 +62,14 @@ public void draw() {
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
   
+    fill(0);
+    square(stick.startDrag.x, stick.startDrag.y, 2);
+  
   boolean allStopped = true;
   for(Ball curr : balls){
     curr.roll(table, balls);
     curr.render();
-    if(curr.velocity.mag()!=0){
+    if(curr.velocity.mag()>=.1){
       allStopped = false;
     }
   }
@@ -79,13 +82,17 @@ public void draw() {
   }
 }
 
-public void mousePressed(){
+public void mouseReleased(){
   stick.strike(ball0);
+}
+
+public void mousePressed(){
+  stick.setStart();
 }
   
 public void makeBreak(float x, float y, int size){ // wip
-  float x_off = (size+1) * sqrt(3);
-  float y_off = (size+1) * 1;
+  float x_off = (size+0) * sqrt(3);
+  float y_off = (size+0) * 1;
   ball0  = new CueBall(   x-4*x_off, y+0*y_off, size);
   ball1  = new NormalBall(x+0*x_off, y+0*y_off, size, 1,  YELLOW,   "solid");
   ball2  = new NormalBall(x+1*x_off, y-1*y_off, size, 2,  BLUE,     "solid");
