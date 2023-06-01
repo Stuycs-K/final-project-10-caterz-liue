@@ -1,5 +1,8 @@
 public class UI {
   
+  int currentPlayer = 1;
+  String player1;
+  String player2;
   boolean stripesDone = false;
   boolean solidsDone = false;
   boolean stripes8balled = false;
@@ -11,6 +14,15 @@ public class UI {
   new PVector(-170,170), new PVector(-150,170), new PVector(-130,170), new PVector(-110,170), new PVector(-90,170), new PVector(-70,170), new PVector(-50,170),
   new PVector(0,0), // for eight ball
   new PVector(50,170), new PVector(70,170), new PVector(90,170), new PVector(110,170), new PVector(130,170), new PVector(150,170), new PVector(170,170)
+  };
+  
+  String[] messages = new String[]{
+  "You are stripes.",
+  "You are solids.",
+  "You did not hit your own ball.",
+  "You pocketed the wrong ball.",
+  "Stripes wins!",
+  "Solids wins!"
   };
   
   public UI(){
@@ -48,6 +60,7 @@ public class UI {
       }
     }
     else{
+      solidsDone = true;
       fill(0);
       circle(-110, 170, 5 * 1.5);
       fill(255);
@@ -78,6 +91,7 @@ public class UI {
       }
     }
     else{
+      stripesDone = true;
       fill(0);
       circle(110, 170, 5 * 1.5);
       fill(255);
@@ -86,6 +100,11 @@ public class UI {
       textSize(5*2);
       text(8, 110 - 1, 170 + 3);
     }
+    
+  }
+  
+  public void check8ball(Ball[] balls){
+    // called when the 8ball is pocketed
     
   }
 }

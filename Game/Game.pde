@@ -76,7 +76,7 @@ public void draw() {
   for(Ball curr : balls){
     if(curr != null){
       curr.roll(table, balls);
-      curr.render(table.pockets);
+      curr.render(table.pockets, ui);
       if(curr.velocity.mag()!=0){
         allStopped = false;
       }

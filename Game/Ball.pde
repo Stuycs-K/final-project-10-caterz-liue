@@ -9,6 +9,7 @@ public abstract class Ball {
   int originalSize;
   int weight;
   String type;
+  boolean firstBallPocketed = false;
   
   public Ball(PVector position, int size, int number, color ballColor, String type){
     this.position = position;
@@ -30,7 +31,7 @@ public abstract class Ball {
   public Ball(){
   }
   
-  public void render(Hole[] pockets){
+  public void render(Hole[] pockets, ui){
     fill(ballColor);
     circle(position.x, position.y, size);
     fill(255);
@@ -39,7 +40,7 @@ public abstract class Ball {
       fill(0); textSize(size*2);
       text(number, position.x, position.y);
     }
-    checkSurroundings(pockets);
+    checkSurroundings(pockets, ui);
     if(debugOn){
       fill(0); textSize(size*2);
       text(number, position.x, position.y);
@@ -90,7 +91,7 @@ public abstract class Ball {
     velocity.add(force);
   }
   
-  public void checkSurroundings(Hole[] pockets){
+  public void checkSurroundings(Hole[] pockets, ui){
     for (Hole h: pockets){
       if(pocketed == true){
         if(size > 0){
@@ -104,7 +105,23 @@ public abstract class Ball {
                velocity = new PVector(0,0);
              }
              else{
+               if(firstBallPocketed == false){
+                 firstBallPocketed = true;
+                 if(ui.currentPlayer == 1){
+                   player1 = type;
+                   if(type.equals("solid")){player2 = "striped";}
+                   if(type.equals("striped")){player2 = "solid";}
+                 }
+                 else{
+                   player2 = type;
+                   if(type.equals("solid")){player1 = "striped";}
+                   if(type.equals("striped")){player1 = "solid";}
+                 }
+               }
                balls[number] = null;
+               if(number == 8){
+                 //Game.ui.check8ball();
+               }
              }
          }
         }
