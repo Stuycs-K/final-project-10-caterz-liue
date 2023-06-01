@@ -40,7 +40,7 @@ public abstract class Ball {
       textSize(size*2);
       text(number, position.x, position.y);
     }
-    checkSurroundings(pockets, ui);
+    checkSurroundings(pockets, ui, balls);
     if (debugOn) {
       fill(0);
       textSize(size*2);
@@ -92,7 +92,7 @@ public abstract class Ball {
     velocity.add(force);
   }
 
-  public void checkSurroundings(Hole[] pockets, UI ui) {
+  public void checkSurroundings(Hole[] pockets, UI ui, Ball[] balls) {
     for (Hole h : pockets) {
       if (pocketed == true) {
         if (size > 0) {
@@ -128,7 +128,7 @@ public abstract class Ball {
               }
               balls[number] = null;
               if (number == 8) {
-                //Game.ui.check8ball();
+                ui.check8ball(balls);
               }
             }
           }

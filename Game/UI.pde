@@ -9,6 +9,7 @@ public class UI {
   boolean solids8balled = false;
   int nullCounter = 0;
   boolean firstBallPocketed = false;
+  boolean gameOver = false;
   
   PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
@@ -121,6 +122,59 @@ public class UI {
   
   public void check8ball(Ball[] balls){
     // called when the 8ball is pocketed
+    if(currentPlayer == 1 && player1.equals("solids")){
+      nullCounter = 0;
+      for(int i = 1; i <= 7; i++){
+        if(balls[i] == null){
+          nullCounter++;
+        }
+      }
+    }
+    if(currentPlayer == 1 && player1.equals("stripes")){
+      nullCounter = 0;
+      for(int i = 9; i <= 15; i++){
+        if(balls[i] == null){
+          nullCounter++;
+        }
+      }
+    }
+    if(currentPlayer == 2 && player2.equals("solids")){
+      nullCounter = 0;
+      for(int i = 1; i <= 7; i++){
+        if(balls[i] == null){
+          nullCounter++;
+        }
+      }
+    }
+    if(currentPlayer == 2 && player2.equals("stripes")){
+      nullCounter = 0;
+      for(int i = 9; i <= 15; i++){
+        if(balls[i] == null){
+          nullCounter++;
+        }
+      }
+    }
+
     
+    if(nullCounter == 7){ // got rid of all balls already
+      fill(0);
+      textSize(30);
+      text("PLAYER " + currentPlayer + " WINS!", 0, 0);
+      gameOver = true;
+    } else {
+      fill(0);
+      textSize(30);
+      text("PLAYER " + nextTurn() + " WINS!", 0, 0);
+      gameOver = true;
+    }
+  }
+  
+  public int nextTurn(){
+    if(currentPlayer == 1){
+      currentPlayer = 2;
+    } else {
+      currentPlayer = 1;
+    }
+    return currentPlayer;
   }
 }

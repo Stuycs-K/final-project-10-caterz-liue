@@ -58,36 +58,38 @@ public void keyPressed(){
 }
   
 public void draw() {
-  background(255);
-  textAlign(CENTER);
-  fill(BROWN); textSize(12);
-  if(!debugOn){
-    text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
-  }else{
-    text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
-  }
-  text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table", width/2, textAscent()*5);
-  
-  translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
-  table.render();
-  ui.render(balls);
-  
-  boolean allStopped = true;
-  for(Ball curr : balls){
-    if(curr != null){
-      curr.roll(table, balls);
-      curr.render(table.pockets, ui);
-      if(curr.velocity.mag()!=0){
-        allStopped = false;
+  if(ui.gameOver == false){
+    background(255);
+    textAlign(CENTER);
+    fill(BROWN); textSize(12);
+    if(!debugOn){
+      text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
+    }else{
+      text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
+    }
+    text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table", width/2, textAscent()*5);
+    
+    translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
+    table.render();
+    ui.render(balls);
+    
+    boolean allStopped = true;
+    for(Ball curr : balls){
+      if(curr != null){
+        curr.roll(table, balls);
+        curr.render(table.pockets, ui);
+        if(curr.velocity.mag()!=0){
+          allStopped = false;
+        }
       }
     }
-  }
-  
-  if(allStopped || debugOn){
-    stick.show();
-    stick.render(ball0);
-  }else{
-    stick.hide();
+    
+    if(allStopped || debugOn){
+      stick.show();
+      stick.render(ball0);
+    }else{
+      stick.hide();
+    }
   }
 }
 
