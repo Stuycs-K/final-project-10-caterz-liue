@@ -52,4 +52,12 @@ and the ball disappears instantly since it doesn't get re-rendered
 - made CueBall respawn, but it may respawn in a spot with a ball there already,
 and the CueBall should go back to the break position if it got pocketed first move
 - started the UI, which keeps track of how many balls each player has left
-(made rectangles and lables)
+(made rectangles and labels)
+- added the balls remaining for each character to the UI
+- assigned solid or striped to each player based on the first ball pocketed
+- added win screen based on 8ball being pocketed
+- changed the green ball to green (it wasn't green before)
+- SOME BUGS TO FIX: cueball gets buggy after being pocketed, cueball should be moveable
+after being pocketed, or at least shouldn't respawn in a place where there are already balls,
+need alternating players, should have UI messages appear but that comes after alternating
+players are implemented
