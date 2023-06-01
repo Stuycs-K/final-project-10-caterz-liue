@@ -50,12 +50,12 @@ public void keyPressed(){
   if(key=='x'){
     table = new EllipseTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
-    ui.firstBallPocketed = false;
+    ui = new UI();
   }
   if(key=='c'){
     table = new RectangleTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
-    ui.firstBallPocketed = false;
+    ui = new UI();
   }
 }
   
