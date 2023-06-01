@@ -103,6 +103,10 @@ public abstract class Ball {
               size = originalSize;
               position = new PVector(0, 0);
               velocity = new PVector(0, 0);
+              pocketed = false;
+              if(ui.firstBallPocketed == false){ // if needs to be rebroken
+                position = new PVector(-4 * (size+1) * sqrt(3), 0);
+              }
             } else {
               if (ui.firstBallPocketed == false) {
                 System.out.println("test");
