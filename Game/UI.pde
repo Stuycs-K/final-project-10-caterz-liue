@@ -2,6 +2,8 @@ public class UI {
   
   boolean stripesDone = false;
   boolean solidsDone = false;
+  boolean stripes8balled = false;
+  boolean solids8balled = false;
   int nullCounter = 0;
   
   PVector[] trackerPositions = new PVector[]{
@@ -25,36 +27,65 @@ public class UI {
     textAlign(CENTER);
     text("PLAYER TWO", 110, 155);
     
-    // counting nulls
+    // counting nulls ------
     nullCounter = 0;
     for(int i = 1; i <= 7; i++){
       if(balls[i] == null){
         nullCounter++;
       }
     }
-    if(nullCounter == 0){
-      for(int i = 0; i <= 7; i++){
+    if(nullCounter != 7){
+      for(int i = 1; i <= 7; i++){
         if(balls[i] != null){
           fill(balls[i].ballColor);
-          circle(trackerPositions[i].x, trackerPositions[i].y, balls[i].size * 1.5);
+          circle(trackerPositions[i].x, trackerPositions[i].y, 5 * 1.5);
           fill(255);
-          textSize(balls[i].size*2);
-          text(balls[i].number, trackerPositions[i].x, trackerPositions[i].y);
+          circle(trackerPositions[i].x, trackerPositions[i].y, 5);
+          fill(0);
+          textSize(5*2);
+          text(balls[i].number, trackerPositions[i].x - 1, trackerPositions[i].y + 3);
         }
       }
     }
     else{
-      // show 8ball
+      fill(0);
+      circle(-110, 170, 5 * 1.5);
+      fill(255);
+      circle(-110, 170, 5);
+      fill(0);
+      textSize(5*2);
+      text(8, -110 - 1, 170 + 3);
     }
-    /*
-    for(int i = 0; i <= 15; i++){
-      if(balls[i] != null && i != 8 && i != 0){
-        fill(balls[i].ballColor);
-        circle(trackerPositions[i].x, trackerPositions[i].y, balls[i].size * 1.5);
-        fill(255);
-        textSize(balls[i].size*2);
-        text(balls[i].number, trackerPositions[i].x, trackerPositions[i].y);
+    
+    // counting nulls ------
+    nullCounter = 0;
+    for(int i = 9; i <= 15; i++){
+      if(balls[i] == null){
+        nullCounter++;
       }
-    }*/
+    }
+    if(nullCounter != 7){
+      for(int i = 9; i <= 15; i++){
+        if(balls[i] != null){
+          fill(balls[i].ballColor);
+          circle(trackerPositions[i].x, trackerPositions[i].y, 5 * 1.5);
+          fill(255);
+          circle(trackerPositions[i].x, trackerPositions[i].y, 5);
+          fill(0);
+          textSize(5*2);
+          text(balls[i].number, trackerPositions[i].x, trackerPositions[i].y + 3);
+        }
+      }
+    }
+    else{
+      fill(0);
+      circle(110, 170, 5 * 1.5);
+      fill(255);
+      circle(110, 170, 5);
+      fill(0);
+      textSize(5*2);
+      text(8, 110 - 1, 170 + 3);
+    }
+    
   }
 }
