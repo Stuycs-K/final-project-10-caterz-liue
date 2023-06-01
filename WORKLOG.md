@@ -64,3 +64,4 @@ players are implemented, ball should shrink and disappear into hole
 ### 1 Jun 2023
 
 - cueball now respawns at break point if it was pocketed before breaking
+- ui is recreated when x or c is pressed
