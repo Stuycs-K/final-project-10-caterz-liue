@@ -59,7 +59,7 @@ public void keyPressed(){
   
 public void draw() {
   background(255);
-  
+  textAlign(CENTER);
   fill(BROWN); textSize(12);
   if(!debugOn){
     text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
