@@ -57,7 +57,10 @@ and the CueBall should go back to the break position if it got pocketed first mo
 - assigned solid or striped to each player based on the first ball pocketed
 - added win screen based on 8ball being pocketed
 - changed the green ball to green (it wasn't green before)
-- SOME BUGS TO FIX: cueball gets buggy after being pocketed, cueball should be moveable
-after being pocketed, or at least shouldn't respawn in a place where there are already balls,
+- SOME BUGS TO FIX + THINGS TO IMPLEMENT: cueball gets buggy after being pocketed, cueball should be moveable after being pocketed, or at least shouldn't respawn in a place where there are already balls,
 need alternating players, should have UI messages appear but that comes after alternating
-players are implemented
+players are implemented, ball should shrink and disappear into hole
+
+### 1 Jun 2023
+
+- cueball now respawns at break point if it was pocketed before breaking
