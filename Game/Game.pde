@@ -102,6 +102,10 @@ public void draw() {
     if(allStopped || debugOn){
       stick.show();
       stick.render(table, ball0);
+      if(ui.previousTurnNulls==ui.countNulls(1,15, balls)){
+        ui.currentPlayer = ui.currentPlayer==1 ? 2 : 1;
+        ui.previousTurnNulls = -1;
+      }
     }else{
       stick.hide();
     }
@@ -110,7 +114,7 @@ public void draw() {
 }
 
 public void mouseReleased(){
-  stick.strike(ball0);
+  stick.strike(ball0, ui, balls);
 }
   
 public void makeBreak(float x, float y, int size){ // wip

@@ -8,6 +8,7 @@ public class UI {
   boolean stripes8balled = false;
   boolean solids8balled = false;
   int nullCounter = 0;
+  int previousTurnNulls = -1;
   boolean firstBallPocketed = false;
   boolean gameOver = false;
   float size = 2;
@@ -82,7 +83,6 @@ public class UI {
         dispBall(220, 340, 10, 8, balls);
       }
     }
-    
     
   }
   
