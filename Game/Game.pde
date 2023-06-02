@@ -48,12 +48,12 @@ public void keyPressed(){
   if(key=='x'){
     table = new EllipseTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui.firstBallPocketed = false;
+    ui = new UI();
   }
   if(key=='c'){
     table = new RectangleTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui.firstBallPocketed = false;
+    ui = new UI();
   }
   /*if(key=='z'){
     table = new BlobTable(54*3, 27*3, .98, 5);
