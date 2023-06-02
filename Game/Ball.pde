@@ -5,12 +5,12 @@ public abstract class Ball {
   int number;
   color ballColor;
   boolean pocketed;
-  int size;
-  int originalSize;
+  float size;
+  float originalSize;
   int weight;
   String type;
 
-  public Ball(PVector position, int size, int number, color ballColor, String type) {
+  public Ball(PVector position, float size, int number, color ballColor, String type) {
     this.position = position;
     this.velocity = new PVector(0, 0);
     this.acceleration = new PVector(0, 0);
@@ -23,7 +23,7 @@ public abstract class Ball {
     this.type = type;
   }
 
-  public Ball(float x, float y, int size, int number, color ballColor, String type) {
+  public Ball(float x, float y, float size, int number, color ballColor, String type) {
     this(new PVector(x, y), size, number, ballColor, type);
   }
 
@@ -33,12 +33,18 @@ public abstract class Ball {
   public void render(Hole[] pockets, UI ui) {
     fill(ballColor);
     circle(position.x, position.y, size);
-    fill(255);
-    if (number != 0) {
-      circle(position.x, position.y, size / 2);
-      fill(0);
-      textSize(size*2);
-      text(number, position.x, position.y);
+    fill(WHITE);
+    if (number!=0) {
+      if(type.equals("striped")){
+        arc(position.x, position.y, size, size, asin(2./3), PI-asin(2./3), CHORD);
+        arc(position.x, position.y, size, size, -PI+asin(2./3), -asin(2./3), CHORD);
+      }else{
+        circle(position.x, position.y, size/3*2);
+      }
+      fill(BLACK);
+      textSize(size*1.5);
+      textAlign(CENTER);
+      text(number, position.x-1, position.y+4);
     }
     checkSurroundings(pockets, ui, balls);
     if (debugOn) {
@@ -71,7 +77,6 @@ public abstract class Ball {
 
   public boolean bounceAmong(Ball[] balls, PVector nextSpot) {
     boolean hitSomething = false;
-
     for (int i = number+1; i <= 15; i++) {
       if (balls[i] != null) {
         Ball other = balls[i];
@@ -138,8 +143,14 @@ public abstract class Ball {
           }
         }
       }
-      if (position.dist(new PVector(h.x, h.y)) < 10) {
+      if (position.dist(new PVector(h.x, h.y)) < h.size) {
         pocketed = true;
+        if(type.equals("striped")){
+          ui.stripePotted = true;
+        }
+        if(type.equals("solid")){
+          ui.solidPotted = true;
+        }
       }
     }
   }
