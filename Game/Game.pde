@@ -1,3 +1,10 @@
+/*
+CHANGES MADE TO THIS FILE:
+- added this comment
+- makeObstacles(); in setup
+- makeObstacles method
+*/
+
 PoolTable table;
 Ball ball0, ball1, ball2, ball3, ball4, ball5, 
      ball6, ball7, ball8, ball9, ball10, 
@@ -5,6 +12,7 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
 Ball[] balls;
 CueStick stick;
 boolean debugOn;
+UI ui = new UI();
 
 public static final PVector VISUAL_OFFSET = new PVector(200,200);
 
@@ -12,7 +20,7 @@ public static final color WHITE = #ffffff;
 public static final color RED = #ff0000;
 public static final color ORANGE = #ff9100;
 public static final color YELLOW = #fff700;
-public static final color GREEN = #d70a00;
+public static final color GREEN = #00cc00;
 public static final color BLUE = #0046d7;
 public static final color PURPLE = #9b00e6;
 public static final color BURGUNDY = #a55000;
@@ -30,6 +38,7 @@ public void setup() {
     makeBreak(0, 0, 5);
     stick = new CueStick(80);
     stick.show();
+    makeObstacles();
   }
   
 public void keyPressed(){
@@ -39,10 +48,12 @@ public void keyPressed(){
   if(key=='x'){
     table = new EllipseTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
+    ui.firstBallPocketed = false;
   }
   if(key=='c'){
     table = new RectangleTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
+    ui.firstBallPocketed = false;
   }
   /*if(key=='z'){
     table = new BlobTable(54*3, 27*3, .98, 5);
@@ -51,6 +62,7 @@ public void keyPressed(){
 }
   
 public void draw() {
+<<<<<<< HEAD
   background(255);
   
   fill(BROWN); textSize(12);
@@ -77,6 +89,40 @@ public void draw() {
     stick.show();
   }else{
     stick.hide();
+=======
+  if(ui.gameOver == false){
+    background(255);
+    textAlign(CENTER);
+    fill(BROWN); textSize(12);
+    if(!debugOn){
+      text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
+    }else{
+      text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
+    }
+    text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table", width/2, textAscent()*5);
+    
+    translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
+    table.render();
+    ui.render(balls);
+    
+    boolean allStopped = true;
+    for(Ball curr : balls){
+      if(curr != null){
+        curr.roll(table, balls);
+        curr.render(table.pockets, ui);
+        if(curr.velocity.mag()!=0){
+          allStopped = false;
+        }
+      }
+    }
+    
+    if(allStopped || debugOn){
+      stick.show();
+      stick.render(ball0);
+    }else{
+      stick.hide();
+    }
+>>>>>>> 83dab9b7cc9940cce741acce65e869577bf209cf
   }
   
   stick.render(table, ball0);
@@ -108,4 +154,8 @@ public void makeBreak(float x, float y, int size){ // wip
   balls = new Ball[] {ball0, ball1, ball2, ball3, ball4, ball5, 
                       ball6, ball7, ball8, ball9, ball10, 
                       ball11, ball12, ball13, ball14, ball15};
+}
+
+public void makeObstacles(){
+  
 }
