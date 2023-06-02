@@ -33,11 +33,12 @@ public class UI {
   }
   
   public void render(Ball[] balls){
-    textSize(60);
-    fill(0,0,0);
-    textAlign(CENTER);
-    text("PLAYER " + currentPlayer + "'S TURN", 0, VISUAL_OFFSET.y*3/5);
-    textAlign(LEFT);
+    if(!gameOver){
+      textSize(60);
+      fill(0,0,0);
+      textAlign(CENTER);
+      text("PLAYER " + currentPlayer + "'S TURN", 0, VISUAL_OFFSET.y*3/5);
+    }
     
     fill(220,220,220);
     rect(-VISUAL_OFFSET.x/4*3+80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
@@ -67,7 +68,9 @@ public class UI {
       }
       else{
         solidsDone = true;
-        dispBall(-220, 340, 10, 8, balls);
+        if(balls[8] != null){
+          dispBall(220, 340, 10, 8, balls);
+        }
       }
       
       nullCounter = countNulls(9,15,balls);
@@ -80,7 +83,9 @@ public class UI {
       }
       else{
         stripesDone = true;
-        dispBall(220, 340, 10, 8, balls);
+        if(balls[8] != null){
+          dispBall(220, 340, 10, 8, balls);
+        }
       }
     }
     
@@ -105,12 +110,12 @@ public class UI {
     if(nullCounter == 7){ // got rid of all balls already
       fill(0);
       textSize(60);
-      text("PLAYER " + currentPlayer + " WINS!", VISUAL_OFFSET.y, 0);
+      text("PLAYER " + currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
       gameOver = true;
     } else {
       fill(0);
       textSize(60);
-      text("PLAYER " + nextTurn() + " WINS!", VISUAL_OFFSET.y, 0);
+      text("PLAYER " + nextTurn() + " WINS!", 0, -VISUAL_OFFSET.y/2);
       gameOver = true;
     }
   }
