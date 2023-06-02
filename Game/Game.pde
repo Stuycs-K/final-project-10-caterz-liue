@@ -26,7 +26,7 @@ public void setup() {
     textAlign(CENTER,CENTER);
     debugOn = false;
     
-    table = new BlobTable(54*3, 27*3, .98, 5);
+    table = new EllipseTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
     stick = new CueStick(80);
     stick.show();
@@ -44,10 +44,10 @@ public void keyPressed(){
     table = new RectangleTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
   }
-  if(key=='z'){
+  /*if(key=='z'){
     table = new BlobTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
-  }
+  }*/
 }
   
 public void draw() {

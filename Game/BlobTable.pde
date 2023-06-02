@@ -1,3 +1,8 @@
+// THIS FILE DOES NOT EXIST
+// IT IS HIDDEN AWAY IN NOWHERELAND, POPULATION 0
+// DO NOT USE THIS RIGHT NOW BECAUSE IT DOES NOT WORK
+// THANK YOU FOR YOUR COOPERATION
+
 public class BlobTable extends PoolTable{
   
   public BlobTable(float w, float h, float smoothness, float wall){
