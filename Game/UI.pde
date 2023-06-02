@@ -12,12 +12,12 @@ public class UI {
   boolean gameOver = false;
   float size = 2;
   
-  PVector[] trackerPositions = new PVector[]{
+  /*PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
   new PVector(-340,340), new PVector(-300,340), new PVector(-260,340), new PVector(-220,340), new PVector(-180,340), new PVector(-140,340), new PVector(-100,340),
   new PVector(0,0), // for eight ball
   new PVector(100,340), new PVector(140,340), new PVector(180,340), new PVector(220,340), new PVector(260,340), new PVector(300,340), new PVector(340,340)
-  };
+  };*/
   
   String[] messages = new String[]{
   "You are stripes.",
@@ -56,66 +56,30 @@ public class UI {
     
     // only start rendering balls in UI when player types are determined
     if(player1 != null){
-      // counting nulls ------
-      nullCounter = 0;
-      for(int i = 1; i <= 7; i++){
-        if(balls[i] == null){
-          nullCounter++;
-        }
-      }
+      nullCounter = countNulls(1,7,balls);
       if(nullCounter != 7){
         for(int i = 1; i <= 7; i++){
           if(balls[i] != null){
-            fill(balls[i].ballColor);
-            circle(trackerPositions[i].x, trackerPositions[i].y, 10 * 1.5);
-            fill(255);
-            circle(trackerPositions[i].x, trackerPositions[i].y, 10);
-            fill(0);
-            textSize(10*2);
-            text(balls[i].number, trackerPositions[i].x - 1, trackerPositions[i].y + 3);
+            dispBall(-380+40*i, 340, 10, i, balls);
           }
         }
       }
       else{
         solidsDone = true;
-        fill(0);
-        circle(-220, 340, 10 * 1.5);
-        fill(255);
-        circle(-220, 340, 10);
-        fill(0);
-        textSize(10*2);
-        text(8, -220 - 1, 340 + 3);
+        dispBall(-220, 340, 10, 8, balls);
       }
       
-      // counting nulls ------
-      nullCounter = 0;
-      for(int i = 9; i <= 15; i++){
-        if(balls[i] == null){
-          nullCounter++;
-        }
-      }
+      nullCounter = countNulls(9,15,balls);
       if(nullCounter != 7){
         for(int i = 9; i <= 15; i++){
           if(balls[i] != null){
-            fill(balls[i].ballColor);
-            circle(trackerPositions[i].x, trackerPositions[i].y, 10 * 1.5);
-            fill(255);
-            circle(trackerPositions[i].x, trackerPositions[i].y, 10);
-            fill(0);
-            textSize(10*2);
-            text(balls[i].number, trackerPositions[i].x, trackerPositions[i].y + 3);
+            dispBall(340-40*(15-i), 340, 10, i, balls);
           }
         }
       }
       else{
         stripesDone = true;
-        fill(0);
-        circle(220, 340, 10 * 1.5);
-        fill(255);
-        circle(220, 340, 10);
-        fill(0);
-        textSize(10*2);
-        text(8, 220 - 1, 340 + 3);
+        dispBall(220, 340, 10, 8, balls);
       }
     }
     
@@ -125,36 +89,16 @@ public class UI {
   public void check8ball(Ball[] balls){
     // called when the 8ball is pocketed
     if(currentPlayer == 1 && player1.equals("solids")){
-      nullCounter = 0;
-      for(int i = 1; i <= 7; i++){
-        if(balls[i] == null){
-          nullCounter++;
-        }
-      }
+      nullCounter = countNulls(1,7,balls);
     }
     if(currentPlayer == 1 && player1.equals("stripes")){
-      nullCounter = 0;
-      for(int i = 9; i <= 15; i++){
-        if(balls[i] == null){
-          nullCounter++;
-        }
-      }
+      nullCounter = countNulls(9,15,balls);
     }
     if(currentPlayer == 2 && player2.equals("solids")){
-      nullCounter = 0;
-      for(int i = 1; i <= 7; i++){
-        if(balls[i] == null){
-          nullCounter++;
-        }
-      }
+      nullCounter = countNulls(1,7,balls);
     }
     if(currentPlayer == 2 && player2.equals("stripes")){
-      nullCounter = 0;
-      for(int i = 9; i <= 15; i++){
-        if(balls[i] == null){
-          nullCounter++;
-        }
-      }
+      nullCounter = countNulls(9,15,balls);
     }
 
     
@@ -178,5 +122,25 @@ public class UI {
       currentPlayer = 1;
     }
     return currentPlayer;
+  }
+  
+  public int countNulls(int from, int to, Ball[] balls){
+    int acc = 0;
+    for(int i=from; i<=to; i++){
+      if(balls[i] == null){
+        acc++;
+      }
+    }
+    return acc;
+  }
+  
+  public void dispBall(float x, float y, float size, int i, Ball[] balls){
+    fill(balls[i].ballColor);
+    circle(x, y, size * 1.5);
+    fill(WHITE);
+    circle(x, y, size);
+    fill(BLACK);
+    textSize(size*2);
+    text(balls[i].number, x - 2, y + 6);
   }
 }
