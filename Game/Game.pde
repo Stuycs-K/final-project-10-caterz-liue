@@ -107,13 +107,13 @@ public void draw() {
     stick.render(table, ball0);
     if(!ui.stripePotted && !ui.stripePotted || // i hate this
        ui.currentPlayer==1 && ui.player1.equals("striped") && !ui.stripePotted ||
-       ui.currentPlayer==1 && ui.player1.equals("striped") && ui.solidPotted ||
+//       ui.currentPlayer==1 && ui.player1.equals("striped") && ui.solidPotted ||
        ui.currentPlayer==1 && ui.player1.equals("solid") && !ui.solidPotted ||
-       ui.currentPlayer==1 && ui.player1.equals("solid") && ui.stripePotted ||
+//       ui.currentPlayer==1 && ui.player1.equals("solid") && ui.stripePotted ||
        ui.currentPlayer==2 && ui.player2.equals("striped") && !ui.stripePotted ||
-       ui.currentPlayer==2 && ui.player2.equals("striped") && ui.solidPotted ||
-       ui.currentPlayer==2 && ui.player2.equals("solid") && !ui.stripePotted ||
-       ui.currentPlayer==2 && ui.player2.equals("solid") && ui.stripePotted){
+//       ui.currentPlayer==2 && ui.player2.equals("striped") && ui.solidPotted ||
+       ui.currentPlayer==2 && ui.player2.equals("solid") && !ui.solidPotted){
+//       ui.currentPlayer==2 && ui.player2.equals("solid") && ui.stripePotted){
       ui.nextTurn();
       ui.stripePotted = true;
       ui.solidPotted = true;
