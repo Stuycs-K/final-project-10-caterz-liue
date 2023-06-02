@@ -145,6 +145,12 @@ public abstract class Ball {
       }
       if (position.dist(new PVector(h.x, h.y)) < h.size) {
         pocketed = true;
+        if(type.equals("striped")){
+          ui.stripePotted = true;
+        }
+        if(type.equals("solid")){
+          ui.solidPotted = true;
+        }
       }
     }
   }

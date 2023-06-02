@@ -1,10 +1,12 @@
 public class UI {
   
   int currentPlayer = 1;
-  String player1;
-  String player2;
+  String player1 = "";
+  String player2 = "";
   boolean stripesDone = false;
+  boolean stripePotted = true;
   boolean solidsDone = false;
+  boolean solidPotted = true;
   boolean stripes8balled = false;
   boolean solids8balled = false;
   int nullCounter = 0;
@@ -45,19 +47,19 @@ public class UI {
     rect( VISUAL_OFFSET.x/4*3-80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
     textSize(40);
     fill(0,0,0);
-    if(player1 != null && player1.equals("solid")){
+    if(player1.equals("solid")){
       textAlign(CENTER);
       text("PLAYER ONE", -220, 310);
       text("PLAYER TWO", 220, 310);
     }
-    if(player1 != null && player1.equals("striped")){
+    if(player1.equals("striped")){
       textAlign(CENTER);
       text("PLAYER ONE", 220, 310);
       text("PLAYER TWO", -220, 310);
     }
     
     // only start rendering balls in UI when player types are determined
-    if(player1 != null){
+    if(player1.length() != 0){
       nullCounter = countNulls(1,7,balls);
       if(nullCounter != 7){
         for(int i = 1; i <= 7; i++){

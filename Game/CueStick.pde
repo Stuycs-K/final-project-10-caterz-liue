@@ -48,6 +48,7 @@ public class CueStick {
     PVector relativePos = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position);
     PVector pointing = relativePos.rotate(PI).div(len).mult(4);
     target.applyForce(pointing);
-    ui.previousTurnNulls = ui.countNulls(1,15, balls);
+    ui.solidPotted = false;
+    ui.stripePotted = false;
   }
 }
