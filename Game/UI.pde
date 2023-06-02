@@ -105,12 +105,12 @@ public class UI {
     if(nullCounter == 7){ // got rid of all balls already
       fill(0);
       textSize(60);
-      text("PLAYER " + currentPlayer + " WINS!", 0, 0);
+      text("PLAYER " + currentPlayer + " WINS!", VISUAL_OFFSET.y, 0);
       gameOver = true;
     } else {
       fill(0);
       textSize(60);
-      text("PLAYER " + nextTurn() + " WINS!", 0, 0);
+      text("PLAYER " + nextTurn() + " WINS!", VISUAL_OFFSET.y, 0);
       gameOver = true;
     }
   }
@@ -138,9 +138,14 @@ public class UI {
     fill(balls[i].ballColor);
     circle(x, y, size * 1.5);
     fill(WHITE);
-    circle(x, y, size);
+    if(balls[i].type.equals("striped")){
+      arc(x, y, size * 1.5, size * 1.5, asin(2./3), PI-asin(2./3), CHORD);
+      arc(x, y, size * 1.5, size * 1.5, -PI+asin(2./3), -asin(2./3), CHORD);
+    }else{
+      circle(x, y, size);
+    }
     fill(BLACK);
     textSize(size*2);
-    text(balls[i].number, x - 2, y + 6);
+    text(balls[i].number, x - 1, y + 6);
   }
 }

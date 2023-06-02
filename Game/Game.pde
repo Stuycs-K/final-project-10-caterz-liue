@@ -59,6 +59,16 @@ public void keyPressed(){
     table = new BlobTable(54*3, 27*3, .98, 5);
     makeBreak(0, 0, 5);
   }*/
+  if(key=='a'){
+    for(int i=1; i<=7; i++){
+      balls[i] = null;
+    }
+  }
+  if(key=='b'){
+    for(int i=9; i<=15; i++){
+      balls[i] = null;
+    }
+  }
 }
   
 public void draw() {
@@ -72,6 +82,7 @@ public void draw() {
       text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
     }
     text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table", width/2, textAscent()*5);
+    text("press [a] to wipe out all solid balls\npress [b] to wipe out all striped balls", width/2, textAscent()*9);
     
     translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
     table.render();
@@ -96,7 +107,6 @@ public void draw() {
     }
   }
   
-  stick.render(table, ball0);
 }
 
 public void mouseReleased(){

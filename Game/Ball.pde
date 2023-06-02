@@ -33,12 +33,18 @@ public abstract class Ball {
   public void render(Hole[] pockets, UI ui) {
     fill(ballColor);
     circle(position.x, position.y, size);
-    fill(255);
-    if (number != 0) {
-      circle(position.x, position.y, size / 2);
-      fill(0);
-      textSize(size*2);
-      text(number, position.x, position.y);
+    fill(WHITE);
+    if (number!=0) {
+      if(type.equals("striped")){
+        arc(position.x, position.y, size, size, asin(2./3), PI-asin(2./3), CHORD);
+        arc(position.x, position.y, size, size, -PI+asin(2./3), -asin(2./3), CHORD);
+      }else{
+        circle(position.x, position.y, size/3*2);
+      }
+      fill(BLACK);
+      textSize(size*1.5);
+      textAlign(CENTER);
+      text(number, position.x-1, position.y+4);
     }
     checkSurroundings(pockets, ui, balls);
     if (debugOn) {
