@@ -14,7 +14,7 @@ CueStick stick;
 boolean debugOn;
 UI ui = new UI();
 
-public static final PVector VISUAL_OFFSET = new PVector(200,200);
+public static final PVector VISUAL_OFFSET = new PVector(400,400);
 
 public static final color WHITE = #ffffff;
 public static final color RED = #ff0000;
@@ -28,15 +28,15 @@ public static final color BLACK = #000000;
 public static final color BROWN = #664c28; // cue stick
 
 public void setup() {
-    size(400,400);
+    size(800,800);
     rectMode(RADIUS);
     ellipseMode(RADIUS);
     textAlign(CENTER,CENTER);
     debugOn = false;
     
-    table = new EllipseTable(54*3, 27*3, .98, 5);
-    makeBreak(0, 0, 5);
-    stick = new CueStick(80);
+    table = new EllipseTable(54*6, 27*6, .98, 10, 20);
+    makeBreak(0, 0, 10);
+    stick = new CueStick(160, 10);
     stick.show();
     makeObstacles();
   }
@@ -46,13 +46,13 @@ public void keyPressed(){
     debugOn = !debugOn;
   }
   if(key=='x'){
-    table = new EllipseTable(54*3, 27*3, .98, 5);
-    makeBreak(0, 0, 5);
+    table = new EllipseTable(54*6, 27*6, .98, 10, 20);
+    makeBreak(0, 0, 10);
     ui.firstBallPocketed = false;
   }
   if(key=='c'){
-    table = new RectangleTable(54*3, 27*3, .98, 5);
-    makeBreak(0, 0, 5);
+    table = new RectangleTable(54*6, 27*6, .98, 10, 20);
+    makeBreak(0, 0, 10);
     ui.firstBallPocketed = false;
   }
   /*if(key=='z'){
@@ -62,34 +62,6 @@ public void keyPressed(){
 }
   
 public void draw() {
-<<<<<<< HEAD
-  background(255);
-  
-  fill(BROWN); textSize(12);
-  if(!debugOn){
-    text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
-  }else{
-    text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
-  }
-  text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table", width/2, textAscent()*5);
-  
-  translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
-  table.render();
-  
-  boolean allStopped = true;
-  for(Ball curr : balls){
-    curr.roll(table, balls);
-    curr.render();
-    if(curr.velocity.mag()>=.1){
-      allStopped = false;
-    }
-  }
-  
-  if(allStopped || debugOn){
-    stick.show();
-  }else{
-    stick.hide();
-=======
   if(ui.gameOver == false){
     background(255);
     textAlign(CENTER);
@@ -118,11 +90,10 @@ public void draw() {
     
     if(allStopped || debugOn){
       stick.show();
-      stick.render(ball0);
+      stick.render(table, ball0);
     }else{
       stick.hide();
     }
->>>>>>> 83dab9b7cc9940cce741acce65e869577bf209cf
   }
   
   stick.render(table, ball0);
@@ -133,8 +104,8 @@ public void mouseReleased(){
 }
   
 public void makeBreak(float x, float y, int size){ // wip
-  float x_off = (size+0) * sqrt(3);
-  float y_off = (size+0) * 1;
+  float x_off = (size+.1) * sqrt(3);
+  float y_off = (size+.1) * 1;
   ball0  = new CueBall(   x-4*x_off, y+0*y_off, size);
   ball1  = new NormalBall(x+0*x_off, y+0*y_off, size, 1,  YELLOW,   "solid");
   ball2  = new NormalBall(x+1*x_off, y-1*y_off, size, 2,  BLUE,     "solid");

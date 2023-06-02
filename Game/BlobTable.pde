@@ -8,7 +8,7 @@ public class BlobTable extends PoolTable{
   public BlobTable(float w, float h, float smoothness, float wall){
     super(w, h, smoothness, wall);
     
-   this.pockets = new Hole[] {new Hole(10, 10)};
+   this.pockets = new Hole[] {new Hole(10, 10, 2)};
   }
   
   public boolean onTable(PVector pos){

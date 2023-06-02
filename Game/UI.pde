@@ -10,12 +10,13 @@ public class UI {
   int nullCounter = 0;
   boolean firstBallPocketed = false;
   boolean gameOver = false;
+  float size = 2;
   
   PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
-  new PVector(-170,170), new PVector(-150,170), new PVector(-130,170), new PVector(-110,170), new PVector(-90,170), new PVector(-70,170), new PVector(-50,170),
+  new PVector(-340,340), new PVector(-300,340), new PVector(-260,340), new PVector(-220,340), new PVector(-180,340), new PVector(-140,340), new PVector(-100,340),
   new PVector(0,0), // for eight ball
-  new PVector(50,170), new PVector(70,170), new PVector(90,170), new PVector(110,170), new PVector(130,170), new PVector(150,170), new PVector(170,170)
+  new PVector(100,340), new PVector(140,340), new PVector(180,340), new PVector(220,340), new PVector(260,340), new PVector(300,340), new PVector(340,340)
   };
   
   String[] messages = new String[]{
@@ -31,25 +32,26 @@ public class UI {
   }
   
   public void render(Ball[] balls){
-    textSize(30);
+    textSize(60);
     fill(0,0,0);
+    textAlign(CENTER);
+    text("PLAYER " + currentPlayer + "'S TURN", 0, VISUAL_OFFSET.y*3/5);
     textAlign(LEFT);
-    text("PLAYER " + currentPlayer + "'S TURN", -110, 120);
     
     fill(220,220,220);
-    rect(-110,160,80,30);
-    rect(110,160,80,30);
-    textSize(20);
+    rect(-VISUAL_OFFSET.x/4*3+80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
+    rect( VISUAL_OFFSET.x/4*3-80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
+    textSize(40);
     fill(0,0,0);
     if(player1 != null && player1.equals("solid")){
       textAlign(CENTER);
-      text("PLAYER ONE", -110, 155);
-      text("PLAYER TWO", 110, 155);
+      text("PLAYER ONE", -220, 310);
+      text("PLAYER TWO", 220, 310);
     }
     if(player1 != null && player1.equals("striped")){
       textAlign(CENTER);
-      text("PLAYER ONE", 110, 155);
-      text("PLAYER TWO", -110, 155);
+      text("PLAYER ONE", 220, 310);
+      text("PLAYER TWO", -220, 310);
     }
     
     // only start rendering balls in UI when player types are determined
@@ -65,11 +67,11 @@ public class UI {
         for(int i = 1; i <= 7; i++){
           if(balls[i] != null){
             fill(balls[i].ballColor);
-            circle(trackerPositions[i].x, trackerPositions[i].y, 5 * 1.5);
+            circle(trackerPositions[i].x, trackerPositions[i].y, 10 * 1.5);
             fill(255);
-            circle(trackerPositions[i].x, trackerPositions[i].y, 5);
+            circle(trackerPositions[i].x, trackerPositions[i].y, 10);
             fill(0);
-            textSize(5*2);
+            textSize(10*2);
             text(balls[i].number, trackerPositions[i].x - 1, trackerPositions[i].y + 3);
           }
         }
@@ -77,12 +79,12 @@ public class UI {
       else{
         solidsDone = true;
         fill(0);
-        circle(-110, 170, 5 * 1.5);
+        circle(-220, 340, 10 * 1.5);
         fill(255);
-        circle(-110, 170, 5);
+        circle(-220, 340, 10);
         fill(0);
-        textSize(5*2);
-        text(8, -110 - 1, 170 + 3);
+        textSize(10*2);
+        text(8, -220 - 1, 340 + 3);
       }
       
       // counting nulls ------
@@ -96,11 +98,11 @@ public class UI {
         for(int i = 9; i <= 15; i++){
           if(balls[i] != null){
             fill(balls[i].ballColor);
-            circle(trackerPositions[i].x, trackerPositions[i].y, 5 * 1.5);
+            circle(trackerPositions[i].x, trackerPositions[i].y, 10 * 1.5);
             fill(255);
-            circle(trackerPositions[i].x, trackerPositions[i].y, 5);
+            circle(trackerPositions[i].x, trackerPositions[i].y, 10);
             fill(0);
-            textSize(5*2);
+            textSize(10*2);
             text(balls[i].number, trackerPositions[i].x, trackerPositions[i].y + 3);
           }
         }
@@ -108,12 +110,12 @@ public class UI {
       else{
         stripesDone = true;
         fill(0);
-        circle(110, 170, 5 * 1.5);
+        circle(220, 340, 10 * 1.5);
         fill(255);
-        circle(110, 170, 5);
+        circle(220, 340, 10);
         fill(0);
-        textSize(5*2);
-        text(8, 110 - 1, 170 + 3);
+        textSize(10*2);
+        text(8, 220 - 1, 340 + 3);
       }
     }
     
@@ -158,12 +160,12 @@ public class UI {
     
     if(nullCounter == 7){ // got rid of all balls already
       fill(0);
-      textSize(30);
+      textSize(60);
       text("PLAYER " + currentPlayer + " WINS!", 0, 0);
       gameOver = true;
     } else {
       fill(0);
-      textSize(30);
+      textSize(60);
       text("PLAYER " + nextTurn() + " WINS!", 0, 0);
       gameOver = true;
     }
