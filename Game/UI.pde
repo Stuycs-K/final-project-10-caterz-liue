@@ -61,6 +61,7 @@ public class UI {
     // only start rendering balls in UI when player types are determined
     if(player1.length() != 0){
       nullCounter = countNulls(1,7,balls);
+      System.out.println(nullCounter);
       if(nullCounter != 7){
         for(int i = 1; i <= 7; i++){
           if(balls[i] != null){
@@ -71,7 +72,7 @@ public class UI {
       else{
         solidsDone = true;
         if(balls[8] != null){
-          dispBall(220, 340, 10, 8, balls);
+          dispBall(-220, 340, 10, 8, balls);
         }
       }
       
