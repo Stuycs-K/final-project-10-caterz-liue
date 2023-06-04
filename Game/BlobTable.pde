@@ -1,51 +1,50 @@
+// bugs: walls don't work quite right, invisible walls (hitting other end of the conic? hmm)
+
 PVector[] joins;
 PVector[] controls;
+float[][][] qs;
 
-float[][] qI, qII, qIII, qIV;
+float[][] curr_q; // cached current formula for ball position
+float curr_eval; // cached current position value
 
 public class BlobTable extends PoolTable{
   
   public BlobTable(float w, float h, float smoothness, float wall, float holeSize){
     super(w, h, smoothness, wall);
-    joins = new PVector[] {new PVector(0,240), new PVector(240,0), new PVector(0,-140), new PVector(-280,0)};
-    controls = new PVector[] {new PVector(180,300), new PVector(80,-120), new PVector(-200,-80), new PVector(-300,60)};
-    qI = getExpression(joins[0], controls[0], joins[1]);
-    qIV = getExpression(joins[1], controls[1], joins[2]);
-    qIII = getExpression(joins[2], controls[2], joins[3]);
-    qII = getExpression(joins[3], controls[3], joins[0]);
     
-    // four holes: joins (t=0 or t=1)
-    // four holes: midpoints (t=.5) (p1/2 + p0/4 + p2/4)
-    this.pockets = new Hole[] {new Hole(joins[0], holeSize), new Hole(joins[1], holeSize), new Hole(joins[2], holeSize), new Hole(joins[3], holeSize),
-      new Hole(PVector.mult(controls[0],2).add(PVector.add(joins[0],joins[1])).div(4), holeSize),
-      new Hole(PVector.mult(controls[1],2).add(PVector.add(joins[1],joins[2])).div(4), holeSize),
-      new Hole(PVector.mult(controls[2],2).add(PVector.add(joins[2],joins[3])).div(4), holeSize),
-      new Hole(PVector.mult(controls[3],2).add(PVector.add(joins[3],joins[0])).div(4), holeSize)};
+    // MUST go clockwise, joins[0] MUST be on the ray going directly west
+    joins = new PVector[] {new PVector(-240,0), new PVector(-180,160), new PVector(10,240), new PVector(100,150), new PVector(150,-100), new PVector(-50,-200)};
+    controls = new PVector[] {new PVector(-220,80), new PVector(-100,200),  new PVector(150,240), new PVector(300,0), new PVector(150,-200), new PVector(-150,-100)};
+    qs = new float[][][] {getExpression(joins[0], controls[0], joins[1]),
+                          getExpression(joins[1], controls[1], joins[2]),
+                          getExpression(joins[2], controls[2], joins[3]),
+                          getExpression(joins[3], controls[3], joins[4]),
+                          getExpression(joins[4], controls[4], joins[5]),
+                          getExpression(joins[5], controls[5], joins[0])}; // define equations for each component of wall
+    
+    // hole at each join
+    this.pockets = new Hole[joins.length];
+    for(int i=0; i<joins.length; i++){
+      this.pockets[i] = new Hole(joins[i], holeSize);
+    }
+
 }
   
   public boolean onTable(PVector pos){
-    float x = pos.x;
-    float y = pos.y;
-    
-    float[][] q = x>0 ? (y>0 ? qI : qIV) : (y>0 ? qII : qIII);
-    
-    float eval = evalExpression(x, y, q);
-    
-    return 0<eval;
+    curr_q = qs[getSector(pos)];
+    curr_eval = evalExpression(pos.x, pos.y, curr_q);
+    return 0<curr_eval;
   }
   
-  public PVector inwardsFromWall(PVector pos){
+  public PVector inwardsFromWall(PVector pos){ // onTable must have been already run to ensure that curr_q and curr_eval are correct
     float x = pos.x;
     float y = pos.y;
     
-    float[][] q = x>0 ? (y>0 ? qI : qIV) : (y>0 ? qII : qIII);
+    float evalSouth = evalExpression(x, y-.1, curr_q);
+    float evalEast = evalExpression(x-.1, y, curr_q); // i do not know how to find the normal to a curve at a given point, so just test nearby points
     
-    float eval = evalExpression(x, y, q);
-    float evalSouth = evalExpression(x, y-.1, q);
-    float evalEast = evalExpression(x-.1, y, q); // i do not know how to find the normal to a curve at a given point, so just test nearby points
-    
-    return new PVector(eval-evalEast, eval-evalSouth).normalize();
-  }
+    return new PVector(curr_eval-evalEast, curr_eval-evalSouth).normalize();
+  } 
   
   public void renderHelper(){ // erica i need your help here with the walls being in the wrong spot
     beginShape();
@@ -53,8 +52,21 @@ public class BlobTable extends PoolTable{
     quadraticVertex(controls[0].x,controls[0].y, joins[1].x,joins[1].y);
     quadraticVertex(controls[1].x,controls[1].y, joins[2].x,joins[2].y);
     quadraticVertex(controls[2].x,controls[2].y, joins[3].x,joins[3].y);
-    quadraticVertex(controls[3].x,controls[3].y, joins[0].x,joins[0].y);
-    endShape();
+    quadraticVertex(controls[3].x,controls[3].y, joins[4].x,joins[4].y);
+    quadraticVertex(controls[4].x,controls[4].y, joins[5].x,joins[5].y);
+    quadraticVertex(controls[5].x,controls[5].y, joins[0].x,joins[0].y);
+    endShape();    
+  }
+  
+  public int getSector(PVector pos){
+    int a = 5;
+    for(int i=0; i<joins.length; i++){
+      if(joins[i].heading()>pos.heading() && pos.heading()>joins[(i+1)%joins.length].heading()){
+        a = i;
+      }
+    }
+    square(joins[a].x, joins[a].y, 15);
+    return a;
   }
   
   
@@ -66,7 +78,6 @@ public class BlobTable extends PoolTable{
     float[] w = new float[] {a.y-b.y, b.x-a.x, a.x*b.y-a.y*b.x};
 
     float[][] q = myAddM(myMultS(2, myAddM(myMultM(u,w), myMultM(w,u))), myMultS(-1, myMultM(v,v))); // 2(u*w.T + w*u.T) - v*v.T
-    //System.out.println("x(" + q[0][0]+"x + " + q[0][1]+"y + " + (q[0][2]+q[2][0]) + ") + y(" + q[1][0]+"x + " + q[1][1]+"y + " + (q[1][2]+q[2][1]) + ") + " + q[2][2]);
     return q;
   }
   public float evalExpression(float x, float y, float[][] q){
