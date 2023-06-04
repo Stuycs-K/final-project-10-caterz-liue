@@ -16,8 +16,11 @@ public class BlobTable extends PoolTable{
     
     // four holes: joins (t=0 or t=1)
     // four holes: midpoints (t=.5) (p1/2 + p0/4 + p2/4)
-    //this.pockets = new Hole[] {new Hole(joins[0].x,joins[0].y,holeSize), new Hole(joins[1].x,joins[1].y,holeSize), new Hole(joins[2].x,joins[2].y,holeSize), new Hole(joins[3].x,joins[3].y,holeSize),
-    this.pockets = new Hole[] {};
+    this.pockets = new Hole[] {new Hole(joins[0], holeSize), new Hole(joins[1], holeSize), new Hole(joins[2], holeSize), new Hole(joins[3], holeSize),
+      new Hole(PVector.mult(controls[0],2).add(PVector.add(joins[0],joins[1])).div(4), holeSize),
+      new Hole(PVector.mult(controls[1],2).add(PVector.add(joins[1],joins[2])).div(4), holeSize),
+      new Hole(PVector.mult(controls[2],2).add(PVector.add(joins[2],joins[3])).div(4), holeSize),
+      new Hole(PVector.mult(controls[3],2).add(PVector.add(joins[3],joins[0])).div(4), holeSize)};
 }
   
   public boolean onTable(PVector pos){
