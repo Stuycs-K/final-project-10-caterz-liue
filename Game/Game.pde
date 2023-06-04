@@ -36,7 +36,7 @@ public void setup() {
     
     table = new BlobTable(54*6, 27*6, .98, 10, 20);
     //makeBreak(0, 0, 10);
-    ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
+    ball0 = new NormalBall(0, 0, 10, 1, BLUE, "solid");
     balls = new Ball[]{ball0};
     stick = new CueStick(160, 10);
     stick.show();

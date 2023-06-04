@@ -3,29 +3,40 @@ import java.util.*;
 // IT IS HIDDEN AWAY IN NOWHERELAND, POPULATION 0
 // DO NOT USE THIS RIGHT NOW BECAUSE IT DOES NOT WORK
 // THANK YOU FOR YOUR COOPERATION
-double[][] q;
+double[][] q, qI, qII, qIII, qIV;
 
 public class BlobTable extends PoolTable{
   
   public BlobTable(float w, float h, float smoothness, float wall, float holeSize){
     super(w, h, smoothness, wall);
-    getExpression(4,2, 5,4, 1,1);
-    q = getExpression(0,120, 90,150, 120,0);
+    qI = getExpression(0,120, 90,150, 120,0);
+    qIV = getExpression(120,0, 40,-60, 0,-70);
+    qIII = getExpression(0,-70, -100,-40, -140,0);
+    qII = getExpression(-140,0, -150,30, 0,120);
     
     this.pockets = new Hole[] {};
   }
   
   public boolean onTable(PVector pos){
+    square(0,0,2);
+    
     double x = pos.x;
     double y = pos.y;
+    
+    q = x>0 ? (y>0 ? qI : qIV) : (y>0 ? qII : qIII);
+    
     double tempa = x*(q[0][0]*x + q[0][1]*y + (q[0][2]+q[2][0])) + y*(q[1][0]*x + q[1][1]*y + (q[1][2]+q[2][1])) + q[2][2];
-    //System.out.println(Math.signum(tempa));
-    /*{
+    
+    {
     double x_0 = mouseX - VISUAL_OFFSET.x;
     double y_0 = mouseY - VISUAL_OFFSET.y;
+    
+    q = x_0>0 ? (y_0>0 ? qI : qIV) : (y_0>0 ? qII : qIII);
+    
     x = x_0;
     y = y_0;
     double temp = x*(q[0][0]*x + q[0][1]*y + (q[0][2]+q[2][0])) + y*(q[1][0]*x + q[1][1]*y + (q[1][2]+q[2][1])) + q[2][2];
+    System.out.println(Math.signum(temp));
     
     x = x_0;
     y = y_0 - .1;
@@ -40,13 +51,16 @@ public class BlobTable extends PoolTable{
     line(100,-100,-.001* (float) (tempL-temp),-100);
     line(100,-100, (float) (temp-tempL)-100, (float) (temp-tempU)+100);
     
-    }*/
+    }
     return 0<tempa;
   }
   
   public PVector inwardsFromWall(PVector pos){
     double x_0 = pos.x;
     double y_0 = pos.y;
+    
+    q = x_0>0 ? (y_0>0 ? qI : qIV) : (y_0>0 ? qII : qIII);
+    
     double x = x_0;
     double y = y_0;
     double temp = x*(q[0][0]*x + q[0][1]*y + (q[0][2]+q[2][0])) + y*(q[1][0]*x + q[1][1]*y + (q[1][2]+q[2][1])) + q[2][2];
@@ -65,9 +79,9 @@ public class BlobTable extends PoolTable{
     beginShape();
     vertex(0,120);
     quadraticVertex(90,150, 120,0);
-    /*bezierVertex(90,-90, 40,-60, 0,-70);
-    bezierVertex(-40,-90, -100,-40, -140,0);
-    bezierVertex(-150,30, -150,70, 0,120);*/
+    quadraticVertex(40,-60, 0,-70);
+    quadraticVertex(-100,-40, -140,0);
+    quadraticVertex(-150,30, 0,120);
     endShape();
     
   }

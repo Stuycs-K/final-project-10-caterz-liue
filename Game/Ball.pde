@@ -32,6 +32,7 @@ public abstract class Ball {
 
   public void render(Hole[] pockets, UI ui) {
     fill(ballColor);
+    noStroke();
     circle(position.x, position.y, size);
     fill(WHITE);
     if (number!=0) {
