@@ -57,10 +57,10 @@ public void keyPressed(){
     makeBreak(0, 0, 10);
     ui = new UI();
   }
-  /*if(key=='z'){
-    table = new BlobTable(54*3, 27*3, .98, 5);
-    makeBreak(0, 0, 5);
-  }*/
+  if(key=='z'){
+    table = new BlobTable(54*6, 27*6, .98, 10, 20);
+    makeBreak(0, 0, 10);
+  }
   if(key=='a'){
     for(int i=1; i<=7; i++){
       balls[i] = null;

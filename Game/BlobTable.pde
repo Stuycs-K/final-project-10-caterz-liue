@@ -1,30 +1,23 @@
+import java.util.*;
 // bugs: walls don't work quite right, invisible walls (hitting other end of the conic? hmm)
-
-PVector[] joins;
-PVector[] controls;
-float[][][] qs;
-
-float[][] curr_q; // cached current formula for ball position
-float curr_eval; // cached current position value
-
 public class BlobTable extends PoolTable{
+  PVector[] joins, controls;
+  float[][][] qs;
+
+  float[][] curr_q; // cached current formula for ball position
+  float curr_eval; // cached current position value
   
   public BlobTable(float w, float h, float smoothness, float wall, float holeSize){
     super(w, h, smoothness, wall);
     
-    // MUST go clockwise, joins[0] MUST be on the ray going directly west
+    // MUST go clockwise, joins[0] MUST be on the ray going directly west, must be concave, joins' x values must be strictly increasing and then decreasing
     joins = new PVector[] {new PVector(-240,0), new PVector(-180,160), new PVector(10,240), new PVector(100,150), new PVector(150,-100), new PVector(-50,-200)};
     controls = new PVector[] {new PVector(-220,80), new PVector(-100,200),  new PVector(150,240), new PVector(300,0), new PVector(150,-200), new PVector(-150,-100)};
-    qs = new float[][][] {getExpression(joins[0], controls[0], joins[1]),
-                          getExpression(joins[1], controls[1], joins[2]),
-                          getExpression(joins[2], controls[2], joins[3]),
-                          getExpression(joins[3], controls[3], joins[4]),
-                          getExpression(joins[4], controls[4], joins[5]),
-                          getExpression(joins[5], controls[5], joins[0])}; // define equations for each component of wall
     
-    // hole at each join
-    this.pockets = new Hole[joins.length];
+    this.qs = new float[joins.length+1][3][3]; // equations of each wall segment (arbitrary conics)
+    this.pockets = new Hole[joins.length]; // hole at each join
     for(int i=0; i<joins.length; i++){
+      this.qs[i] = getExpression(joins[i], controls[i], joins[(i+1)%joins.length]);
       this.pockets[i] = new Hole(joins[i], holeSize);
     }
 
@@ -32,8 +25,10 @@ public class BlobTable extends PoolTable{
   
   public boolean onTable(PVector pos){
     curr_q = qs[getSector(pos)];
+    //for(float[] r:curr_q) System.out.println(Arrays.toString(r));
+    //System.out.println();
     curr_eval = evalExpression(pos.x, pos.y, curr_q);
-    return 0<curr_eval;
+    return 0<=curr_eval;
   }
   
   public PVector inwardsFromWall(PVector pos){ // onTable must have been already run to ensure that curr_q and curr_eval are correct
@@ -60,12 +55,18 @@ public class BlobTable extends PoolTable{
   
   public int getSector(PVector pos){
     int a = 5;
+    PVector l = joins[5];
+    PVector r = joins[0];
     for(int i=0; i<joins.length; i++){
-      if(joins[i].heading()>pos.heading() && pos.heading()>joins[(i+1)%joins.length].heading()){
+      l = joins[i];
+      r = joins[(i+1)%joins.length];
+      if(l.heading()>pos.heading() && pos.heading()>r.heading()){ // is position in the sector subtended by the arc of the given segment?
         a = i;
+        break;
       }
     }
-    square(joins[a].x, joins[a].y, 15);
+    // point-slope form of midline times -1 or 1 depending on whether joins are going clockwise or counterclockwise
+    if((pos.y-l.y - (l.y-r.y)/(l.x-r.x)*(pos.x-l.x)) * Math.signum(r.x-l.x) < 0) return 6;
     return a;
   }
   
