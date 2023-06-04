@@ -77,7 +77,7 @@ public abstract class Ball {
 
   public boolean bounceAmong(Ball[] balls, PVector nextSpot) {
     boolean hitSomething = false;
-    for (int i = number+1; i <= 15; i++) {
+    for (int i = number+1; i < balls.length; i++) {
       if (balls[i] != null) {
         Ball other = balls[i];
         if (nextSpot.dist(PVector.add(other.position, other.velocity)) < size+other.size) {
