@@ -1,5 +1,5 @@
-Point[] joins;
-Point[] controls;
+PVector[] joins;
+PVector[] controls;
 
 float[][] qI, qII, qIII, qIV;
 
@@ -7,15 +7,18 @@ public class BlobTable extends PoolTable{
   
   public BlobTable(float w, float h, float smoothness, float wall, float holeSize){
     super(w, h, smoothness, wall);
-    joins = new Point[] {new Point(0,240), new Point(240,0), new Point(0,-140), new Point(-280,0)};
-    controls = new Point[] {new Point(180,300), new Point(80,-120), new Point(-200,-80), new Point(-300,60)};
+    joins = new PVector[] {new PVector(0,240), new PVector(240,0), new PVector(0,-140), new PVector(-280,0)};
+    controls = new PVector[] {new PVector(180,300), new PVector(80,-120), new PVector(-200,-80), new PVector(-300,60)};
     qI = getExpression(joins[0], controls[0], joins[1]);
     qIV = getExpression(joins[1], controls[1], joins[2]);
     qIII = getExpression(joins[2], controls[2], joins[3]);
     qII = getExpression(joins[3], controls[3], joins[0]);
     
+    // four holes: joins (t=0 or t=1)
+    // four holes: midpoints (t=.5) (p1/2 + p0/4 + p2/4)
+    //this.pockets = new Hole[] {new Hole(joins[0].x,joins[0].y,holeSize), new Hole(joins[1].x,joins[1].y,holeSize), new Hole(joins[2].x,joins[2].y,holeSize), new Hole(joins[3].x,joins[3].y,holeSize),
     this.pockets = new Hole[] {};
-  }
+}
   
   public boolean onTable(PVector pos){
     float x = pos.x;
@@ -41,21 +44,19 @@ public class BlobTable extends PoolTable{
     return new PVector(eval-evalEast, eval-evalSouth).normalize();
   }
   
-  public void renderHelper(){
-    //scale(1 + wall/100);
-    //float s = 1 + wall/100; // erica i need your help here math team person
-    float s = 1;
+  public void renderHelper(){ // erica i need your help here with the walls being in the wrong spot
     beginShape();
-    vertex(joins[0].x*s,joins[0].y*s);
-    quadraticVertex(controls[0].x*s,controls[0].y*s, joins[1].x*s,joins[1].y*s);
-    quadraticVertex(controls[1].x*s,controls[1].y*s, joins[2].x*s,joins[2].y*s);
-    quadraticVertex(controls[2].x*s,controls[2].y*s, joins[3].x*s,joins[3].y*s);
-    quadraticVertex(controls[3].x*s,controls[3].y*s, joins[0].x*s,joins[0].y*s);
+    vertex(joins[0].x,joins[0].y);
+    quadraticVertex(controls[0].x,controls[0].y, joins[1].x,joins[1].y);
+    quadraticVertex(controls[1].x,controls[1].y, joins[2].x,joins[2].y);
+    quadraticVertex(controls[2].x,controls[2].y, joins[3].x,joins[3].y);
+    quadraticVertex(controls[3].x,controls[3].y, joins[0].x,joins[0].y);
     endShape();
-    //scale(1/(1 + wall/100));
   }
   
-  public float[][] getExpression(Point a, Point b, Point c){
+  
+  // --- these functions are only run on generation ---
+  public float[][] getExpression(PVector a, PVector b, PVector c){
     // StackExchange user robjohn, I love you with the entirety of my heart: https://math.stackexchange.com/a/1258406
     float[] u = new float[] {b.y-c.y, c.x-b.x, b.x*c.y-b.y*c.x};
     float[] v = new float[] {c.y-a.y, a.x-c.x, c.x*a.y-c.y*a.x};
