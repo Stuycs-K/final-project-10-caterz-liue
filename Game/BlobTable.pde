@@ -1,14 +1,18 @@
-import java.util.*;
+Point[] joins;
+Point[] controls;
+
 double[][] q, qI, qII, qIII, qIV;
 
 public class BlobTable extends PoolTable{
   
   public BlobTable(float w, float h, float smoothness, float wall, float holeSize){
     super(w, h, smoothness, wall);
-    qI = getExpression(0,240, 180,300, 240,0);
-    qIV = getExpression(240,0, 80,-120, 0,-140);
-    qIII = getExpression(0,-140, -200,-80, -280,0);
-    qII = getExpression(-280,0, -300,60, 0,240);
+    joins = new Point[] {new Point(0,240), new Point(240,0), new Point(0,-140), new Point(-280,0)};
+    controls = new Point[] {new Point(180,300), new Point(80,-120), new Point(-200,-80), new Point(-300,60)};
+    qI = getExpression(joins[0], controls[0], joins[1]);
+    qIV = getExpression(joins[1], controls[1], joins[2]);
+    qIII = getExpression(joins[2], controls[2], joins[3]);
+    qII = getExpression(joins[3], controls[3], joins[0]);
     
     this.pockets = new Hole[] {};
   }
@@ -42,20 +46,20 @@ public class BlobTable extends PoolTable{
     //float s = 1 + wall/100; // erica i need your help here math team person
     float s = 1;
     beginShape();
-    vertex(0*s,240*s);
-    quadraticVertex(180*s,300*s, 240*s,0*s);
-    quadraticVertex(80*s,-120*s, 0*s,-140*s);
-    quadraticVertex(-200*s,-80*s, -280*s,0*s);
-    quadraticVertex(-300*s,60*s, 0*s,240*s);
+    vertex((float)joins[0].x*s,(float)joins[0].y*s);
+    quadraticVertex((float)controls[0].x*s,(float)controls[0].y*s, (float)joins[1].x*s,(float)joins[1].y*s);
+    quadraticVertex((float)controls[1].x*s,(float)controls[1].y*s, (float)joins[2].x*s,(float)joins[2].y*s);
+    quadraticVertex((float)controls[2].x*s,(float)controls[2].y*s, (float)joins[3].x*s,(float)joins[3].y*s);
+    quadraticVertex((float)controls[3].x*s,(float)controls[3].y*s, (float)joins[0].x*s,(float)joins[0].y*s);
     endShape();
     //scale(1/(1 + wall/100));
   }
   
-  public double[][] getExpression(float ax, float ay, float bx, float by, float cx, float cy){
+  public double[][] getExpression(Point a, Point b, Point c){
     // StackExchange user robjohn, I love you with the entirety of my heart: https://math.stackexchange.com/a/1258406
-    double[] u = new double[] {by-cy, cx-bx, bx*cy-by*cx};
-    double[] v = new double[] {cy-ay, ax-cx, cx*ay-cy*ax};
-    double[] w = new double[] {ay-by, bx-ax, ax*by-ay*bx};
+    double[] u = new double[] {b.y-c.y, c.x-b.x, b.x*c.y-b.y*c.x};
+    double[] v = new double[] {c.y-a.y, a.x-c.x, c.x*a.y-c.y*a.x};
+    double[] w = new double[] {a.y-b.y, b.x-a.x, a.x*b.y-a.y*b.x};
 
     double[][] q = myAddM(myMultS(2, myAddM(myMultM(u,w), myMultM(w,u))), myMultS(-1, myMultM(v,v))); // 2(u*w.T + w*u.T) - v*v.T
     //System.out.println("x(" + q[0][0]+"x + " + q[0][1]+"y + " + (q[0][2]+q[2][0]) + ") + y(" + q[1][0]+"x + " + q[1][1]+"y + " + (q[1][2]+q[2][1]) + ") + " + q[2][2]);
