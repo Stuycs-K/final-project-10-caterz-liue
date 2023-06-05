@@ -74,3 +74,6 @@ players are implemented, ball should shrink and disappear into hole
 
 - merged blob table new code onto erica branch
 - added instruction to regenerate blob table
+- added in Sand and Ice Obstacles, changed up some constructors in the process
+- added the obstacles' effects and rendered them
+- added different positions for obstacles for each table type
