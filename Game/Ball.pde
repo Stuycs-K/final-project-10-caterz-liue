@@ -48,11 +48,6 @@ public abstract class Ball {
       text(number, position.x-1, position.y+4);
     }
     checkSurroundings(pockets, ui, balls);
-    if (debugOn) {
-      fill(0);
-      textSize(size*2);
-      text(number, position.x, position.y);
-    }
   }
 
   public void roll(PoolTable table, Ball[] balls) {
