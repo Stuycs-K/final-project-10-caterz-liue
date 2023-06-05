@@ -168,4 +168,12 @@ public class UI {
     textSize(size*2);
     text(balls[i].number, x - 1, y + 6);
   }
+  
+  public String other(String s){
+    if(s.equals("striped")){
+      return "solid";
+    }else{
+      return "striped";
+    }
+  }
 }
