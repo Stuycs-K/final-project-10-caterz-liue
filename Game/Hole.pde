@@ -7,6 +7,12 @@ public class Hole {
     this.size = size;
   }
   
+  public Hole(PVector p, float size){
+  this.x = p.x;
+  this.y = p.y;
+  this.size = size;
+  }
+  
   public void renderHole(){
     fill(0); noStroke();
     circle(x,y,size);

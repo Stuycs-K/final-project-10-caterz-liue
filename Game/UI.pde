@@ -1,19 +1,18 @@
 public class UI {
-  
   int currentPlayer = 1;
-  String player1 = "";
-  String player2 = "";
-  boolean stripesDone = false;
-  boolean stripePotted = true;
-  boolean solidsDone = false;
-  boolean solidPotted = true;
-  boolean stripes8balled = false;
-  boolean solids8balled = false;
-  int nullCounter = 0;
-  int previousTurnNulls = -1;
-  boolean firstBallPocketed = false;
-  boolean gameOver = false;
-  float size = 2;
+  String player1;
+  String player2;
+  boolean stripesDone;
+  boolean stripePotted;
+  boolean solidsDone;
+  boolean solidPotted;
+  boolean stripes8balled;
+  boolean solids8balled;
+  int nullCounter;
+  int previousTurnNulls;
+  boolean firstBallPocketed;
+  boolean gameOver;
+  float size;
   
   /*PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
@@ -32,6 +31,19 @@ public class UI {
   };
   
   public UI(){
+    player1 = "";
+    player2 = "";
+    stripesDone = false;
+    stripePotted = true;
+    solidsDone = false;
+    solidPotted = true;
+    stripes8balled = false;
+    solids8balled = false;
+    nullCounter = 0;
+    previousTurnNulls = -1;
+    firstBallPocketed = false;
+    gameOver = false;
+    size = 2;
   }
   
   public void render(Ball[] balls){
@@ -61,6 +73,7 @@ public class UI {
     // only start rendering balls in UI when player types are determined
     if(player1.length() != 0){
       nullCounter = countNulls(1,7,balls);
+      //System.out.println(nullCounter);
       if(nullCounter != 7){
         for(int i = 1; i <= 7; i++){
           if(balls[i] != null){
@@ -71,7 +84,7 @@ public class UI {
       else{
         solidsDone = true;
         if(balls[8] != null){
-          dispBall(220, 340, 10, 8, balls);
+          dispBall(-220, 340, 10, 8, balls);
         }
       }
       
@@ -154,5 +167,13 @@ public class UI {
     fill(BLACK);
     textSize(size*2);
     text(balls[i].number, x - 1, y + 6);
+  }
+  
+  public String other(String s){
+    if(s.equals("striped")){
+      return "solid";
+    }else{
+      return "striped";
+    }
   }
 }
