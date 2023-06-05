@@ -1,5 +1,5 @@
 public class Ice extends Obstacle {
-  public Ice(String shape, PVector position, int strength, int radius){
+  public Ice(String shape, PVector position, float strength, int radius){
     super(shape, position, strength, "ice", radius);
   }
   

@@ -44,7 +44,7 @@ public abstract class Ball {
     }
   }
 
-  public void roll(PoolTable table, Ball[] balls) {
+  public void roll(PoolTable table, Ball[] balls, Obstacle[] obstacles) {
     if(!pocketed){
       PVector nextSpot = PVector.add(position, velocity);
       boolean everHit = bounceCushion(table, nextSpot) | bounceAmong(balls, nextSpot);
@@ -56,6 +56,7 @@ public abstract class Ball {
         }
       }
       checkPockets(table.pockets);
+      checkObstacles(obstacles);
     }
     if(pocketed){
       fall();
@@ -105,11 +106,14 @@ public abstract class Ball {
     for(Obstacle o : obstacles){
       if(o.type.equals("sand")){ // sand
         if(position.dist(new PVector(o.position.x, o.position.y)) < o.radius){
-          velocity.add(new PVector(-2,-2));
+          System.out.println(1);
+          velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
         }
       } else { // ice
+      System.out.println(4);
         if(position.dist(new PVector(o.position.x, o.position.y)) < o.radius){
-          velocity.add(new PVector(2,2));
+          System.out.println(2);
+          velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
         }
       }
     }
@@ -149,7 +153,6 @@ public abstract class Ball {
             ui.player1 = ui.other(type);
             ui.player2 = type;
           }
-          System.out.println(ui.player1 + " " + ui.player2);
         }
       }
     }

@@ -1,6 +1,6 @@
 public class Sand extends Obstacle {
   
-  public Sand(String shape, PVector position, int strength, int radius){
+  public Sand(String shape, PVector position, float strength, int radius){
     super(shape, position, strength, "sand", radius);
   }
   

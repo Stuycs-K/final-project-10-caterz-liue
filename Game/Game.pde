@@ -94,25 +94,24 @@ public void draw() {
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
   ui.render(balls);
-  
-  boolean allStopped = true;
-  for(Ball curr : balls){
-    if(curr != null){
-      curr.roll(table, balls);
-      curr.render();
-      if(curr.velocity.mag()!=0){
-        allStopped = false;
-      }
-    }
-  }
-  
-  System.out.println(ui.obstacles);
+    
   for(Obstacle o : ui.obstacles){
     if(o != null){
       o.render();
     }
   }
   
+  boolean allStopped = true;
+  for(Ball curr : balls){
+    if(curr != null){
+      curr.roll(table, balls, ui.obstacles);
+      curr.render();
+      if(curr.velocity.mag()!=0){
+        allStopped = false;
+      }
+    }
+  }
+
   if(!ui.gameOver && (allStopped || debugOn)){
     stick.show();
     stick.render(table, ball0);
