@@ -47,26 +47,26 @@ public class UI {
     size = 2;
     if(table.tableType.equals("ellipse")){ // ellipse
       obstacles = new Obstacle[] {
-        new Sand("circle", new PVector(-20,20), 5, 4),
-        new Sand("rect", new PVector(20,-20), 4, 3),
-        new Ice("circle", new PVector(20,20), 3, 2),
-        new Ice("rect", new PVector(-20,-20), 2, 1),
+        new Sand("circle", new PVector(-80,80), 50, 40),
+        new Sand("rect", new PVector(80,-80), 40, 30),
+        new Ice("circle", new PVector(80,80), 30, 20),
+        new Ice("rect", new PVector(-80,-80), 20, 10),
       };
     }
     if(table.tableType.equals("rect")){ // rect
       obstacles = new Obstacle[] {
-        new Sand("circle", new PVector(-20,20), 5, 4),
-        new Sand("rect", new PVector(20,-20), 4, 3),
-        new Ice("circle", new PVector(20,20), 3, 2),
-        new Ice("rect", new PVector(-20,-20), 2, 1),
+        new Sand("circle", new PVector(-20,20), 50, 40),
+        new Sand("rect", new PVector(20,-20), 40, 30),
+        new Ice("circle", new PVector(20,20), 30, 20),
+        new Ice("rect", new PVector(-20,-20), 20, 10),
       };
     }
     if(table.tableType.equals("blob")){ // blob
       obstacles = new Obstacle[] {
-        new Sand("circle", new PVector(-20,20), 5, 4),
-        new Sand("rect", new PVector(20,-20), 4, 3),
-        new Ice("circle", new PVector(20,20), 3, 2),
-        new Ice("rect", new PVector(-20,-20), 2, 1),
+        new Sand("circle", new PVector(-80,80), 50, 40),
+        new Sand("rect", new PVector(80,-80), 40, 30),
+        new Ice("circle", new PVector(80,80), 30, 20),
+        new Ice("rect", new PVector(-80,-80), 20, 10),
       };
     }
   }
