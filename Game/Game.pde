@@ -34,8 +34,10 @@ public void setup() {
     textAlign(CENTER,CENTER);
     debugOn = false;
     
-    table = new EllipseTable(54*6, 27*6, .98, 10, 20);
+    table = new BlobTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
+    //ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
+    //balls = new Ball[]{ball0};
     stick = new CueStick(160, 10);
     stick.show();
     makeObstacles();
@@ -48,17 +50,17 @@ public void keyPressed(){
   if(key=='x'){
     table = new EllipseTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui.firstBallPocketed = false;
+    ui = new UI();
   }
   if(key=='c'){
     table = new RectangleTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui.firstBallPocketed = false;
+    ui = new UI();
   }
-  /*if(key=='z'){
-    table = new BlobTable(54*3, 27*3, .98, 5);
-    makeBreak(0, 0, 5);
-  }*/
+  if(key=='z'){
+    table = new BlobTable(54*6, 27*6, .98, 10, 20);
+    makeBreak(0, 0, 10);
+  }
   if(key=='a'){
     for(int i=1; i<=7; i++){
       balls[i] = null;
@@ -95,7 +97,7 @@ public void draw() {
   for(Ball curr : balls){
     if(curr != null){
       curr.roll(table, balls);
-      curr.render(table.pockets, ui);
+      curr.render();
       if(curr.velocity.mag()!=0){
         allStopped = false;
       }
