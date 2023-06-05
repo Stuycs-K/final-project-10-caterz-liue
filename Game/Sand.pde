@@ -1,7 +1,7 @@
 public class Sand extends Obstacle {
   
-  public Sand(String shape, PVector position, int strength){
-    super(shape, position, strength);
+  public Sand(String shape, PVector position, float strength, int radius){
+    super(shape, position, strength, "sand", radius);
   }
   
   public void affectBalls(){
@@ -17,11 +17,11 @@ public class Sand extends Obstacle {
   public void render(){
     if(shape.equals("circle")){
       fill(SANDCOLOR);
-      circle(position.x, position.y, 20);
+      circle(position.x, position.y, radius);
     }
     if(shape.equals("rect")){
       fill(SANDCOLOR);
-      rect(position.x, position.y, 20, 20);
+      rect(position.x, position.y, radius, radius);
     }
   }
   

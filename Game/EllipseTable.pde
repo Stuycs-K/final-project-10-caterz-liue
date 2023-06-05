@@ -1,7 +1,7 @@
 public class EllipseTable extends PoolTable{
 
   public EllipseTable(float w, float h, float smoothness, float wall, float holeSize){
-    super(w, h, smoothness, wall);
+    super(w, h, smoothness, wall, "ellipse");
     
     float tempw = w + wall;
     float temph = h + wall;

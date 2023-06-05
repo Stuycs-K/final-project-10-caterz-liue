@@ -1,12 +1,16 @@
 public abstract class Obstacle {
   String shape;
   PVector position;
-  int strength;
+  float strength;
+  String type;
+  int radius;
   
-  public Obstacle(String shape, PVector position, int strength){
+  public Obstacle(String shape, PVector position, float strength, String type, int radius){
     this.shape = shape;
     this.position = position;
     this.strength = strength; // [0,1]; the closer to 1, the more it slows the acceleration
+    this.type = type;
+    this.radius = radius;
   }
 
   public void affectBalls(){

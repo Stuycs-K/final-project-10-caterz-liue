@@ -12,7 +12,7 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
 Ball[] balls;
 CueStick stick;
 boolean debugOn;
-UI ui = new UI();
+UI ui;
 
 public static final PVector VISUAL_OFFSET = new PVector(400,400);
 
@@ -34,8 +34,11 @@ public void setup() {
     textAlign(CENTER,CENTER);
     debugOn = false;
     
-    table = new EllipseTable(54*6, 27*6, .98, 10, 20);
+    table = new BlobTable(54*6, 27*6, .98, 10, 20);
+    ui = new UI(table);
     makeBreak(0, 0, 10);
+    //ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
+    //balls = new Ball[]{ball0};
     stick = new CueStick(160, 10);
     stick.show();
     makeObstacles();
@@ -48,17 +51,18 @@ public void keyPressed(){
   if(key=='x'){
     table = new EllipseTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui = new UI();
+    ui = new UI(table);
   }
   if(key=='c'){
     table = new RectangleTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui = new UI();
+    ui = new UI(table);
   }
-  /*if(key=='z'){
-    table = new BlobTable(54*3, 27*3, .98, 5);
-    makeBreak(0, 0, 5);
-  }*/
+  if(key=='z'){
+    table = new BlobTable(54*6, 27*6, .98, 10, 20);
+    makeBreak(0, 0, 10);
+    ui = new UI(table);
+  }
   if(key=='a'){
     for(int i=1; i<=7; i++){
       balls[i] = null;
@@ -84,24 +88,30 @@ public void draw() {
   }else{
     text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
   }
-  text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table", width/2, textAscent()*5);
-  text("press [a] to wipe out all solid balls\npress [s] to wipe out all striped balls\npress [d] to wipe out the eight ball", width/2, textAscent()*9);
+  text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table\npress [z] to regenerate blob table", width/2, textAscent()*5);
+  text("press [a] to wipe out all solid balls\npress [s] to wipe out all striped balls\npress [d] to wipe out the eight ball", width/2, textAscent()*11);
   
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
   ui.render(balls);
+    
+  for(Obstacle o : ui.obstacles){
+    if(o != null){
+      o.render();
+    }
+  }
   
   boolean allStopped = true;
   for(Ball curr : balls){
     if(curr != null){
-      curr.roll(table, balls);
-      curr.render(table.pockets, ui);
+      curr.roll(table, balls, ui.obstacles);
+      curr.render();
       if(curr.velocity.mag()!=0){
         allStopped = false;
       }
     }
   }
-  
+
   if(!ui.gameOver && (allStopped || debugOn)){
     stick.show();
     stick.render(table, ball0);

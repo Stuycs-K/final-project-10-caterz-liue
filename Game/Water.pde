@@ -1,6 +1,6 @@
 public class Ice extends Obstacle {
-  public Ice(String shape, PVector position, int strength){
-    super(shape, position, strength);
+  public Ice(String shape, PVector position, float strength, int radius){
+    super(shape, position, strength, "ice", radius);
   }
   
   public void affectBalls(){
@@ -16,11 +16,11 @@ public class Ice extends Obstacle {
   public void render(){
     if(shape.equals("circle")){
       fill(ICECOLOR);
-      circle(position.x, position.y, 20);
+      circle(position.x, position.y, radius);
     }
     if(shape.equals("rect")){
       fill(ICECOLOR);
-      rect(position.x, position.y, 20, 20);
+      rect(position.x, position.y, radius, radius);
     }
   }
 }
