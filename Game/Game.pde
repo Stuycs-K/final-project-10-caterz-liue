@@ -86,8 +86,8 @@ public void draw() {
   }else{
     text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
   }
-  text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table", width/2, textAscent()*5);
-  text("press [a] to wipe out all solid balls\npress [s] to wipe out all striped balls\npress [d] to wipe out the eight ball", width/2, textAscent()*9);
+  text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table\npress [z] to regenerate blob table", width/2, textAscent()*5);
+  text("press [a] to wipe out all solid balls\npress [s] to wipe out all striped balls\npress [d] to wipe out the eight ball", width/2, textAscent()*11);
   
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
