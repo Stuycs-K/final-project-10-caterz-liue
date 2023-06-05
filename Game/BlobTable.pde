@@ -8,7 +8,7 @@ public class BlobTable extends PoolTable{
   float curr_eval; // cached current position value
   
   public BlobTable(float w, float h, float smoothness, float wall, float holeSize){
-    super(w, h, smoothness, wall);
+    super(w, h, smoothness, wall, "blob");
     
     // MUST go clockwise, must be concave, joins' x values cannot stay the same or temporarily jump in the wrong direction
     joins = new PVector[] {new PVector(-180,160), new PVector(10,240), new PVector(100,150), new PVector(150,-100), new PVector(-50,-200), new PVector(-240,0)};

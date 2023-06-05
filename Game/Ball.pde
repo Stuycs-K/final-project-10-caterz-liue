@@ -101,6 +101,20 @@ public abstract class Ball {
     }
   }
   
+  public void checkObstacles(Obstacle[] obstacles){
+    for(Obstacle o : obstacles){
+      if(o.type.equals("sand")){ // sand
+        if(position.dist(new PVector(o.position.x, o.position.y)) < o.radius){
+          velocity.add(new PVector(-2,-2));
+        }
+      } else { // ice
+        if(position.dist(new PVector(o.position.x, o.position.y)) < o.radius){
+          velocity.add(new PVector(2,2));
+        }
+      }
+    }
+  }
+  
   public void fall(){
     if(size>0){
     size--;

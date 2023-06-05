@@ -12,7 +12,7 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
 Ball[] balls;
 CueStick stick;
 boolean debugOn;
-UI ui = new UI();
+UI ui;
 
 public static final PVector VISUAL_OFFSET = new PVector(400,400);
 
@@ -35,6 +35,7 @@ public void setup() {
     debugOn = false;
     
     table = new BlobTable(54*6, 27*6, .98, 10, 20);
+    ui = new UI(table);
     makeBreak(0, 0, 10);
     //ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
     //balls = new Ball[]{ball0};
@@ -50,16 +51,17 @@ public void keyPressed(){
   if(key=='x'){
     table = new EllipseTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui = new UI();
+    ui = new UI(table);
   }
   if(key=='c'){
     table = new RectangleTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui = new UI();
+    ui = new UI(table);
   }
   if(key=='z'){
     table = new BlobTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
+    ui = new UI(table);
   }
   if(key=='a'){
     for(int i=1; i<=7; i++){
@@ -101,6 +103,13 @@ public void draw() {
       if(curr.velocity.mag()!=0){
         allStopped = false;
       }
+    }
+  }
+  
+  System.out.println(ui.obstacles);
+  for(Obstacle o : ui.obstacles){
+    if(o != null){
+      o.render();
     }
   }
   
