@@ -1,5 +1,5 @@
 import java.util.*;
-// bugs: walls don't work quite right, invisible walls (hitting other end of the conic? hmm)
+// bugs: walls don't work quite right
 public class BlobTable extends PoolTable{
   PVector[] joins, joins2, controls;
   float[][][] qs;
