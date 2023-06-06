@@ -1,7 +1,7 @@
 public class RectangleTable extends PoolTable{
 
   public RectangleTable(float w, float h, float smoothness, float wall, float holeSize){
-    super(smoothness, wall, "rect");
+    super(smoothness, wall, "rectangle");
     
     shape = new Rectangle(new PVector(0,0), w, h);
     
@@ -14,9 +14,9 @@ public class RectangleTable extends PoolTable{
   public void makeObstacles(){
     obstacles = new Obstacle[] {
       new Sand("ellipse", new PVector(-80,80), 0.99999, 40),
-      new Sand("rect", new PVector(80,-80), 0.77777, 30),
+      new Sand("rectangle", new PVector(80,-80), 0.77777, 30),
       new Ice("ellipse", new PVector(80,80), 1.05, 30),
-      new Ice("rect", new PVector(-80,-80), 1.05, 20),
+      new Ice("rectangle", new PVector(-80,-80), 1.05, 20),
     };
   }
 

@@ -23,7 +23,7 @@ public abstract class PoolTable {
   
   
   //public PoolTable(){
-    //this("rect", 54*3, 27*3, .98); // standard pool table is roughly 108 by 54 inches
+    //this("rectangle", 54*3, 27*3, .98); // standard pool table is roughly 108 by 54 inches
   //}
   
   public void render(){

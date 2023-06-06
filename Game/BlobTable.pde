@@ -21,9 +21,9 @@ public class BlobTable extends PoolTable{
   public void makeObstacles(){
     obstacles = new Obstacle[] {
       new Sand("ellipse", new PVector(-80,-80), 0.99999, 40, 30),
-      new Sand("rect", new PVector(80,80), 0.77777, 30, 20),
+      new Sand("rectangle", new PVector(80,80), 0.77777, 30, 20),
       new Ice("ellipse", new PVector(80,-80), 1.05, 60, 30),
-      new Ice("rect", new PVector(-80,80), 1.05, 20, 10),
+      new Ice("rectangle", new PVector(-80,80), 1.05, 20, 10),
     };
   }
   

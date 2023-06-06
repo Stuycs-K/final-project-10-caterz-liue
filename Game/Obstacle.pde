@@ -8,7 +8,7 @@ public class Obstacle {
     if(shapeName.equals("ellipse")){
       shape = new Ellipse(position, w, h);
     }
-    if(shapeName.equals("rect")){
+    if(shapeName.equals("rectangle")){
       shape = new Rectangle(position, w, h);
     }
     
