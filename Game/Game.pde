@@ -26,6 +26,11 @@ public static final color PURPLE = #9b00e6;
 public static final color BURGUNDY = #a55000;
 public static final color BLACK = #000000;
 public static final color BROWN = #664c28; // cue stick
+public static final color TABLE_GREEN = #0a6c03;
+public static final color BORDER_BROWN = #966F33;
+public static final color SANDCOLOR = #ffffcc;
+public static final color ICECOLOR = #33adff;
+
 
 public void setup() {
     size(800,800);

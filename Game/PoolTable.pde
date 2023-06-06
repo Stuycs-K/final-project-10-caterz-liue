@@ -21,14 +21,9 @@ public abstract class PoolTable {
     return shape.getNormal(pos);
   }
   
-  
-  //public PoolTable(){
-    //this("rectangle", 54*3, 27*3, .98); // standard pool table is roughly 108 by 54 inches
-  //}
-  
   public void render(){
-    fill(#0a6c03);
-    stroke(#966F33); strokeWeight(wall);
+    fill(TABLE_GREEN);
+    stroke(BORDER_BROWN); strokeWeight(wall);
     shape.render(wall);
     
     for(Hole pocket : pockets){

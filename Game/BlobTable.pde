@@ -9,7 +9,7 @@ public class BlobTable extends PoolTable{
     joins = new PVector[] {new PVector(-180,160), new PVector(10,240), new PVector(100,150), new PVector(150,-100), new PVector(-50,-200), new PVector(-240,0)};
     controls = new PVector[] {new PVector(-100,200),  new PVector(150,240), new PVector(300,0), new PVector(150,-200), new PVector(-180,-100), new PVector(-220,80)};
     
-    shape = new Blob(joins, controls);
+    shape = new Blob(new PVector(0,0), joins, controls);
     
     this.pockets = new Hole[joins.length]; // hole at each join
     for(int i=0; i<joins.length; i++){
@@ -24,6 +24,7 @@ public class BlobTable extends PoolTable{
       new Sand("rectangle", new PVector(80,80), 0.77777, 30, 20),
       new Ice("ellipse", new PVector(80,-80), 1.05, 60, 30),
       new Ice("rectangle", new PVector(-80,80), 1.05, 20, 10),
+      //new Ice("blob", new PVector(-135,115), 1.05, new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-150,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)}),
     };
   }
   

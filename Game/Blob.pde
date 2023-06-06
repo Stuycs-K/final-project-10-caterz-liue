@@ -2,7 +2,8 @@ public class Blob extends Shape{
   PVector[] joins, controls;
   ConicExpression[] conicsList;
   
-  public Blob(PVector[] joins, PVector[] controls){
+  public Blob(PVector position, PVector[] joins, PVector[] controls){
+    this.position = position;
     this.joins = joins;
     this.controls = controls;
     
@@ -27,10 +28,11 @@ public class Blob extends Shape{
   
   public ConicExpression getExpression(PVector pos){
     for(int i=0; i<joins.length; i++){
-      PVector l = joins[i];
-      PVector r = joins[(i+1)%joins.length];
-      if(l.heading()>pos.heading() && (pos.heading()>r.heading() || l.heading()<r.heading() && pos.heading()>r.heading()-2*PI) && // is position in the sector subtended by the arc of the given segment?
-         (pos.y-l.y - (l.y-r.y)/(l.x-r.x)*(pos.x-l.x)) * Math.signum(r.x-l.x) > 0){ // point-slope form of midline times -1 or 1 depending on whether joins are going clockwise or counterclockwise
+      PVector l = PVector.sub(joins[i],position);
+      PVector r = PVector.sub(joins[(i+1)%joins.length],position);
+      PVector p = PVector.sub(pos, position); 
+      if(l.heading()>pos.heading() && (p.heading()>r.heading() || l.heading()<r.heading() && p.heading()>r.heading()-2*PI) && // is position in the sector subtended by the arc of the given segment?
+         (p.y-l.y - (l.y-r.y)/(l.x-r.x)*(p.x-l.x)) * Math.signum(r.x-l.x) > 0){ // point-slope form of midline times -1 or 1 depending on whether joins are going clockwise or counterclockwise
          return conicsList[i];
       }
     }
@@ -43,7 +45,7 @@ public class Blob extends Shape{
     for(int i=0; i<joins.length; i++){
       quadraticVertex(controls[i].x, controls[i].y, joins[(i+1)%joins.length].x, joins[(i+1)%joins.length].y);
     }
-    endShape();    
+    endShape();
   }
   
   public String name(){
