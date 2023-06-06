@@ -19,5 +19,9 @@ public class Ellipse extends Shape{
   public void render(float offset){
     ellipse(position.x, position.y, w+offset, h+offset);
   }
+  
+  public String name(){
+    return "ellipse";
+  }
 
 }

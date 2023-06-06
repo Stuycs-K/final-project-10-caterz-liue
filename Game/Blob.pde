@@ -45,5 +45,9 @@ public class Blob extends Shape{
     }
     endShape();    
   }
+  
+  public String name(){
+    return "blob";
+  }
 
 }

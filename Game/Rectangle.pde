@@ -24,5 +24,9 @@ public class Rectangle extends Shape{
   public void render(float offset){
     rect(position.x, position.y, w+offset, h+offset);
   }
+  
+  public String name(){
+    return "rectangle";
+  }
 
 }

@@ -104,8 +104,7 @@ public abstract class Ball {
   
   public void checkObstacles(Obstacle[] obstacles){
     for(Obstacle o : obstacles){
-      if(o.shape.equals("rect")   && abs(position.x-o.position.x)<o.w && abs(position.y-o.position.y)<o.h ||
-         o.shape.equals("ellipse") && pow(position.x-o.position.x, 2) / o.w / o.w + pow(position.y-o.position.y, 2) / o.h / o.h < 1){
+      if(o.shape.touching(position)){
         System.out.println(o.type);
         velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
       }

@@ -29,7 +29,6 @@ public abstract class PoolTable {
   public void render(){
     fill(#0a6c03);
     stroke(#966F33); strokeWeight(wall);
-    
     shape.render(wall);
     
     for(Hole pocket : pockets){
