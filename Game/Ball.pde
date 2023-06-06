@@ -103,6 +103,7 @@ public abstract class Ball {
   }
   
   public void checkObstacles(Obstacle[] obstacles){
+    System.out.println();
     for(Obstacle o : obstacles){
       if(o.shape.touching(position)){
         System.out.println(o.type +' '+ o.shape.name());

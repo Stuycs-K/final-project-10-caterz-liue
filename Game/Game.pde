@@ -42,9 +42,9 @@ public void setup() {
     table = new BlobTable(.98, 10, 20);
     table.makeObstacles();
     ui = new UI();
-    makeBreak(0, 0, 10);
-    //ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
-    //balls = new Ball[]{ball0};
+    //makeBreak(0, 0, 10);
+    ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
+    balls = new Ball[]{ball0};
     stick = new CueStick(160, 10);
     stick.show();
   }

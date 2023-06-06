@@ -24,7 +24,7 @@ public class BlobTable extends PoolTable{
       new Sand("rectangle", new PVector(80,80), 0.77777, 30, 20),
       new Ice("ellipse", new PVector(80,-80), 1.05, 60, 30),
       new Ice("rectangle", new PVector(-80,80), 1.05, 20, 10),
-      //new Ice("blob", new PVector(-135,115), 1.05, new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-150,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)}),
+      new Ice("blob", new PVector(-135,115), 1.05, new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-150,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)}),
     };
   }
   
