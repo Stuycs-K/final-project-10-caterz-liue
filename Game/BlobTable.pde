@@ -64,6 +64,15 @@ public class BlobTable extends PoolTable{
     return new float[3][3];
   }
   
+  public void makeObstacles(){
+    obstacles = new Obstacle[] {
+      new Sand("ellipse", new PVector(-80,-80), 0.99999, 40, 30),
+      new Sand("rect", new PVector(80,80), 0.77777, 30, 20),
+      new Ice("ellipse", new PVector(80,-80), 1.05, 30, 60),
+      new Ice("rect", new PVector(-80,80), 1.05, 20, 10),
+    };
+  }
+  
   
   // --- these functions are only run on generation ---
   public float[][] getExpression(PVector a, PVector b, PVector c){

@@ -24,6 +24,15 @@ public class EllipseTable extends PoolTable{
   public void renderHelper(){
     ellipse(0,0,w+wall,h+wall);
   }
+  
+  public void makeObstacles(){
+    obstacles = new Obstacle[] {
+      new Sand("ellipse", new PVector(80,-80), 0.99999, 40),
+      new Sand("rect", new PVector(-80,80), 0.77777, 30),
+      new Ice("ellipse", new PVector(-80,-80), 1.05, 30),
+      new Ice("rect", new PVector(80,80), 1.05, 20),
+    };
+  }
 
 
 

@@ -3,26 +3,28 @@ public class Obstacle {
   PVector position;
   float strength;
   String type;
-  int radius;
+  float w, h, rot; // w and h are the semimajor and semiminor axes
   color col;
   
-  public Obstacle(String shape, PVector position, float strength, String type, int radius, color col){
+  public Obstacle(String shape, PVector position, float strength, String type, float w, float h, float rot, color col){
     this.shape = shape;
     this.position = position;
     this.strength = strength; // [0,1]; the closer to 1, the more it slows the acceleration
     this.type = type;
-    this.radius = radius;
+    this.w = w;
+    this.h = h;
+    this.rot = rot;
     this.col = col;
   }
 
   public void render(){
-    if(shape.equals("circle")){
+    if(shape.equals("ellipse")){
       fill(col);
-      circle(position.x, position.y, radius);
+      ellipse(position.x, position.y, w, h);
     }
     if(shape.equals("rect")){
       fill(col);
-      rect(position.x, position.y, radius, radius);
+      rect(position.x, position.y, w, h);
     }
   }
 
