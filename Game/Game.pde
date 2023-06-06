@@ -34,7 +34,7 @@ public void setup() {
     textAlign(CENTER,CENTER);
     debugOn = false;
     
-    table = new BlobTable(54*6, 27*6, .98, 10, 20);
+    table = new BlobTable(.98, 10, 20);
     table.makeObstacles();
     ui = new UI();
     makeBreak(0, 0, 10);
@@ -61,7 +61,7 @@ public void keyPressed(){
     table.makeObstacles();
   }
   if(key=='z'){
-    table = new BlobTable(54*6, 27*6, .98, 10, 20);
+    table = new BlobTable(.98, 10, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
     table.makeObstacles();

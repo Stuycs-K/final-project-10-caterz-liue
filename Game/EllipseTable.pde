@@ -1,7 +1,9 @@
 public class EllipseTable extends PoolTable{
 
   public EllipseTable(float w, float h, float smoothness, float wall, float holeSize){
-    super(w, h, smoothness, wall, "ellipse");
+    super(smoothness, wall, "ellipse");
+    
+    shape = new Ellipse(new PVector(0,0), w, h);
     
     float tempw = w + wall;
     float temph = h + wall;
@@ -11,18 +13,6 @@ public class EllipseTable extends PoolTable{
                                 new Hole(-magic_x, magic_y, holeSize), new Hole(magic_x, magic_y, holeSize),
                                 new Hole(-magic_x,-magic_y, holeSize), new Hole(magic_x,-magic_y, holeSize),
                                                   new Hole(0,-temph, holeSize)};
-  }
-  
-  public boolean onTable(PVector pos){
-    return pos.x*pos.x/w/w + pos.y*pos.y/h/h < 1;
-  }
-  
-  public PVector inwardsFromWall(PVector pos){
-    return PVector.fromAngle(atan(pos.y/pos.x * w*w/h/h));
-  }
-  
-  public void renderHelper(){
-    ellipse(0,0,w+wall,h+wall);
   }
   
   public void makeObstacles(){
