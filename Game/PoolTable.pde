@@ -1,6 +1,7 @@
 public abstract class PoolTable {
   float w, h; // actually halfwidth and halfheight
   Hole[] pockets;
+  Obstacle[] obstacles;
   float smoothness;
   float wall;
   String tableType;
@@ -33,6 +34,33 @@ public abstract class PoolTable {
     for(Hole pocket : pockets){
       pocket.renderHole();
     } 
+  }
+  
+  public void makeObstacles(){
+    if(tableType.equals("ellipse")){ // ellipse
+      obstacles = new Obstacle[] {
+        new Sand("circle", new PVector(80,-80), 0.99999, 40),
+        new Sand("rect", new PVector(-80,80), 0.77777, 30),
+        new Ice("circle", new PVector(-80,-80), 1.05, 30),
+        new Ice("rect", new PVector(80,80), 1.05, 20),
+      };
+    }
+    if(tableType.equals("rect")){ // rect
+      obstacles = new Obstacle[] {
+        new Sand("circle", new PVector(-80,80), 0.99999, 40),
+        new Sand("rect", new PVector(80,-80), 0.77777, 30),
+        new Ice("circle", new PVector(80,80), 1.05, 30),
+        new Ice("rect", new PVector(-80,-80), 1.05, 20),
+      };
+    }
+    if(tableType.equals("blob")){ // blob
+      obstacles = new Obstacle[] {
+        new Sand("circle", new PVector(-80,-80), 0.99999, 40),
+        new Sand("rect", new PVector(80,80), 0.77777, 30),
+        new Ice("circle", new PVector(80,-80), 1.05, 30),
+        new Ice("rect", new PVector(-80,80), 1.05, 20),
+      };
+    }
   }
   
   

@@ -13,7 +13,6 @@ public class UI {
   boolean firstBallPocketed;
   boolean gameOver;
   float size;
-  Obstacle[] obstacles;
   
   /*PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
@@ -31,7 +30,7 @@ public class UI {
   "Solids wins!"
   };
   
-  public UI(PoolTable table){
+  public UI(){
     player1 = "";
     player2 = "";
     stripesDone = false;
@@ -45,30 +44,6 @@ public class UI {
     firstBallPocketed = false;
     gameOver = false;
     size = 2;
-    if(table.tableType.equals("ellipse")){ // ellipse
-      obstacles = new Obstacle[] {
-        new Sand("circle", new PVector(80,-80), 0.99999, 40),
-        new Sand("rect", new PVector(-80,80), 0.77777, 30),
-        new Ice("circle", new PVector(-80,-80), 1.05, 30),
-        new Ice("rect", new PVector(80,80), 1.05, 20),
-      };
-    }
-    if(table.tableType.equals("rect")){ // rect
-      obstacles = new Obstacle[] {
-        new Sand("circle", new PVector(-80,80), 0.99999, 40),
-        new Sand("rect", new PVector(80,-80), 0.77777, 30),
-        new Ice("circle", new PVector(80,80), 1.05, 30),
-        new Ice("rect", new PVector(-80,-80), 1.05, 20),
-      };
-    }
-    if(table.tableType.equals("blob")){ // blob
-      obstacles = new Obstacle[] {
-        new Sand("circle", new PVector(-80,-80), 0.99999, 40),
-        new Sand("rect", new PVector(80,80), 0.77777, 30),
-        new Ice("circle", new PVector(80,-80), 1.05, 30),
-        new Ice("rect", new PVector(-80,80), 1.05, 20),
-      };
-    }
   }
   
   public void render(Ball[] balls){
