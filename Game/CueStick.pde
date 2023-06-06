@@ -1,9 +1,11 @@
 public class CueStick {
   public boolean visible = false;
-  public float size;
+  public float len;
+  public float wide;
 
-  public CueStick(float size) {
-    this.size = size;
+  public CueStick(float len, float wide) {
+    this.len = len;
+    this.wide = wide;
   }
 
   public void show() {
@@ -18,14 +20,14 @@ public class CueStick {
     if (!visible) return;
     PVector relativePos = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position);
     PVector start = relativePos.copy().div(2);
-    PVector end   = relativePos.copy().setMag(start.mag()+size);
+    PVector end   = relativePos.copy().setMag(start.mag()+len);
 
     stroke(BROWN);
-    strokeWeight(5);
+    strokeWeight(wide);
     line(target.position.x + end.x,   target.position.y + end.y,
          target.position.x + start.x, target.position.y + start.y);
 
-    PVector pointing = relativePos.copy().rotate(PI).div(size).mult(2);
+    PVector pointing = relativePos.copy().rotate(PI).div(len).mult(4);
     //pointing.mult(1-pow(table.smoothness, ceil(log(.1/pointing.mag())/log(table.smoothness)))).div(1-table.smoothness); // exact
     pointing.setMag(pointing.mag()-.1).div(1-table.smoothness); // approximate
     // starting velocity: pointing.mag() = v0
@@ -36,15 +38,17 @@ public class CueStick {
     // approximation:        -> v0(1-s^log(.1/v0)/log(s))/(1-s) = v0(1-10^log(.1/v0))/(1-s) = v0(1-.1/v0)/(1-s) = (v0-.1)/(1-s)
 
     stroke(WHITE);
-    strokeWeight(1);
+    strokeWeight(wide/5);
     line(target.position.x,              target.position.y,
          target.position.x + pointing.x, target.position.y + pointing.y);
   }
 
-  public void strike(Ball target) {
+  public void strike(Ball target, UI ui, Ball[] balls) {
     if (!visible) return;
     PVector relativePos = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position);
-    PVector pointing = relativePos.rotate(PI).div(size).mult(2);
+    PVector pointing = relativePos.rotate(PI).div(len).mult(4);
     target.applyForce(pointing);
+    ui.solidPotted = false;
+    ui.stripePotted = false;
   }
 }

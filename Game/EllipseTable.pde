@@ -1,16 +1,16 @@
 public class EllipseTable extends PoolTable{
 
-  public EllipseTable(float w, float h, float smoothness, float wall){
-    super(w, h, smoothness, wall);
+  public EllipseTable(float w, float h, float smoothness, float wall, float holeSize){
+    super(w, h, smoothness, wall, "ellipse");
     
     float tempw = w + wall;
     float temph = h + wall;
     float magic_y = tempw*temph / sqrt(3*temph*temph+tempw*tempw); // (magic_x,magic_y) is the point at which theta=pi/6 intersects the ellipse
     float magic_x = sqrt(3) * magic_y;
-    this.pockets = new Hole[] {                   new Hole(0, temph),
-                                new Hole(-magic_x, magic_y), new Hole(magic_x, magic_y),
-                                new Hole(-magic_x,-magic_y), new Hole(magic_x,-magic_y),
-                                                  new Hole(0,-temph)};
+    this.pockets = new Hole[] {                   new Hole(0, temph, holeSize),
+                                new Hole(-magic_x, magic_y, holeSize), new Hole(magic_x, magic_y, holeSize),
+                                new Hole(-magic_x,-magic_y, holeSize), new Hole(magic_x,-magic_y, holeSize),
+                                                  new Hole(0,-temph, holeSize)};
   }
   
   public boolean onTable(PVector pos){

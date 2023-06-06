@@ -1,11 +1,11 @@
 public class RectangleTable extends PoolTable{
 
-  public RectangleTable(float w, float h, float smoothness, float wall){
-    super(w, h, smoothness, wall);
+  public RectangleTable(float w, float h, float smoothness, float wall, float holeSize){
+    super(w, h, smoothness, wall, "rect");
     float tempw = w + wall;
     float temph = h + wall;
-    this.pockets = new Hole[] {new Hole(-tempw, temph), new Hole(0, temph), new Hole(tempw, temph),
-                               new Hole(-tempw,-temph), new Hole(0,-temph), new Hole(tempw,-temph)};
+    this.pockets = new Hole[] {new Hole(-tempw, temph, holeSize), new Hole(0, temph, holeSize), new Hole(tempw, temph, holeSize),
+                               new Hole(-tempw,-temph, holeSize), new Hole(0,-temph, holeSize), new Hole(tempw,-temph, holeSize)};
   }
   
   public boolean onTable(PVector pos){

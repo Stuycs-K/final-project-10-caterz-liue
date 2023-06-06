@@ -3,13 +3,15 @@ public abstract class PoolTable {
   Hole[] pockets;
   float smoothness;
   float wall;
+  String tableType;
   
   
-  public PoolTable(float w, float h, float smoothness, float wall){
+  public PoolTable(float w, float h, float smoothness, float wall, String tableType){
     this.w = w;
     this.h = h;
     this.smoothness = smoothness;
     this.wall = wall;
+    this.tableType = tableType;
   }
   
   public abstract boolean onTable(PVector pos);
