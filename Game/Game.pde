@@ -35,13 +35,13 @@ public void setup() {
     debugOn = false;
     
     table = new BlobTable(54*6, 27*6, .98, 10, 20);
-    ui = new UI(table);
+    table.makeObstacles();
+    ui = new UI();
     makeBreak(0, 0, 10);
     //ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
     //balls = new Ball[]{ball0};
     stick = new CueStick(160, 10);
     stick.show();
-    makeObstacles();
   }
   
 public void keyPressed(){
@@ -51,17 +51,20 @@ public void keyPressed(){
   if(key=='x'){
     table = new EllipseTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui = new UI(table);
+    ui = new UI();
+    table.makeObstacles();
   }
   if(key=='c'){
     table = new RectangleTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui = new UI(table);
+    ui = new UI();
+    table.makeObstacles();
   }
   if(key=='z'){
     table = new BlobTable(54*6, 27*6, .98, 10, 20);
     makeBreak(0, 0, 10);
-    ui = new UI(table);
+    ui = new UI();
+    table.makeObstacles();
   }
   if(key=='a'){
     for(int i=1; i<=7; i++){
@@ -95,7 +98,7 @@ public void draw() {
   table.render();
   ui.render(balls);
     
-  for(Obstacle o : ui.obstacles){
+  for(Obstacle o : table.obstacles){
     if(o != null){
       o.render();
     }
@@ -104,7 +107,7 @@ public void draw() {
   boolean allStopped = true;
   for(Ball curr : balls){
     if(curr != null){
-      curr.roll(table, balls, ui.obstacles);
+      curr.roll(table, balls, table.obstacles);
       curr.render();
       if(curr.velocity.mag()!=0){
         allStopped = false;
@@ -166,8 +169,4 @@ public void makeBreak(float x, float y, int size){ // wip
   balls = new Ball[] {ball0, ball1, ball2, ball3, ball4, ball5, 
                       ball6, ball7, ball8, ball9, ball10, 
                       ball11, ball12, ball13, ball14, ball15};
-}
-
-public void makeObstacles(){
-  
 }

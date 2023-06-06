@@ -104,17 +104,10 @@ public abstract class Ball {
   
   public void checkObstacles(Obstacle[] obstacles){
     for(Obstacle o : obstacles){
-      if(o.type.equals("sand")){ // sand
-        if(position.dist(new PVector(o.position.x, o.position.y)) < o.radius){
-          System.out.println(1);
-          velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
-        }
-      } else { // ice
-      System.out.println(4);
-        if(position.dist(new PVector(o.position.x, o.position.y)) < o.radius){
-          System.out.println(2);
-          velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
-        }
+      if(o.shape.equals("rect")   && abs(position.x-o.position.x)<o.w && abs(position.y-o.position.y)<o.h ||
+         o.shape.equals("ellipse") && pow(position.x-o.position.x, 2) / o.w / o.w + pow(position.y-o.position.y, 2) / o.h / o.h < 1){
+        System.out.println(o.type);
+        velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
       }
     }
   }

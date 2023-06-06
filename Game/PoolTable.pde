@@ -1,6 +1,7 @@
 public abstract class PoolTable {
   float w, h; // actually halfwidth and halfheight
   Hole[] pockets;
+  Obstacle[] obstacles;
   float smoothness;
   float wall;
   String tableType;
@@ -34,6 +35,8 @@ public abstract class PoolTable {
       pocket.renderHole();
     } 
   }
+  
+  public abstract void makeObstacles();
   
   
 }
