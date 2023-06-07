@@ -1,11 +1,13 @@
 public class Blob extends Shape{
   PVector[] joins, controls;
+  boolean[] sides;
   ConicExpression[] conicsList;
   
   public Blob(PVector position, PVector[] joins, PVector[] controls){
     this.position = position;
     this.joins = joins;
     this.controls = controls;
+    this.sides = genSides(joins);
     
     this.conicsList = new ConicExpression[joins.length]; // equations of each wall segment (arbitrary conics)
     for(int i=0; i<joins.length; i++){
@@ -27,16 +29,35 @@ public class Blob extends Shape{
   }
   
   public ConicExpression getExpression(PVector pos){
+    PVector p = PVector.sub(pos, position);
     for(int i=0; i<joins.length; i++){
-      PVector l = PVector.sub(joins[i],position);
-      PVector r = PVector.sub(joins[(i+1)%joins.length],position);
-      PVector p = PVector.sub(pos, position); 
-      if(l.heading()>pos.heading() && (p.heading()>r.heading() || l.heading()<r.heading() && p.heading()>r.heading()-2*PI) && // is position in the sector subtended by the arc of the given segment?
-         (p.y-l.y - (l.y-r.y)/(l.x-r.x)*(p.x-l.x)) * Math.signum(r.x-l.x) > 0){ // point-slope form of midline times -1 or 1 depending on whether joins are going clockwise or counterclockwise
-         return conicsList[i];
-      }
+      PVector l = PVector.sub(joins[i], position);
+      PVector r = PVector.sub(joins[(i+1)%joins.length], position);
+      boolean side = sides[i];
+      
+      if(between(p, r, l) && inOuterHalf(p, r, l, side)) return conicsList[i];
     }
     return new ConicExpression();
+  }
+  
+  public boolean between(PVector p, PVector a, PVector b){
+    return a.heading() < p.heading() && p.heading() < b.heading()      || // a<p<b, p>=0
+           a.heading() < p.heading()+2*PI && p.heading() < b.heading() || // a<p<b, angle AB is split over theta=PI, x >= 0
+           a.heading() < p.heading() && p.heading()-2*PI < b.heading();   // a<p<b, angle AB is split over theta=PI, x <= 0
+  }
+  
+  public boolean inOuterHalf(PVector p, PVector a, PVector b, boolean side){
+    // line between a and b: (y-a_y) - (x-a_x) * (a_y-b_y)/(a_x-b_x) = 0
+    float temp = (p.y-a.y) - (p.x-a.x) * (a.y-b.y)/(a.x-b.x);
+    return temp * (side ? 1 : -1) < 0;
+  }
+  
+  public boolean[] genSides(PVector[] ps){
+    boolean[] acc = new boolean[ps.length];
+    for(int i=0; i<acc.length; i++){
+      acc[i] = ps[i].x > ps[(i+1)%joins.length].x;
+    }
+    return acc;
   }
   
   public void render(float offset){ // erica i need your help here with the walls being in the wrong spot
