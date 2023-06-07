@@ -145,6 +145,14 @@ public void draw() {
     textSize(60);
     text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
   }
+  for(int i=-400; i<400; i+=1){
+    for(int j=-400; j<400; j+=1){
+      if(table.shape.touching(new PVector(i,j))){
+        stroke(color((int) abs(table.shape.getNormal(new PVector(i,j)).heading()*255/TWO_PI)));
+        point(i,j);
+      }
+    }
+  }
     
 }
 

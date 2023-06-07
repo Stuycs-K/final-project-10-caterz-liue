@@ -1,6 +1,6 @@
 public class Blob extends Shape{
   PVector[] joins, controls;
-  boolean[] sides;
+  //boolean[] sides;
   ConicExpression[] conicsList;
   
   public Blob(PVector position, PVector[] joins, PVector[] controls){

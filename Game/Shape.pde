@@ -1,5 +1,6 @@
 public abstract class Shape{
   PVector position;
+  boolean[] sides;
   
   public abstract boolean touching(PVector p);
   
