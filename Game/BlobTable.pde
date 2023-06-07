@@ -7,10 +7,10 @@ public class BlobTable extends PoolTable{
     
     // MUST go clockwise, must be concave, joins' x values cannot stay the same or temporarily jump in the wrong direction
     joins = new PVector[] {new PVector(-180,160), new PVector(10,240), new PVector(100,150), new PVector(150,-100), new PVector(-50,-200), new PVector(-240,0)};
-    controls = new PVector[] {new PVector(-100,200),  new PVector(150,240), new PVector(70,0), new PVector(150,-200), new PVector(-180,-100), new PVector(-220,80)};
+    controls = new PVector[] {new PVector(-100,200),  new PVector(150,240), new PVector(300,0), new PVector(150,-200), new PVector(-180,-100), new PVector(-220,80)};
     
     shape = new Blob(new PVector(0,0), joins, controls);
-    shape.sides[2] = !shape.sides[2];
+    //shape.sides[2] = !shape.sides[2];
 
     
     this.pockets = new Hole[joins.length]; // hole at each join

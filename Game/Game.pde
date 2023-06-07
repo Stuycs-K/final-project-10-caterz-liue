@@ -114,6 +114,8 @@ public void draw() {
     if(curr != null){
       curr.roll(table, balls, table.obstacles);
       curr.render();
+      stroke(BLACK);
+      line(100,-100, 100+table.inwardsFromWall(curr.position).x*100, -100+table.inwardsFromWall(curr.position).y*100);
       if(curr.velocity.mag()!=0){
         allStopped = false;
       }
@@ -144,7 +146,7 @@ public void draw() {
     fill(0);
     textSize(60);
     text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
-  }
+  }/*
   for(int i=-400; i<400; i+=1){
     for(int j=-400; j<400; j+=1){
       if(table.shape.touching(new PVector(i,j))){
@@ -152,7 +154,7 @@ public void draw() {
         point(i,j);
       }
     }
-  }
+  }*/
     
 }
 
