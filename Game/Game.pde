@@ -184,7 +184,7 @@ public void testVisible(Shape shape){
 
 
 public void mouseReleased(){
-  stick.strike(ball0, ui, balls);
+  stick.strike(ball0, ui);
 }
   
 public void makeBreak(float x, float y, int size){ // wip

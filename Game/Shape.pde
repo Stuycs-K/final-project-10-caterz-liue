@@ -9,8 +9,7 @@ public abstract class Shape{
   
   public void renderOutline(float offset){
     render(offset);
-  }
-    
+  }  
   
   public abstract String name();
 }

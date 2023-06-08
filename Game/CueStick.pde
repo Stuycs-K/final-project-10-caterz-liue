@@ -45,7 +45,7 @@ public class CueStick {
          target.position.x + pointing.x, target.position.y + pointing.y);
   }
 
-  public void strike(Ball target, UI ui, Ball[] balls) {
+  public void strike(Ball target, UI ui) {
     if (!visible) return;
     PVector relativePos = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position);
     PVector pointing = relativePos.rotate(PI).div(len).mult(4);
