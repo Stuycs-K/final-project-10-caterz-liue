@@ -4,13 +4,11 @@ public abstract class PoolTable {
   Obstacle[] obstacles;
   float smoothness;
   float wall;
-  String tableType;
   
   
-  public PoolTable(float smoothness, float wall, String tableType){
+  public PoolTable(float smoothness, float wall){
     this.smoothness = smoothness;
     this.wall = wall;
-    this.tableType = tableType;
   }
   
   public boolean onTable(PVector pos){
@@ -35,9 +33,6 @@ public abstract class PoolTable {
     
     stroke(BORDER_BROWN); strokeWeight(wall); noFill();
     shape.renderOutline(wall);
-  }
-  
-  public abstract void makeObstacles();
-  
+  }  
   
 }
