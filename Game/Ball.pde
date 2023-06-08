@@ -8,6 +8,8 @@ public abstract class Ball {
   float originalSize;
   int weight;
   String type;
+  int firstBallHitInATurn;
+  int firstBallPocketedInATurn;
 
   public Ball(PVector position, float size, int number, color ballColor, String type) {
     this.position = position;

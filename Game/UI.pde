@@ -22,12 +22,14 @@ public class UI {
   };*/
   
   String[] messages = new String[]{
-  "You are stripes.",
-  "You are solids.",
-  "You did not hit your own ball.",
-  "You pocketed the wrong ball.",
-  "Stripes wins!",
-  "Solids wins!"
+  "Player 1 did not hit any balls.",
+  "Player 2 did not hit any balls.",
+  "Player 1 did not hit their ball type first.",
+  "Player 2 did not hit their ball type first.",
+  "Player 1 pocketed the wrong ball type.",
+  "Player 2 pocketed the wrong ball type.",
+  "Player 1 pocketed the 8-ball.",
+  "Player 2 pocketed the 8-ball."
   };
   
   public UI(){
@@ -175,5 +177,20 @@ public class UI {
     }else{
       return "striped";
     }
+  }
+  
+  public void displayMessage(String message){
+    String messageToDisplay;
+    if(message.equals("notHit1")) messageToDisplay = messages[0];
+    if(message.equals("notHit2")) messageToDisplay = messages[1];
+    if(message.equals("wrongType1")) messageToDisplay = messages[2];
+    if(message.equals("wrongType2")) messageToDisplay = messages[3];
+    if(message.equals("notHit1")) messageToDisplay = messages[4];
+    if(message.equals("notHit1")) messageToDisplay = messages[5];
+    
+    fill(0);
+    textSize(30);
+    textAlign(LEFT);
+    text(messageToDisplay, 0, 60);
   }
 }
