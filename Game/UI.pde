@@ -13,6 +13,8 @@ public class UI {
   boolean firstBallPocketed;
   boolean gameOver;
   float size;
+  int firstBallHitInATurn = 16; // 16 means no ball
+  int firstBallPocketedInATurn = 16; // 16 means no ball
   
   /*PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
@@ -28,8 +30,8 @@ public class UI {
   "Player 2 did not hit their ball type first.",
   "Player 1 pocketed the wrong ball type.",
   "Player 2 pocketed the wrong ball type.",
-  "Player 1 pocketed the 8-ball.",
-  "Player 2 pocketed the 8-ball."
+  "Player 1 illegally pocketed the 8-ball.",
+  "Player 2 illegally pocketed the 8-ball."
   };
   
   public UI(){
@@ -143,6 +145,8 @@ public class UI {
     } else {
       currentPlayer = 1;
     }
+    firstBallHitInATurn = 16; // 16 means no ball
+    firstBallPocketedInATurn = 16; // 16 means no ball
     return currentPlayer;
   }
   
@@ -180,13 +184,15 @@ public class UI {
   }
   
   public void displayMessage(String message){
-    String messageToDisplay;
+    String messageToDisplay = messages[0]; // temporary initialization
     if(message.equals("notHit1")) messageToDisplay = messages[0];
     if(message.equals("notHit2")) messageToDisplay = messages[1];
-    if(message.equals("wrongType1")) messageToDisplay = messages[2];
-    if(message.equals("wrongType2")) messageToDisplay = messages[3];
-    if(message.equals("notHit1")) messageToDisplay = messages[4];
-    if(message.equals("notHit1")) messageToDisplay = messages[5];
+    if(message.equals("wrongTypeHit1")) messageToDisplay = messages[2];
+    if(message.equals("wrongTypeHit2")) messageToDisplay = messages[3];
+    if(message.equals("wrongTypePocketed1")) messageToDisplay = messages[4];
+    if(message.equals("wrongTypePocketed2")) messageToDisplay = messages[5];
+    if(message.equals("8ball1")) messageToDisplay = messages[6];
+    if(message.equals("8ball2")) messageToDisplay = messages[7];
     
     fill(0);
     textSize(30);

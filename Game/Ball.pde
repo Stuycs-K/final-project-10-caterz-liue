@@ -8,8 +8,6 @@ public abstract class Ball {
   float originalSize;
   int weight;
   String type;
-  int firstBallHitInATurn;
-  int firstBallPocketedInATurn;
 
   public Ball(PVector position, float size, int number, color ballColor, String type) {
     this.position = position;
@@ -118,6 +116,9 @@ public abstract class Ball {
     if(size>0){
     size--;
     }else{
+      if(ui.firstBallPocketedInATurn != 16){
+        ui.firstBallPocketedInATurn = number;
+      }
       if(number == 0){
         size = originalSize;
         pocketed = false;
