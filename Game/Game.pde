@@ -1,10 +1,3 @@
-/*
-CHANGES MADE TO THIS FILE:
-- added this comment
-- makeObstacles(); in setup
-- makeObstacles method
-*/
-
 PoolTable table;
 Ball ball0, ball1, ball2, ball3, ball4, ball5, 
      ball6, ball7, ball8, ball9, ball10, 
@@ -117,7 +110,7 @@ public void draw() {
       curr.roll(table, balls, table.obstacles);
       curr.render();
       stroke(BLACK);
-      line(100,-100, 100+table.inwardsFromWall(mouse).x*100, -100+table.inwardsFromWall(mouse).y*100);
+      //line(100,-100, 100+table.inwardsFromWall(mouse).x*100, -100+table.inwardsFromWall(mouse).y*100);
       if(curr.velocity.mag()!=0){
         allStopped = false;
       }
@@ -151,7 +144,7 @@ public void draw() {
   }
   
   //Shape test = new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)});
-  testVisible(table.shape);
+  //testVisible(table.shape);
 }
 
 public void testVisible(Shape shape){

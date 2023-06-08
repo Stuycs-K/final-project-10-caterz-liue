@@ -14,13 +14,6 @@ public class UI {
   boolean gameOver;
   float size;
   
-  /*PVector[] trackerPositions = new PVector[]{
-  new PVector(0,0), // for cue ball
-  new PVector(-340,340), new PVector(-300,340), new PVector(-260,340), new PVector(-220,340), new PVector(-180,340), new PVector(-140,340), new PVector(-100,340),
-  new PVector(0,0), // for eight ball
-  new PVector(100,340), new PVector(140,340), new PVector(180,340), new PVector(220,340), new PVector(260,340), new PVector(300,340), new PVector(340,340)
-  };*/
-  
   String[] messages = new String[]{
   "You are stripes.",
   "You are solids.",
@@ -54,7 +47,7 @@ public class UI {
       text("PLAYER " + currentPlayer + "'S TURN", 0, VISUAL_OFFSET.y*3/5);
     }
     
-    fill(220,220,220);
+    fill(220,220,220); noStroke();
     rect(-VISUAL_OFFSET.x/4*3+80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
     rect( VISUAL_OFFSET.x/4*3-80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
     textSize(40);
@@ -73,7 +66,6 @@ public class UI {
     // only start rendering balls in UI when player types are determined
     if(player1.length() != 0){
       nullCounter = countNulls(1,7,balls);
-      //System.out.println(nullCounter);
       if(nullCounter != 7){
         for(int i = 1; i <= 7; i++){
           if(balls[i] != null){
@@ -155,7 +147,7 @@ public class UI {
   }
   
   public void dispBall(float x, float y, float size, int i, Ball[] balls){
-    fill(balls[i].ballColor);
+    fill(balls[i].ballColor); noStroke();
     circle(x, y, size * 1.5);
     fill(WHITE);
     if(balls[i].type.equals("striped")){

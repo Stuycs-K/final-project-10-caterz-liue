@@ -1,8 +1,6 @@
-import java.util.*;
-
 public class Blob extends Shape{
   PVector[] joins, controls;
-  //boolean[] sides, convexes;
+  boolean[] sides, convexes;
   ConicExpression[] conicsList;
   
   public Blob(PVector position, PVector[] joins, PVector[] controls, boolean[] convexes, boolean[] sides){
