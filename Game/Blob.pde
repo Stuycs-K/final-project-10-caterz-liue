@@ -1,14 +1,24 @@
+import java.util.*;
+
 public class Blob extends Shape{
   PVector[] joins, controls;
-  boolean[] sides, convexes;
+  //boolean[] sides, convexes;
   ConicExpression[] conicsList;
   
   public Blob(PVector position, PVector[] joins, PVector[] controls, boolean[] convexes, boolean[] sides){
     this.position = position;
     this.joins = joins;
     this.controls = controls;
-    this.sides = sides==null ? genSides(joins) : sides;
-    this.convexes = convexes;
+    if(sides!=null){
+      this.sides = sides;
+    }else{
+      this.sides = genSides();
+    }
+    if(convexes!=null){
+      this.convexes = convexes;
+    }else{
+      this.convexes = genConvexes();
+    }
     
     this.conicsList = new ConicExpression[joins.length]; // equations of each wall segment (arbitrary conics)
     for(int i=0; i<joins.length; i++){
@@ -16,12 +26,8 @@ public class Blob extends Shape{
     }
   }
   
-  public Blob(PVector position, PVector[] joins, PVector[] controls, boolean[] convexes){
-    this(position, joins, controls, convexes, null);
-  }
-  
   public Blob(PVector position, PVector[] joins, PVector[] controls){
-    this(position, joins, controls, new boolean[joins.length], null);
+    this(position, joins, controls, null, null);
   }
   
   public boolean touching(PVector pos){
@@ -31,15 +37,14 @@ public class Blob extends Shape{
     PVector r = PVector.sub(joins[(sector+1)%joins.length], position);
     boolean side = sides[sector];
     boolean convex = convexes[sector];
-    return convex ^ (0<inOuterHalf(p,l,r,side^convex) || 0<conicsList[sector].eval(p.x,p.y));
+    return convex ^ (0<inOuterHalf(p,l,r,side^convex) || 0<conicsList[sector].eval(pos.x,pos.y));
   }
   
   public PVector getNormal(PVector pos){
     ConicExpression expression = conicsList[getSector(pos)];
-    PVector p = PVector.sub(pos, position);
-    float eval = expression.eval(p.x, p.y);
-    float evalSouth = expression.eval(p.x, p.y-.1);
-    float evalEast  = expression.eval(p.x-.1, p.y); // i do not know how to find the normal to a curve at a given point, so just test nearby points
+    float eval = expression.eval(pos.x, pos.y);
+    float evalSouth = expression.eval(pos.x, pos.y-.1);
+    float evalEast  = expression.eval(pos.x-.1, pos.y); // i do not know how to find the normal to a curve at a given point, so just test nearby points
     return new PVector(eval-evalEast, eval-evalSouth).normalize();
   }
   
@@ -68,24 +73,22 @@ public class Blob extends Shape{
     return temp * (side ? 1 : -1);
   }
   
-  public boolean[] genSides(PVector[] ps){
-    boolean[] acc = new boolean[ps.length];
+  public boolean[] genSides(){
+    boolean[] acc = new boolean[joins.length];
     for(int i=0; i<acc.length; i++){
-      acc[i] = ps[i].x > ps[(i+1)%joins.length].x;
+      acc[i] = joins[i].x > joins[(i+1)%joins.length].x;
     }
     return acc;
   }
   
-  public PVector doBezier(int curve, float t){
-    PVector joina = joins[curve].copy();
-    PVector joinb = joins[(curve+1)%joins.length].copy();
-    PVector controla = controls[curve].copy();
-    joina.setMag(joina.mag()+15);
-    joinb.setMag(joinb.mag()+15);
-    controla.setMag(controla.mag()+15);
-    
-    return controla.copy().add(PVector.sub(joina, controla).mult((1-t)*(1-t))).add(PVector.sub(joinb, controla).mult(t*t));
+  public boolean[] genConvexes(){
+    boolean[] acc = new boolean[joins.length];
+    for(int i=0; i<acc.length; i++){
+      acc[i] = 0 < inOuterHalf(controls[i], joins[i], joins[(i+1)%joins.length], sides[i]);
+    }
+    return acc;
   }
+  
   
   public void render(float offset){
     PVector[] tempjoins = new PVector[joins.length];

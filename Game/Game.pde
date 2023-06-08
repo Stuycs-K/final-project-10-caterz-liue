@@ -148,8 +148,23 @@ public void draw() {
     fill(0);
     textSize(60);
     text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
-  } 
+  }
+  
+  //Shape test = new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)});
+  testVisible(table.shape);
 }
+
+public void testVisible(Shape shape){
+  stroke(BLACK); strokeWeight(1);
+  for(int i=-400; i<400; i++){
+    for(int j=-400; j<400; j++){
+      if(shape.touching(new PVector(i,j))){
+        point(i,j);
+      }
+    }
+  }
+}
+
 
 public void mouseReleased(){
   stick.strike(ball0, ui, balls);
