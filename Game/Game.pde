@@ -33,8 +33,15 @@ public void setup() {
     textAlign(CENTER,CENTER);
     debugOn = false;
     
-    table = new BlobTable(.98, 15, 20);
-    table.makeObstacles();
+    table = new BlobTable(new PVector[] {new PVector(-180,160), new PVector(10,240),  new PVector(100,150), new PVector(150,-100), new PVector(-50,-200),  new PVector(-240,-1)}, 
+                          new PVector[] {new PVector(-100,200), new PVector(150,240), new PVector(30,0),    new PVector(150,-200), new PVector(-180,-100), new PVector(-180,80)}, .98, 15, 20);
+    table.obstacles = new Obstacle[] {
+      new Sand(0.99999, new Ellipse(new PVector(-80,-80), 40, 30)),
+      new Sand(0.77777, new Rectangle(new PVector(20,80), 30, 20)),
+      new Ice(1.05, new Ellipse(new PVector(40,-60), 30, 60)),
+      new Ice(1.05, new Rectangle(new PVector(-80,80), 20, 10)),
+      new Ice(1.05, new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)})),
+    };
     ui = new UI();
     //makeBreak(0, 0, 10);
     ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
@@ -51,19 +58,36 @@ public void keyPressed(){
     table = new EllipseTable(54*6, 27*6, .98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
-    table.makeObstacles();
+    table.obstacles = new Obstacle[] {
+      new Sand(0.99999, new Ellipse(new PVector(80,-80), 40, 40)),
+      new Sand(0.77777, new Rectangle(new PVector(-80,80), 30, 30)),
+      new Ice(1.05, new Ellipse(new PVector(-80,-80), 30, 30)),
+      new Ice(1.05, new Rectangle(new PVector(80,80), 20, 20)),
+    };
   }
   if(key=='c'){
     table = new RectangleTable(54*6, 27*6, .98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
-    table.makeObstacles();
+    table.obstacles = new Obstacle[] {
+      new Sand(0.99999, new Ellipse(new PVector(-80,80), 40, 40)),
+      new Sand(0.77777, new Rectangle(new PVector(80,-80), 30, 30)),
+      new Ice(1.05, new Ellipse(new PVector(80,80), 30, 30)),
+      new Ice(1.05, new Rectangle(new PVector(-80,-80), 20, 20)),
+    };
   }
   if(key=='z'){
-    table = new BlobTable(.98, 15, 20);
+    table = new BlobTable(new PVector[] {new PVector(-180,160), new PVector(10,240),  new PVector(100,150), new PVector(150,-100), new PVector(-50,-200),  new PVector(-240,-1)}, 
+                          new PVector[] {new PVector(-100,200), new PVector(150,240), new PVector(30,0),    new PVector(150,-200), new PVector(-180,-100), new PVector(-180,80)}, .98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
-    table.makeObstacles();
+    table.obstacles = new Obstacle[] {
+      new Sand(0.99999, new Ellipse(new PVector(-80,-80), 40, 30)),
+      new Sand(0.77777, new Rectangle(new PVector(20,80), 30, 20)),
+      new Ice(1.05, new Ellipse(new PVector(40,-60), 30, 60)),
+      new Ice(1.05, new Rectangle(new PVector(-80,80), 20, 10)),
+      new Ice(1.05, new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)})),
+    };
   }
   if(key=='a'){
     for(int i=1; i<=7; i++){
