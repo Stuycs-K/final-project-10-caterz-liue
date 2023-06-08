@@ -7,16 +7,16 @@ public class RectangleTable extends PoolTable{
     
     float tempw = w + wall;
     float temph = h + wall;
-    this.pockets = new Hole[] {new Hole(-tempw, temph, holeSize), new Hole(0, temph, holeSize), new Hole(tempw, temph, holeSize),
-                               new Hole(-tempw,-temph, holeSize), new Hole(0,-temph, holeSize), new Hole(tempw,-temph, holeSize)};
+    this.pockets = new Hole[] {new Hole(-w, h, holeSize, 0), new Hole(0, h, holeSize, 1), new Hole(w, h, holeSize, 2),
+                               new Hole(-w,-h, holeSize, 3), new Hole(0,-h, holeSize, 4), new Hole(w,-h, holeSize, 5)};
   }
   
   public void makeObstacles(){
     obstacles = new Obstacle[] {
-      new Sand("ellipse", new PVector(-80,80), 0.99999, 40),
-      new Sand("rectangle", new PVector(80,-80), 0.77777, 30),
-      new Ice("ellipse", new PVector(80,80), 1.05, 30),
-      new Ice("rectangle", new PVector(-80,-80), 1.05, 20),
+      new Sand(0.99999, new Ellipse(new PVector(-80,80), 40, 40)),
+      new Sand(0.77777, new Rectangle(new PVector(80,-80), 30, 30)),
+      new Ice(1.05, new Ellipse(new PVector(80,80), 30, 30)),
+      new Ice(1.05, new Rectangle(new PVector(-80,-80), 20, 20)),
     };
   }
 

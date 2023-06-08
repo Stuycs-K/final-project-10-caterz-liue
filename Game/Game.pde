@@ -40,7 +40,7 @@ public void setup() {
     textAlign(CENTER,CENTER);
     debugOn = false;
     
-    table = new BlobTable(.98, 10, 20);
+    table = new BlobTable(.98, 15, 20);
     table.makeObstacles();
     ui = new UI();
     //makeBreak(0, 0, 10);
@@ -55,19 +55,19 @@ public void keyPressed(){
     debugOn = !debugOn;
   }
   if(key=='x'){
-    table = new EllipseTable(54*6, 27*6, .98, 10, 20);
+    table = new EllipseTable(54*6, 27*6, .98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
     table.makeObstacles();
   }
   if(key=='c'){
-    table = new RectangleTable(54*6, 27*6, .98, 10, 20);
+    table = new RectangleTable(54*6, 27*6, .98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
     table.makeObstacles();
   }
   if(key=='z'){
-    table = new BlobTable(.98, 10, 20);
+    table = new BlobTable(.98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
     table.makeObstacles();

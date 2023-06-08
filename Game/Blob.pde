@@ -24,10 +24,6 @@ public class Blob extends Shape{
     this(position, joins, controls, new boolean[joins.length], null);
   }
   
-  
-  
-  
-  
   public boolean touching(PVector pos){
     int sector = getSector(pos);
     PVector p = PVector.sub(pos, position);
@@ -80,14 +76,34 @@ public class Blob extends Shape{
     return acc;
   }
   
-  public void render(float offset){ // erica i need your help here with the walls being in the wrong spot
-    beginShape();
-    vertex(joins[0].x,joins[0].y);
+  public PVector doBezier(int curve, float t){
+    PVector joina = joins[curve].copy();
+    PVector joinb = joins[(curve+1)%joins.length].copy();
+    PVector controla = controls[curve].copy();
+    joina.setMag(joina.mag()+15);
+    joinb.setMag(joinb.mag()+15);
+    controla.setMag(controla.mag()+15);
+    
+    return controla.copy().add(PVector.sub(joina, controla).mult((1-t)*(1-t))).add(PVector.sub(joinb, controla).mult(t*t));
+  }
+  
+  public void render(float offset){
+    PVector[] tempjoins = new PVector[joins.length];
+    PVector[] tempcontrols = new PVector[controls.length];
     for(int i=0; i<joins.length; i++){
-      quadraticVertex(controls[i].x, controls[i].y, joins[(i+1)%joins.length].x, joins[(i+1)%joins.length].y);
+      tempjoins[i] = joins[i].copy().setMag(joins[i].mag()+offset);
+      tempcontrols[i] = controls[i].copy().setMag(controls[i].mag()+offset);
+    }
+    
+    beginShape();
+    vertex(tempjoins[0].x,tempjoins[0].y);
+    for(int i=0; i<joins.length; i++){
+      quadraticVertex(tempcontrols[i].x, tempcontrols[i].y, tempjoins[(i+1)%tempjoins.length].x, tempjoins[(i+1)%tempjoins.length].y);
     }
     endShape();
   }
+  
+  
   
   public String name(){
     return "blob";

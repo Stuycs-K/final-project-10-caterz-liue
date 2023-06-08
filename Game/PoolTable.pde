@@ -22,18 +22,19 @@ public abstract class PoolTable {
   }
   
   public void render(){
-    fill(TABLE_GREEN);
-    stroke(BORDER_BROWN); strokeWeight(wall);
+    fill(TABLE_GREEN); noStroke();
     shape.render(wall);
     
-    int i=0;
     for(Hole pocket : pockets){
-      pocket.renderHole();
+      pocket.renderHole(shape);
       if(debugOn){
         fill(WHITE); textSize(pocket.size*1.5);
-        text(i++, pocket.x, pocket.y);
+        text(pocket.number, pocket.position.x, pocket.position.y);
       }
-    } 
+    }
+    
+    stroke(BORDER_BROWN); strokeWeight(wall); noFill();
+    shape.renderOutline(wall);
   }
   
   public abstract void makeObstacles();

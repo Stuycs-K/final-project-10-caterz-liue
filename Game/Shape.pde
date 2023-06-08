@@ -7,5 +7,12 @@ public abstract class Shape{
   
   public abstract void render(float offset);
   
+  public void renderOutline(float offset){
+    render(offset);
+  }
+  
+  public PVector doBezier(int a, float b){return null;}
+  
+  
   public abstract String name();
 }

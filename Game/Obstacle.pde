@@ -4,6 +4,13 @@ public class Obstacle {
   String type;
   color col;
   
+  public Obstacle(float strength, String type, Shape shape, color col){
+    this.shape = shape;
+    this.strength = strength; // [0,1]; the closer to 1, the more it slows the acceleration
+    this.type = type;
+    this.col = col;
+  }
+  
   public Obstacle(String shapeName, PVector position, float strength, String type, float w, float h, float rot, color col){
     if(shapeName.equals("ellipse")){
       shape = new Ellipse(position, w, h);

@@ -95,8 +95,8 @@ public abstract class Ball {
   }
   
   public void checkPockets(Hole[] pockets){
-    for(Hole h : pockets){
-      if(position.dist(new PVector(h.x, h.y)) < h.size){
+    for(Hole pocket : pockets){
+      if(position.dist(pocket.position) < pocket.size){
         pocketed = true;
       }
     }
