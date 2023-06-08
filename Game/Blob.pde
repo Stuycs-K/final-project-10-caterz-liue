@@ -1,14 +1,14 @@
 public class Blob extends Shape{
   PVector[] joins, controls;
-  //boolean[] sides;
+  boolean[] sides, convexes;
   ConicExpression[] conicsList;
   
-  public Blob(PVector position, PVector[] joins, PVector[] controls){
+  public Blob(PVector position, PVector[] joins, PVector[] controls, boolean[] convexes, boolean[] sides){
     this.position = position;
     this.joins = joins;
     this.controls = controls;
-    this.sides = genSides(joins);
-    this.convexes = new boolean[6];
+    this.sides = sides==null ? genSides(joins) : sides;
+    this.convexes = convexes;
     
     this.conicsList = new ConicExpression[joins.length]; // equations of each wall segment (arbitrary conics)
     for(int i=0; i<joins.length; i++){
@@ -16,61 +16,55 @@ public class Blob extends Shape{
     }
   }
   
-  /*public boolean touching(PVector p){
-    return 0 <= getExpression(p).eval(p.x, p.y);
-  }*/
+  public Blob(PVector position, PVector[] joins, PVector[] controls, boolean[] convexes){
+    this(position, joins, controls, convexes, null);
+  }
   
-  public PVector getNormal(PVector p){
-    ConicExpression expression = getExpression(p);
+  public Blob(PVector position, PVector[] joins, PVector[] controls){
+    this(position, joins, controls, new boolean[joins.length], null);
+  }
+  
+  
+  
+  
+  
+  public boolean touching(PVector pos){
+    int sector = getSector(pos);
+    PVector p = PVector.sub(pos, position);
+    PVector l = PVector.sub(joins[sector], position);
+    PVector r = PVector.sub(joins[(sector+1)%joins.length], position);
+    boolean side = sides[sector];
+    boolean convex = convexes[sector];
+    return convex ^ (0<inOuterHalf(p,l,r,side^convex) || 0<conicsList[sector].eval(p.x,p.y));
+  }
+  
+  public PVector getNormal(PVector pos){
+    ConicExpression expression = conicsList[getSector(pos)];
+    PVector p = PVector.sub(pos, position);
     float eval = expression.eval(p.x, p.y);
-    float evalNorth = expression.eval(p.x, p.y+.1);
     float evalSouth = expression.eval(p.x, p.y-.1);
-    float evalWest = expression.eval(p.x+.1, p.y);
-    float evalEast = expression.eval(p.x-.1, p.y); // i do not know how to find the normal to a curve at a given point, so just test nearby points
-    
+    float evalEast  = expression.eval(p.x-.1, p.y); // i do not know how to find the normal to a curve at a given point, so just test nearby points
     return new PVector(eval-evalEast, eval-evalSouth).normalize();
   }
   
-  public boolean touching(PVector pos){
-    PVector p = PVector.sub(pos, position);
-    for(int i=0; i<joins.length; i++){
-      PVector l = PVector.sub(joins[i], position);
-      PVector r = PVector.sub(joins[(i+1)%joins.length], position);
-      boolean side = sides[i];
-      boolean convex = convexes[i];
-      if(between(p,r,l, convex) && (0<inOuterHalf(p,r,l,side) && !convex || !convex && 0<conicsList[i].eval(p.x,p.y) || convex && 0>inOuterHalf(p,r,l,side) && 0>conicsList[i].eval(p.x,p.y))) return true;
-    }
-    return false;
-
-  }
-  
-  
-  public ConicExpression getExpression(PVector pos){
-    PVector p = PVector.sub(pos, position);
-    float closest = 0;
-    ConicExpression closest_expr = new ConicExpression();
-    for(int i=0; i<joins.length; i++){
-      PVector l = PVector.sub(joins[i], position);
-      PVector r = PVector.sub(joins[(i+1)%joins.length], position);
-      boolean side = sides[i];
-      
-      if(true || between(p, r, l, false)){
-        float temp = inOuterHalf(p, r, l, side);
-        if(temp<closest && between(p, r, l, false)){
-          closest = temp;
-          closest_expr = conicsList[i];
-          //return closest_expr;
-        }
+  public int getSector(PVector pos){
+  PVector p = PVector.sub(pos, position);
+    for(int sector=0; sector<joins.length; sector++){
+      PVector l = PVector.sub(joins[sector], position);
+      PVector r = PVector.sub(joins[(sector+1)%joins.length], position);
+      if(between(p,l,r)){
+        return sector;
       }
     }
-    return closest_expr;
+    return -1;
   }
   
-  /*public boolean between(PVector p, PVector a, PVector b){
-    // why do we not need case for p<=0? i do not know
-    return a.heading() <= p.heading()      && p.heading() <= b.heading() || // a<p<b, p>=0
-           a.heading() <= p.heading()+2*PI && p.heading() <= b.heading() && p.heading() < 0; // a<p<b, angle AB is split over theta=PI, p <= 0
-  }*/
+  public boolean between(PVector p, PVector a, PVector b){
+    return a.heading() >= p.heading()      && p.heading()      >= b.heading()                              || // a>p>b, p>=0
+           a.heading() >= p.heading()-2*PI && p.heading()      >= b.heading() && a.heading() < b.heading() || // a>p>b, angle AB is split over theta=PI, p >= 0
+           a.heading() >= p.heading()      && p.heading()+2*PI >= b.heading() && a.heading() < b.heading() || // a>p>b, angle AB is split over theta=PI, p <= 0
+           false;
+  }
   
   public float inOuterHalf(PVector p, PVector a, PVector b, boolean side){
     // line between a and b: (y-a_y) - (x-a_x) * (a_y-b_y)/(a_x-b_x) = 0

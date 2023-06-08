@@ -29,8 +29,10 @@ public abstract class PoolTable {
     int i=0;
     for(Hole pocket : pockets){
       pocket.renderHole();
-      fill(WHITE); textSize(pocket.size*1.5);
-      text(i++, pocket.x, pocket.y);
+      if(debugOn){
+        fill(WHITE); textSize(pocket.size*1.5);
+        text(i++, pocket.x, pocket.y);
+      }
     } 
   }
   

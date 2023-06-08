@@ -16,6 +16,7 @@ UI ui;
 
 public static final PVector VISUAL_OFFSET = new PVector(400,400);
 
+
 public static final color WHITE = #ffffff;
 public static final color RED = #ff0000;
 public static final color ORANGE = #ff9100;
@@ -90,6 +91,7 @@ public void keyPressed(){
 public void draw() {
   background(255);
   textAlign(CENTER);
+  PVector mouse = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET);
   fill(BROWN); textSize(12);
   if(!debugOn){
     text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
@@ -115,7 +117,7 @@ public void draw() {
       curr.roll(table, balls, table.obstacles);
       curr.render();
       stroke(BLACK);
-      line(100,-100, 100+table.inwardsFromWall(curr.position).x*100, -100+table.inwardsFromWall(curr.position).y*100);
+      line(100,-100, 100+table.inwardsFromWall(mouse).x*100, -100+table.inwardsFromWall(mouse).y*100);
       if(curr.velocity.mag()!=0){
         allStopped = false;
       }
@@ -146,44 +148,8 @@ public void draw() {
     fill(0);
     textSize(60);
     text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
-  }
-  
-  
-  
-  
-  /*for(int i=-400; i<400; i+=1){
-    for(int j=-400; j<400; j+=1){
-      if(table.shape.touching(new PVector(i,j))){
-        stroke(color((int) abs(table.shape.getNormal(new PVector(i,j)).heading()*255/TWO_PI)));
-        point(i,j);
-      }
-    }
-  }*/
-  {
-    PVector p = new PVector(mouseX,mouseY).sub(VISUAL_OFFSET);
-    PVector l = new PVector(10,240);
-    PVector r = new PVector(100,150);
-    PVector r2 = new PVector(150,-100);
-    boolean side = false;
-    boolean convex = true;
-    System.out.println("touching:  "+table.shape.touching(p));
-    System.out.println("outerHalf: "+((p.y-r.y) - (p.x-r.x) * (r.y-r2.y)/(r.x-r2.x)) * (side ? 1 : -1));
-    System.out.println("between:   "+between(p,r2,r, convex));
-  }
+  } 
 }
-
-  public boolean between(PVector p, PVector a, PVector b, boolean convex){
-    /*if(convex){
-      PVector temp = a;
-      a = b;
-      b = temp;
-    }*/
-    // why do we not need case for p<=0? i do not know
-    return a.heading() <= p.heading()      && p.heading() <= b.heading() || // a<p<b, p>=0
-           a.heading() <= p.heading()+2*PI && p.heading() <= b.heading() && a.heading() > b.heading() || // a<p<b, angle AB is split over theta=PI, p <= 0
-           a.heading() <= p.heading() && p.heading()-2*PI <= b.heading() && a.heading() > b.heading() || // a<p<b, angle AB is split over theta=PI, p <= 0
-           false;
-  }
 
 public void mouseReleased(){
   stick.strike(ball0, ui, balls);

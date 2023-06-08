@@ -1,41 +1,22 @@
 // bugs: walls don't work quite right
 public class BlobTable extends PoolTable{
-  PVector[] joins, controls;
   
   public BlobTable(float smoothness, float wall, float holeSize){
     super(smoothness, wall, "blob");
     
     // MUST go clockwise, must be concave, joins' x values cannot stay the same or temporarily jump in the wrong direction
-    joins = new PVector[] {new PVector(-180,160), new PVector(10,240), new PVector(100,150), new PVector(150,-100), new PVector(-50,-200), new PVector(-240,-1)};
-    controls = new PVector[] {new PVector(-100,200),  new PVector(150,240), new PVector(70,0), new PVector(150,-200), new PVector(-180,-100), new PVector(-220,80)};
+    PVector[] joins = new PVector[] {new PVector(-180,160), new PVector(10,240), new PVector(100,150), new PVector(150,-100), new PVector(-50,-200), new PVector(-240,-1)};
+    PVector[] controls = new PVector[] {new PVector(-100,200),  new PVector(150,240), new PVector(30,0), new PVector(150,-200), new PVector(-180,-100), new PVector(-180,80)};
+    boolean[] convexes = new boolean[] {false, false, true, false, false, true};
     
-    shape = new Blob(new PVector(0,0), joins, controls);
-    shape.sides[2] = !shape.sides[2];
-    shape.convexes[2] = true;
+    shape = new Blob(new PVector(0,0), joins, controls, convexes);
 
-    
     this.pockets = new Hole[joins.length]; // hole at each join
     for(int i=0; i<joins.length; i++){
       this.pockets[i] = new Hole(joins[i], holeSize);
     }
 
   }
-  
-   public void render(){
-    fill(TABLE_GREEN);
-    stroke(BORDER_BROWN); strokeWeight(wall);
-    shape.render(wall);
-    
-    int i=0;
-    for(Hole pocket : pockets){
-      pocket.renderHole();
-      fill(WHITE); textSize(pocket.size*1.5);
-      text(i++, pocket.x, pocket.y);
-    }
-    
-  }
-  
-  
   
   public void makeObstacles(){
     obstacles = new Obstacle[] {
