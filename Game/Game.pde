@@ -1,10 +1,3 @@
-/*
-CHANGES MADE TO THIS FILE:
-- added this comment
-- makeObstacles(); in setup
-- makeObstacles method
-*/
-
 PoolTable table;
 Ball ball0, ball1, ball2, ball3, ball4, ball5, 
      ball6, ball7, ball8, ball9, ball10, 
@@ -16,6 +9,7 @@ UI ui;
 
 public static final PVector VISUAL_OFFSET = new PVector(400,400);
 
+
 public static final color WHITE = #ffffff;
 public static final color RED = #ff0000;
 public static final color ORANGE = #ff9100;
@@ -26,6 +20,11 @@ public static final color PURPLE = #9b00e6;
 public static final color BURGUNDY = #a55000;
 public static final color BLACK = #000000;
 public static final color BROWN = #664c28; // cue stick
+public static final color TABLE_GREEN = #0a6c03;
+public static final color BORDER_BROWN = #966F33;
+public static final color SANDCOLOR = #ffffcc;
+public static final color ICECOLOR = #33adff;
+
 
 public void setup() {
     size(800,800);
@@ -34,12 +33,19 @@ public void setup() {
     textAlign(CENTER,CENTER);
     debugOn = false;
     
-    table = new BlobTable(54*6, 27*6, .98, 10, 20);
-    table.makeObstacles();
+    table = new BlobTable(new PVector[] {new PVector(-180,160), new PVector(10,240),  new PVector(100,150), new PVector(150,-100), new PVector(-50,-200),  new PVector(-240,-1)}, 
+                          new PVector[] {new PVector(-100,200), new PVector(150,240), new PVector(30,0),    new PVector(150,-200), new PVector(-180,-100), new PVector(-180,80)}, .98, 15, 20);
+    table.obstacles = new Obstacle[] {
+      new Sand(0.99999, new Ellipse(new PVector(-80,-80), 40, 30)),
+      new Sand(0.77777, new Rectangle(new PVector(20,80), 30, 20)),
+      new Ice(1.05, new Ellipse(new PVector(40,-60), 30, 60)),
+      new Ice(1.05, new Rectangle(new PVector(-80,80), 20, 10)),
+      new Ice(1.05, new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)})),
+    };
     ui = new UI();
-    makeBreak(0, 0, 10);
-    //ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
-    //balls = new Ball[]{ball0};
+    //makeBreak(0, 0, 10);
+    ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
+    balls = new Ball[]{ball0};
     stick = new CueStick(160, 10);
     stick.show();
   }
@@ -49,22 +55,39 @@ public void keyPressed(){
     debugOn = !debugOn;
   }
   if(key=='x'){
-    table = new EllipseTable(54*6, 27*6, .98, 10, 20);
+    table = new EllipseTable(54*6, 27*6, .98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
-    table.makeObstacles();
+    table.obstacles = new Obstacle[] {
+      new Sand(0.99999, new Ellipse(new PVector(80,-80), 40, 40)),
+      new Sand(0.77777, new Rectangle(new PVector(-80,80), 30, 30)),
+      new Ice(1.05, new Ellipse(new PVector(-80,-80), 30, 30)),
+      new Ice(1.05, new Rectangle(new PVector(80,80), 20, 20)),
+    };
   }
   if(key=='c'){
-    table = new RectangleTable(54*6, 27*6, .98, 10, 20);
+    table = new RectangleTable(54*6, 27*6, .98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
-    table.makeObstacles();
+    table.obstacles = new Obstacle[] {
+      new Sand(0.99999, new Ellipse(new PVector(-80,80), 40, 40)),
+      new Sand(0.77777, new Rectangle(new PVector(80,-80), 30, 30)),
+      new Ice(1.05, new Ellipse(new PVector(80,80), 30, 30)),
+      new Ice(1.05, new Rectangle(new PVector(-80,-80), 20, 20)),
+    };
   }
   if(key=='z'){
-    table = new BlobTable(54*6, 27*6, .98, 10, 20);
+    table = new BlobTable(new PVector[] {new PVector(-180,160), new PVector(10,240),  new PVector(100,150), new PVector(150,-100), new PVector(-50,-200),  new PVector(-240,-1)}, 
+                          new PVector[] {new PVector(-100,200), new PVector(150,240), new PVector(30,0),    new PVector(150,-200), new PVector(-180,-100), new PVector(-180,80)}, .98, 15, 20);
     makeBreak(0, 0, 10);
     ui = new UI();
-    table.makeObstacles();
+    table.obstacles = new Obstacle[] {
+      new Sand(0.99999, new Ellipse(new PVector(-80,-80), 40, 30)),
+      new Sand(0.77777, new Rectangle(new PVector(20,80), 30, 20)),
+      new Ice(1.05, new Ellipse(new PVector(40,-60), 30, 60)),
+      new Ice(1.05, new Rectangle(new PVector(-80,80), 20, 10)),
+      new Ice(1.05, new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)})),
+    };
   }
   if(key=='a'){
     for(int i=1; i<=7; i++){
@@ -85,6 +108,7 @@ public void keyPressed(){
 public void draw() {
   background(255);
   textAlign(CENTER);
+  PVector mouse = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET);
   fill(BROWN); textSize(12);
   if(!debugOn){
     text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
@@ -109,6 +133,8 @@ public void draw() {
     if(curr != null){
       curr.roll(table, balls, table.obstacles);
       curr.render();
+      stroke(BLACK);
+      //line(100,-100, 100+table.inwardsFromWall(mouse).x*100, -100+table.inwardsFromWall(mouse).y*100);
       if(curr.velocity.mag()!=0){
         allStopped = false;
       }
@@ -140,11 +166,25 @@ public void draw() {
     textSize(60);
     text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
   }
-    
+  
+  //Shape test = new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)});
+  //testVisible(table.shape);
 }
 
+public void testVisible(Shape shape){
+  stroke(BLACK); strokeWeight(1);
+  for(int i=-400; i<400; i++){
+    for(int j=-400; j<400; j++){
+      if(shape.touching(new PVector(i,j))){
+        point(i,j);
+      }
+    }
+  }
+}
+
+
 public void mouseReleased(){
-  stick.strike(ball0, ui, balls);
+  stick.strike(ball0, ui);
 }
   
 public void makeBreak(float x, float y, int size){ // wip

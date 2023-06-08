@@ -1,42 +1,38 @@
 public abstract class PoolTable {
-  float w, h; // actually halfwidth and halfheight
+  Shape shape;
   Hole[] pockets;
   Obstacle[] obstacles;
   float smoothness;
   float wall;
-  String tableType;
   
   
-  public PoolTable(float w, float h, float smoothness, float wall, String tableType){
-    this.w = w;
-    this.h = h;
+  public PoolTable(float smoothness, float wall){
     this.smoothness = smoothness;
     this.wall = wall;
-    this.tableType = tableType;
   }
   
-  public abstract boolean onTable(PVector pos);
+  public boolean onTable(PVector pos){
+    return shape.touching(pos);
+  }
   
-  public abstract PVector inwardsFromWall(PVector pos);
-  
-  public abstract void renderHelper();
-  
-  //public PoolTable(){
-    //this("rect", 54*3, 27*3, .98); // standard pool table is roughly 108 by 54 inches
-  //}
+  public PVector inwardsFromWall(PVector pos){
+    return shape.getNormal(pos);
+  }
   
   public void render(){
-    fill(#0a6c03);
-    stroke(#966F33); strokeWeight(wall);
-    
-    renderHelper();
+    fill(TABLE_GREEN); noStroke();
+    shape.render(wall);
     
     for(Hole pocket : pockets){
-      pocket.renderHole();
-    } 
-  }
-  
-  public abstract void makeObstacles();
-  
+      pocket.renderHole(shape);
+      if(debugOn){
+        fill(WHITE); textSize(pocket.size*1.5);
+        text(pocket.number, pocket.position.x, pocket.position.y);
+      }
+    }
+    
+    stroke(BORDER_BROWN); strokeWeight(wall); noFill();
+    shape.renderOutline(wall);
+  }  
   
 }
