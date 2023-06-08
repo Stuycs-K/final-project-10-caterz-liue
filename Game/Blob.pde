@@ -8,6 +8,7 @@ public class Blob extends Shape{
     this.joins = joins;
     this.controls = controls;
     this.sides = genSides(joins);
+    this.convexes = new boolean[6];
     
     this.conicsList = new ConicExpression[joins.length]; // equations of each wall segment (arbitrary conics)
     for(int i=0; i<joins.length; i++){
@@ -15,9 +16,9 @@ public class Blob extends Shape{
     }
   }
   
-  public boolean touching(PVector p){
+  /*public boolean touching(PVector p){
     return 0 <= getExpression(p).eval(p.x, p.y);
-  }
+  }*/
   
   public PVector getNormal(PVector p){
     ConicExpression expression = getExpression(p);
@@ -27,8 +28,22 @@ public class Blob extends Shape{
     float evalWest = expression.eval(p.x+.1, p.y);
     float evalEast = expression.eval(p.x-.1, p.y); // i do not know how to find the normal to a curve at a given point, so just test nearby points
     
-    return new PVector(evalWest-eval+eval-evalEast, evalNorth-eval+eval-evalSouth).normalize();
+    return new PVector(eval-evalEast, eval-evalSouth).normalize();
   }
+  
+  public boolean touching(PVector pos){
+    PVector p = PVector.sub(pos, position);
+    for(int i=0; i<joins.length; i++){
+      PVector l = PVector.sub(joins[i], position);
+      PVector r = PVector.sub(joins[(i+1)%joins.length], position);
+      boolean side = sides[i];
+      boolean convex = convexes[i];
+      if(between(p,r,l, convex) && (0<inOuterHalf(p,r,l,side) && !convex || !convex && 0<conicsList[i].eval(p.x,p.y) || convex && 0>inOuterHalf(p,r,l,side) && 0>conicsList[i].eval(p.x,p.y))) return true;
+    }
+    return false;
+
+  }
+  
   
   public ConicExpression getExpression(PVector pos){
     PVector p = PVector.sub(pos, position);
@@ -39,9 +54,9 @@ public class Blob extends Shape{
       PVector r = PVector.sub(joins[(i+1)%joins.length], position);
       boolean side = sides[i];
       
-      if(true || between(p, r, l)){
+      if(true || between(p, r, l, false)){
         float temp = inOuterHalf(p, r, l, side);
-        if(temp<closest && between(p, r, l)){
+        if(temp<closest && between(p, r, l, false)){
           closest = temp;
           closest_expr = conicsList[i];
           //return closest_expr;
@@ -51,11 +66,11 @@ public class Blob extends Shape{
     return closest_expr;
   }
   
-  public boolean between(PVector p, PVector a, PVector b){
+  /*public boolean between(PVector p, PVector a, PVector b){
     // why do we not need case for p<=0? i do not know
     return a.heading() <= p.heading()      && p.heading() <= b.heading() || // a<p<b, p>=0
            a.heading() <= p.heading()+2*PI && p.heading() <= b.heading() && p.heading() < 0; // a<p<b, angle AB is split over theta=PI, p <= 0
-  }
+  }*/
   
   public float inOuterHalf(PVector p, PVector a, PVector b, boolean side){
     // line between a and b: (y-a_y) - (x-a_x) * (a_y-b_y)/(a_x-b_x) = 0

@@ -150,8 +150,8 @@ public void draw() {
   
   
   
-  /*
-  for(int i=-400; i<400; i+=1){
+  
+  /*for(int i=-400; i<400; i+=1){
     for(int j=-400; j<400; j+=1){
       if(table.shape.touching(new PVector(i,j))){
         stroke(color((int) abs(table.shape.getNormal(new PVector(i,j)).heading()*255/TWO_PI)));
@@ -159,23 +159,31 @@ public void draw() {
       }
     }
   }*/
-  /*{
+  {
     PVector p = new PVector(mouseX,mouseY).sub(VISUAL_OFFSET);
     PVector l = new PVector(10,240);
     PVector r = new PVector(100,150);
     PVector r2 = new PVector(150,-100);
     boolean side = false;
+    boolean convex = true;
     System.out.println("touching:  "+table.shape.touching(p));
     System.out.println("outerHalf: "+((p.y-r.y) - (p.x-r.x) * (r.y-r2.y)/(r.x-r2.x)) * (side ? 1 : -1));
-    System.out.println("between:   "+between(p,r2,r));
+    System.out.println("between:   "+between(p,r2,r, convex));
   }
 }
 
-public boolean between(PVector p, PVector a, PVector b){
+  public boolean between(PVector p, PVector a, PVector b, boolean convex){
+    /*if(convex){
+      PVector temp = a;
+      a = b;
+      b = temp;
+    }*/
     // why do we not need case for p<=0? i do not know
     return a.heading() <= p.heading()      && p.heading() <= b.heading() || // a<p<b, p>=0
-           a.heading() <= p.heading()+2*PI && p.heading() <= b.heading() && p.heading() < 0; // a<p<b, angle AB is split over theta=PI, p <= 0
-  }*/
+           a.heading() <= p.heading()+2*PI && p.heading() <= b.heading() && a.heading() > b.heading() || // a<p<b, angle AB is split over theta=PI, p <= 0
+           a.heading() <= p.heading() && p.heading()-2*PI <= b.heading() && a.heading() > b.heading() || // a<p<b, angle AB is split over theta=PI, p <= 0
+           false;
+  }
 
 public void mouseReleased(){
   stick.strike(ball0, ui, balls);

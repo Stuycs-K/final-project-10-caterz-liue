@@ -1,6 +1,6 @@
 public abstract class Shape{
   PVector position;
-  boolean[] sides;
+  boolean[] sides, convexes;
   
   public abstract boolean touching(PVector p);
   
