@@ -22,34 +22,45 @@ public class Blob extends Shape{
   public PVector getNormal(PVector p){
     ConicExpression expression = getExpression(p);
     float eval = expression.eval(p.x, p.y);
+    float evalNorth = expression.eval(p.x, p.y+.1);
     float evalSouth = expression.eval(p.x, p.y-.1);
+    float evalWest = expression.eval(p.x+.1, p.y);
     float evalEast = expression.eval(p.x-.1, p.y); // i do not know how to find the normal to a curve at a given point, so just test nearby points
     
-    return new PVector(eval-evalEast, eval-evalSouth).normalize();
+    return new PVector(evalWest-eval+eval-evalEast, evalNorth-eval+eval-evalSouth).normalize();
   }
   
   public ConicExpression getExpression(PVector pos){
     PVector p = PVector.sub(pos, position);
+    float closest = 0;
+    ConicExpression closest_expr = new ConicExpression();
     for(int i=0; i<joins.length; i++){
       PVector l = PVector.sub(joins[i], position);
       PVector r = PVector.sub(joins[(i+1)%joins.length], position);
       boolean side = sides[i];
       
-      if(between(p, r, l) && inOuterHalf(p, r, l, side)) return conicsList[i];
+      if(true || between(p, r, l)){
+        float temp = inOuterHalf(p, r, l, side);
+        if(temp<closest && between(p, r, l)){
+          closest = temp;
+          closest_expr = conicsList[i];
+          //return closest_expr;
+        }
+      }
     }
-    return new ConicExpression();
+    return closest_expr;
   }
   
   public boolean between(PVector p, PVector a, PVector b){
-    return a.heading() < p.heading() && p.heading() < b.heading()      || // a<p<b, p>=0
-           a.heading() < p.heading()+2*PI && p.heading() < b.heading() || // a<p<b, angle AB is split over theta=PI, x >= 0
-           a.heading() < p.heading() && p.heading()-2*PI < b.heading();   // a<p<b, angle AB is split over theta=PI, x <= 0
+    // why do we not need case for p<=0? i do not know
+    return a.heading() <= p.heading()      && p.heading() <= b.heading() || // a<p<b, p>=0
+           a.heading() <= p.heading()+2*PI && p.heading() <= b.heading() && p.heading() < 0; // a<p<b, angle AB is split over theta=PI, p <= 0
   }
   
-  public boolean inOuterHalf(PVector p, PVector a, PVector b, boolean side){
+  public float inOuterHalf(PVector p, PVector a, PVector b, boolean side){
     // line between a and b: (y-a_y) - (x-a_x) * (a_y-b_y)/(a_x-b_x) = 0
     float temp = (p.y-a.y) - (p.x-a.x) * (a.y-b.y)/(a.x-b.x);
-    return temp * (side ? 1 : -1) < 0;
+    return temp * (side ? 1 : -1);
   }
   
   public boolean[] genSides(PVector[] ps){

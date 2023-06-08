@@ -9,5 +9,4 @@ public abstract class Shape{
   public abstract void render(float offset);
   
   public abstract String name();
-
 }

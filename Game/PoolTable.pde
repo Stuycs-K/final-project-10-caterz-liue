@@ -26,8 +26,11 @@ public abstract class PoolTable {
     stroke(BORDER_BROWN); strokeWeight(wall);
     shape.render(wall);
     
+    int i=0;
     for(Hole pocket : pockets){
       pocket.renderHole();
+      fill(WHITE); textSize(pocket.size*1.5);
+      text(i++, pocket.x, pocket.y);
     } 
   }
   

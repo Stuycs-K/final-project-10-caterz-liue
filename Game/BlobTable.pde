@@ -20,6 +20,22 @@ public class BlobTable extends PoolTable{
 
   }
   
+   public void render(){
+    fill(TABLE_GREEN);
+    stroke(BORDER_BROWN); strokeWeight(wall);
+    shape.render(wall);
+    
+    int i=0;
+    for(Hole pocket : pockets){
+      pocket.renderHole();
+      fill(WHITE); textSize(pocket.size*1.5);
+      text(i++, pocket.x, pocket.y);
+    }
+    
+  }
+  
+  
+  
   public void makeObstacles(){
     obstacles = new Obstacle[] {
       new Sand("ellipse", new PVector(-80,-80), 0.99999, 40, 30),

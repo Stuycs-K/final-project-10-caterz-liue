@@ -14,7 +14,7 @@ public class Hole {
   }
   
   public void renderHole(){
-    fill(0); noStroke();
+    fill(BLACK); noStroke();
     circle(x,y,size);
   }
 }
