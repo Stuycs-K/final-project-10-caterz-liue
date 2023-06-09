@@ -2,13 +2,20 @@ public abstract class PoolTable {
   Shape shape;
   Hole[] pockets;
   Obstacle[] obstacles;
-  float smoothness;
-  float wall;
+  float smoothness, wall, holeSize;
   
   
-  public PoolTable(float smoothness, float wall){
+  public PoolTable(float smoothness, float wall, float holeSize){
     this.smoothness = smoothness;
     this.wall = wall;
+    this.holeSize = holeSize;
+  }
+  
+  public void generatePockets(float rot, PVector[] positions){
+    this.pockets = new Hole[positions.length];
+      for(int i=0; i<pockets.length; i++){
+        this.pockets[i] = new Hole(positions[i].rotate(-rot), holeSize, i);
+      }
   }
   
   public boolean onTable(PVector pos){
@@ -24,7 +31,7 @@ public abstract class PoolTable {
     shape.render(wall);
     
     for(Hole pocket : pockets){
-      pocket.renderHole(shape);
+      pocket.renderHole();
       if(debugOn){
         fill(WHITE); textSize(pocket.size*1.5);
         text(pocket.number, pocket.position.x, pocket.position.y);

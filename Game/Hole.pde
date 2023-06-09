@@ -15,7 +15,7 @@ public class Hole {
     this.number = number;
   }
   
-  public void renderHole(Shape shape){
+  public void renderHole(){
     fill(BLACK); noStroke();
     circle(position.x,position.y,size);
   }

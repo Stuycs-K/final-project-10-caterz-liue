@@ -18,7 +18,7 @@ public class CueStick {
 
   public void render(PoolTable table, Ball target) {
     if (!visible) return;
-    PVector relativePos = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position);
+    PVector relativePos = getMouse().sub(target.position);
     PVector start = relativePos.copy().div(2);
     PVector end   = relativePos.copy().setMag(start.mag()+len);
 
@@ -47,7 +47,7 @@ public class CueStick {
 
   public void strike(Ball target, UI ui) {
     if (!visible) return;
-    PVector relativePos = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET).sub(target.position);
+    PVector relativePos = getMouse().sub(target.position);
     PVector pointing = relativePos.rotate(PI).div(len).mult(4);
     target.applyForce(pointing);
     ui.solidPotted = false;
