@@ -109,7 +109,6 @@ public void keyPressed(){
 public void draw() {
   background(BLACK);
   textAlign(CENTER);
-  PVector mouse = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET);
   fill(YELLOW); textSize(12);
   if(!debugOn){
     text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
@@ -138,24 +137,19 @@ public void draw() {
           allStopped = false;
         }
       }else{
-        curr.position = new PVector(mouseX,mouseY).sub(VISUAL_OFFSET);
+        curr.position = getMouse();
       }
       curr.render();
     }
   }
 
-  if(!ui.gameOver && !movingCueBall && (allStopped || debugOn)){
+  if(!ui.gameOver && !movingCueBall && (allStopped || debugOn)){  // rewrite this whole thing
     stick.show();
     stick.render(table, ball0);
-    if(!ui.stripePotted && !ui.stripePotted || // i hate this
-       ui.currentPlayer==1 && ui.player1.equals("striped") && !ui.stripePotted ||
-//       ui.currentPlayer==1 && ui.player1.equals("striped") && ui.solidPotted ||
-       ui.currentPlayer==1 && ui.player1.equals("solid") && !ui.solidPotted ||
-//       ui.currentPlayer==1 && ui.player1.equals("solid") && ui.stripePotted ||
-       ui.currentPlayer==2 && ui.player2.equals("striped") && !ui.stripePotted ||
-//       ui.currentPlayer==2 && ui.player2.equals("striped") && ui.solidPotted ||
-       ui.currentPlayer==2 && ui.player2.equals("solid") && !ui.solidPotted){
-//       ui.currentPlayer==2 && ui.player2.equals("solid") && ui.stripePotted){
+    if(allStopped && (
+       !ui.stripePotted && !ui.stripePotted ||
+       ui.players[ui.currentPlayer].equals("striped") && !ui.stripePotted ||
+       ui.players[ui.currentPlayer].equals("solid") && !ui.solidPotted)){
       ui.nextTurn();
       ui.stripePotted = true;
       ui.solidPotted = true;
@@ -167,7 +161,7 @@ public void draw() {
   if(ui.gameOver){
     fill(WHITE);
     textSize(60);
-    text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
+    text("PLAYER " + (ui.currentPlayer+1) + " WINS!", 0, -VISUAL_OFFSET.y/2);
   }
   
   //Shape test = new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)});
@@ -190,7 +184,9 @@ public void mouseReleased(){
   if(movingCueBall && table.onTable(ball0.position)){
     boolean valid = true;
     for(int i=1; i<balls.length; i++){
-      valid = valid && ball0.position.dist(balls[i].position) > (ball0.size+balls[i].size);
+      if(balls[i]!=null){
+        valid = valid && ball0.position.dist(balls[i].position) > (ball0.size+balls[i].size);
+      }
     }
     if(valid){
       movingCueBall = false;
@@ -222,4 +218,8 @@ public void makeBreak(float x, float y, int size){ // wip
   balls = new Ball[] {ball0, ball1, ball2, ball3, ball4, ball5, 
                       ball6, ball7, ball8, ball9, ball10, 
                       ball11, ball12, ball13, ball14, ball15};
+}
+
+public PVector getMouse(){
+  return new PVector(mouseX, mouseY).sub(VISUAL_OFFSET);
 }

@@ -117,7 +117,7 @@ public abstract class Ball {
       if(number == 0){
         size = originalSize;
         pocketed = false;
-        position = new PVector(mouseX,mouseY).sub(VISUAL_OFFSET);
+        position = getMouse();
         velocity = new PVector(0, 0);
         movingCueBall = true;
       }
@@ -134,13 +134,8 @@ public abstract class Ball {
         }
         if(!ui.firstBallPocketed) {
           ui.firstBallPocketed = true;
-          if(ui.currentPlayer == 1){
-            ui.player1 = type;
-            ui.player2 = ui.other(type);
-          }else{
-            ui.player1 = ui.other(type);
-            ui.player2 = type;
-          }
+          ui.players[1-ui.currentPlayer] = type;
+          ui.players[ui.currentPlayer] = ui.other(type);
         }
       }
     }
