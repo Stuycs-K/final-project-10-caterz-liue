@@ -13,6 +13,7 @@ Ball[] balls;
 CueStick stick;
 boolean debugOn;
 boolean cuestickUsed;
+int messageTimer = 0;
 UI ui;
 
 public static final PVector VISUAL_OFFSET = new PVector(400,400);
@@ -134,14 +135,20 @@ public void draw() {
     }*/
     if(allStopped == true && cuestickUsed == true){
       ui.messageCheck();
-      ui.nextTurn();
-      ui.stripePotted = false;
-      ui.solidPotted = false;
     }
     
     
   }else{
     stick.hide();
+  }
+  
+  if(ui.showMessage == true){
+    ui.displayMessageHelper(ui.messageToDisplay, messageTimer + 1);
+    messageTimer++;
+    if(messageTimer == 255){
+      messageTimer = 0;
+      ui.showMessage = false;
+    }
   }
   
   if(ui.gameOver){
