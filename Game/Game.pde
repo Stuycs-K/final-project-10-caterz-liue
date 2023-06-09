@@ -4,7 +4,7 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
      ball11, ball12, ball13, ball14, ball15;
 Ball[] balls;
 CueStick stick;
-boolean debugOn;
+boolean debugOn, movingCueBall;
 UI ui;
 
 public static final PVector VISUAL_OFFSET = new PVector(400,400);
@@ -32,6 +32,7 @@ public void setup() {
     ellipseMode(RADIUS);
     textAlign(CENTER,CENTER);
     debugOn = false;
+    movingCueBall = false;
     
     table = new BlobTable(new PVector[] {new PVector(-180,160), new PVector(10,240),  new PVector(100,150), new PVector(150,-100), new PVector(-50,-200),  new PVector(-240,-1)}, 
                           new PVector[] {new PVector(-100,200), new PVector(150,240), new PVector(30,0),    new PVector(150,-200), new PVector(-180,-100), new PVector(-180,80)}, .98, 15, 20);
@@ -44,7 +45,7 @@ public void setup() {
     };
     ui = new UI();
     //makeBreak(0, 0, 10);
-    ball0 = new NormalBall(0, 0, 10, 0, BLUE, "solid");
+    ball0 = new CueBall(0, 0, 10);
     balls = new Ball[]{ball0};
     stick = new CueStick(160, 10);
     stick.show();
@@ -131,17 +132,19 @@ public void draw() {
   boolean allStopped = true;
   for(Ball curr : balls){
     if(curr != null){
-      curr.roll(table, balls, table.obstacles);
-      curr.render();
-      stroke(BLACK);
-      //line(100,-100, 100+table.inwardsFromWall(mouse).x*100, -100+table.inwardsFromWall(mouse).y*100);
-      if(curr.velocity.mag()!=0){
-        allStopped = false;
+      if(!curr.type.equals("cue") || curr.type.equals("cue") && !movingCueBall){
+        curr.roll(table, balls, table.obstacles);
+        if(curr.velocity.mag()!=0){
+          allStopped = false;
+        }
+      }else{
+        curr.position = new PVector(mouseX,mouseY).sub(VISUAL_OFFSET);
       }
+      curr.render();
     }
   }
 
-  if(!ui.gameOver && (allStopped || debugOn)){
+  if(!ui.gameOver && !movingCueBall && (allStopped || debugOn)){
     stick.show();
     stick.render(table, ball0);
     if(!ui.stripePotted && !ui.stripePotted || // i hate this
@@ -184,7 +187,17 @@ public void testVisible(Shape shape){
 
 
 public void mouseReleased(){
-  stick.strike(ball0, ui);
+  if(movingCueBall && table.onTable(ball0.position)){
+    boolean valid = true;
+    for(int i=1; i<balls.length; i++){
+      valid = valid && ball0.position.dist(balls[i].position) > (ball0.size+balls[i].size);
+    }
+    if(valid){
+      movingCueBall = false;
+    }
+  }else{
+    stick.strike(ball0, ui);
+  }
 }
   
 public void makeBreak(float x, float y, int size){ // wip

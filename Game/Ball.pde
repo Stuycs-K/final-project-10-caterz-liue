@@ -117,12 +117,9 @@ public abstract class Ball {
       if(number == 0){
         size = originalSize;
         pocketed = false;
-        if(!ui.firstBallPocketed){ // if needs to be rebroken
-          position = new PVector(-4 * (size+1) * sqrt(3), 0);
-        }else{
-          position = new PVector(0, 0);
-        }
-        velocity = new PVector(0, 0); 
+        position = new PVector(mouseX,mouseY).sub(VISUAL_OFFSET);
+        velocity = new PVector(0, 0);
+        movingCueBall = true;
       }
       if (number == 8){
         ui.check8ball(balls);
