@@ -92,3 +92,5 @@ ball type, illegally pocketing the 8-ball, and pocketing the cueball
 
 - merged onto main and fixed the many merge conflicts
 - need to figure out if cueball can be moved during other fouls?
+- rounded ui corners
+- bug discovered: PLAYER ONE/TWO swap visibly after a ball gets pocketed
