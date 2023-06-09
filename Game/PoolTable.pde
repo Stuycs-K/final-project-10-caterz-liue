@@ -31,7 +31,7 @@ public abstract class PoolTable {
     shape.render(wall);
     
     for(Hole pocket : pockets){
-      pocket.renderHole(shape);
+      pocket.renderHole();
       if(debugOn){
         fill(WHITE); textSize(pocket.size*1.5);
         text(pocket.number, pocket.position.x, pocket.position.y);

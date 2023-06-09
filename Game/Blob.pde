@@ -87,7 +87,6 @@ public class Blob extends Shape{
     return acc;
   }
   
-  
   public void render(float offset){
     PVector[] tempjoins = new PVector[joins.length];
     PVector[] tempcontrols = new PVector[controls.length];
@@ -97,14 +96,13 @@ public class Blob extends Shape{
     }
     
     beginShape();
+    strokeJoin(ROUND);
     vertex(tempjoins[0].x,tempjoins[0].y);
     for(int i=0; i<joins.length; i++){
       quadraticVertex(tempcontrols[i].x, tempcontrols[i].y, tempjoins[(i+1)%tempjoins.length].x, tempjoins[(i+1)%tempjoins.length].y);
     }
     endShape();
   }
-  
-  
   
   public String name(){
     return "blob";

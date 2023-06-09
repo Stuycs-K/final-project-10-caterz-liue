@@ -35,6 +35,14 @@ public class Rectangle extends Shape{
     translate(-position.x, -position.y);
   }
   
+  public void renderOutline(float offset){
+    translate(position.x, position.y);
+    rotate(-rot);
+    rect(0, 0, w+offset, h+offset, 1);
+    rotate(rot);
+    translate(-position.x, -position.y);
+  }
+  
   public String name(){
     return "rectangle";
   }
