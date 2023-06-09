@@ -59,9 +59,11 @@ public class UI {
   public void render(Ball[] balls){
     if(!gameOver){
       textSize(60);
-      fill(0,0,0);
-      textAlign(CENTER);
-      text("PLAYER " + currentPlayer + "'S TURN", 0, VISUAL_OFFSET.y*3/5);
+      fill(255,0,0);
+      textAlign(LEFT);
+      text("PLAYER", -380, -340);
+      text(currentPlayer + "'S", -380, -280);
+      text("TURN", -380, -215);
     }
     
     fill(220,220,220);
@@ -262,8 +264,8 @@ public class UI {
     if(message.equals("wrongTypeHit2")) messageToDisplay = messages[3];
     if(message.equals("wrongTypePocketed1")) messageToDisplay = messages[4];
     if(message.equals("wrongTypePocketed2")) messageToDisplay = messages[5];
-    if(message.equals("8balllossfor2")) messageToDisplay = messages[6];
-    if(message.equals("8balllossfor1")) messageToDisplay = messages[7];
+    if(message.equals("8balllossfor1")) messageToDisplay = messages[6];
+    if(message.equals("8balllossfor2")) messageToDisplay = messages[7];
     if(message.equals("cueball1")) messageToDisplay = messages[8];
     if(message.equals("cueball2")) messageToDisplay = messages[9];
     showMessage = true;
