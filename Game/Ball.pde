@@ -123,6 +123,7 @@ public abstract class Ball {
         ui.firstBallPocketedInATurn = number;
       }
       if(number == 0){
+        ui.cueballPocketedOnTurn = true;
         size = originalSize;
         pocketed = false;
         if(!ui.firstBallPocketed){ // if needs to be rebroken

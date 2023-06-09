@@ -18,6 +18,7 @@ public class UI {
   String messageToDisplay = null;
   boolean showMessage = false;
   String canInitializeUI = null;
+  boolean cueballPocketedOnTurn = false;
   
   /*PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
@@ -153,9 +154,9 @@ public class UI {
     
     ui.stripePotted = false;
     ui.solidPotted = false;
-    cuestickUsed = false;
     firstBallHitInATurn = 16; // 16 means no ball
     firstBallPocketedInATurn = 16; // 16 means no ball
+    cueballPocketedOnTurn = false;
     return currentPlayer;
   }
   
@@ -193,53 +194,47 @@ public class UI {
   }
   
   public void messageCheck(){
-    /*if(ui.player1.equals("solid") && ui.firstBallHitInATurn < 8
-    || ui.player1.equals("striped") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16
-    || ui.player1 == null
-    || ui.player2.equals("solid") && ui.firstBallHitInATurn < 8
-    || ui.player2.equals("striped") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16
-    || ui.player2 == null){ // ball hits well
-      ui.nextTurn();
-    } else { // ball hits badly
-      
-  }*/
-  System.out.println(player1 + " " + player2 + " " + firstBallHitInATurn + " " + firstBallPocketedInATurn);
-    if(ui.currentPlayer==1 && ui.firstBallHitInATurn == 16){
-        System.out.println("h1");
+    System.out.println(player1 + " " + player2 + " " + firstBallHitInATurn + " " + firstBallPocketedInATurn);
+    if(ui.currentPlayer==1 && cueballPocketedOnTurn == true){
+        ui.setMessage("cueball1");
+        ui.nextTurn();
+        return;
+      }
+      if(ui.currentPlayer==2 && cueballPocketedOnTurn == true){
+        ui.setMessage("cueball2");
+        ui.nextTurn();
+        return;
+      }
+      if(ui.currentPlayer==1 && ui.firstBallHitInATurn == 16){
         ui.setMessage("notHit1");
         ui.nextTurn();
         return;
       }
       if(ui.currentPlayer==2 && ui.firstBallHitInATurn == 16){
-        System.out.println("h2");
         ui.setMessage("notHit2");
         ui.nextTurn();
         return;
       }
       if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallPocketedInATurn < 8 && firstBallPocketed == true
       || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16 && firstBallPocketed == true){ // first ball pocketed is wrong type
-        System.out.println("test1");
         ui.setMessage("wrongTypePocketed1");
         ui.nextTurn();
         return;
       }
       if(ui.currentPlayer==2 && ui.player2.equals("striped") && ui.firstBallPocketedInATurn < 8 && firstBallPocketed == true
       || ui.currentPlayer==2 && ui.player2.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16 && firstBallPocketed == true){ // first ball pocketed is wrong type
-        System.out.println("test2");
         ui.setMessage("wrongTypePocketed2");
         ui.nextTurn();
         return;
       }
       if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallHitInATurn < 8 && firstBallPocketed == true
       || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
-        System.out.println("test1");
         ui.setMessage("wrongTypeHit1");
         ui.nextTurn();
         return;
       }
       if(ui.currentPlayer==2 && ui.player2.equals("striped") && ui.firstBallHitInATurn < 8 && firstBallPocketed == true
       || ui.currentPlayer==2 && ui.player2.equals("solid") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
-        System.out.println("test2");
         ui.setMessage("wrongTypeHit2");
         ui.nextTurn();
         return;
@@ -260,6 +255,8 @@ public class UI {
     if(message.equals("wrongTypePocketed2")) messageToDisplay = messages[5];
     if(message.equals("8ball1")) messageToDisplay = messages[6];
     if(message.equals("8ball2")) messageToDisplay = messages[7];
+    if(message.equals("cueball1")) messageToDisplay = messages[8];
+    if(message.equals("cueball2")) messageToDisplay = messages[9];
     showMessage = true;
   }
   
