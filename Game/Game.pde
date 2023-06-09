@@ -120,19 +120,6 @@ public void draw() {
   if(!ui.gameOver && (allStopped || debugOn)){
     stick.show();
     stick.render(table, ball0);
-    /*if(!ui.stripePotted && !ui.stripePotted || // i hate this
-       ui.currentPlayer==1 && ui.player1.equals("striped") && !ui.stripePotted ||
-//       ui.currentPlayer==1 && ui.player1.equals("striped") && ui.solidPotted ||
-       ui.currentPlayer==1 && ui.player1.equals("solid") && !ui.solidPotted ||
-//       ui.currentPlayer==1 && ui.player1.equals("solid") && ui.stripePotted ||
-       ui.currentPlayer==2 && ui.player2.equals("striped") && !ui.stripePotted ||
-//       ui.currentPlayer==2 && ui.player2.equals("striped") && ui.solidPotted ||
-       ui.currentPlayer==2 && ui.player2.equals("solid") && !ui.solidPotted){
-//       ui.currentPlayer==2 && ui.player2.equals("solid") && ui.stripePotted){
-        ui.nextTurn();
-        ui.stripePotted = true;
-        ui.solidPotted = true;
-    }*/
     if(allStopped == true && cuestickUsed == true){
       ui.messageCheck();
       if(ui.canInitializeUI != null){
@@ -148,7 +135,7 @@ public void draw() {
     stick.hide();
   }
   
-  if(ui.showMessage == true){
+  if(ui.showMessage == true && ui.gameOver == false){
     ui.displayMessage(ui.messageToDisplay, messageTimer + 1);
     messageTimer++;
     if(messageTimer == 255){
@@ -160,7 +147,7 @@ public void draw() {
   if(ui.gameOver){
     fill(0);
     textSize(60);
-    text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
+    //text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
   }
     
 }

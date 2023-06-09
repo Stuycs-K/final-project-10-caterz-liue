@@ -134,7 +134,7 @@ public abstract class Ball {
         velocity = new PVector(0, 0); 
       }
       if (number == 8){
-        ui.check8ball(balls);
+          ui.check8ball(balls);
       }
       if(number!=0 && number!=8){
         balls[number] = null;

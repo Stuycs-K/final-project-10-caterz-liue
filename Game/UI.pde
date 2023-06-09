@@ -117,32 +117,41 @@ public class UI {
   }
   
   public void check8ball(Ball[] balls){
-    // called when the 8ball is pocketed
-    if(currentPlayer == 1 && player1.equals("solids")){
-      nullCounter = countNulls(1,7,balls);
-    }
-    if(currentPlayer == 1 && player1.equals("stripes")){
-      nullCounter = countNulls(9,15,balls);
-    }
-    if(currentPlayer == 2 && player2.equals("solids")){
-      nullCounter = countNulls(1,7,balls);
-    }
-    if(currentPlayer == 2 && player2.equals("stripes")){
-      nullCounter = countNulls(9,15,balls);
-    }
-
+      // called when the 8ball is pocketed
+      if(currentPlayer == 1 && player1.equals("solids")){
+        nullCounter = countNulls(1,7,balls);
+      }
+      if(currentPlayer == 1 && player1.equals("stripes")){
+        nullCounter = countNulls(9,15,balls);
+      }
+      if(currentPlayer == 2 && player2.equals("solids")){
+        nullCounter = countNulls(1,7,balls);
+      }
+      if(currentPlayer == 2 && player2.equals("stripes")){
+        nullCounter = countNulls(9,15,balls);
+      }
+  
+      
+      if(nullCounter == 7){ // got rid of all balls already
+        fill(0);
+        textSize(60);
+        text("PLAYER " + currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
+        gameOver = true;
+      } else {
+        fill(0);
+        textSize(60);
+        if(currentPlayer == 1) text("PLAYER 2 WINS!", 0, -VISUAL_OFFSET.y/2);
+        else if(currentPlayer == 2) text("PLAYER 1 WINS!", 0, -VISUAL_OFFSET.y/2);
+        gameOver = true;
+        setMessage("8balllossfor" + currentPlayer);
+        textAlign(CENTER);
+        textSize(30);
+        fill(0);
+        text("FOUL!", 220, -335);
+        textSize(20);
+        text(messageToDisplay, 220, -300);
+      }
     
-    if(nullCounter == 7){ // got rid of all balls already
-      fill(0);
-      textSize(60);
-      text("PLAYER " + currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
-      gameOver = true;
-    } else {
-      fill(0);
-      textSize(60);
-      text("PLAYER " + nextTurn() + " WINS!", 0, -VISUAL_OFFSET.y/2);
-      gameOver = true;
-    }
   }
   
   public int nextTurn(){
@@ -240,7 +249,7 @@ public class UI {
         return;
       }
       
-    if(!stripePotted && !solidPotted){
+    if(!stripePotted && !solidPotted && gameOver == false){
       ui.nextTurn();
     }
   }
@@ -253,8 +262,8 @@ public class UI {
     if(message.equals("wrongTypeHit2")) messageToDisplay = messages[3];
     if(message.equals("wrongTypePocketed1")) messageToDisplay = messages[4];
     if(message.equals("wrongTypePocketed2")) messageToDisplay = messages[5];
-    if(message.equals("8ball1")) messageToDisplay = messages[6];
-    if(message.equals("8ball2")) messageToDisplay = messages[7];
+    if(message.equals("8balllossfor2")) messageToDisplay = messages[6];
+    if(message.equals("8balllossfor1")) messageToDisplay = messages[7];
     if(message.equals("cueball1")) messageToDisplay = messages[8];
     if(message.equals("cueball2")) messageToDisplay = messages[9];
     showMessage = true;
