@@ -55,18 +55,18 @@ public void keyPressed(){
     debugOn = !debugOn;
   }
   if(key=='x'){
-    table = new EllipseTable(54*6, 27*6, .98, 15, 20);
+    table = new EllipseTable(54*6, 27*6, .98, 15, 20, PI/9);
     makeBreak(0, 0, 10);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.99999, new Ellipse(new PVector(80,-80), 40, 40)),
+      new Sand(0.99999, new Ellipse(new PVector(80,-80), 40, 50, -PI/5)),
       new Sand(0.77777, new Rectangle(new PVector(-80,80), 30, 30)),
-      new Ice(1.05, new Ellipse(new PVector(-80,-80), 30, 30)),
+      new Ice(1.05, new Ellipse(new PVector(-80,-80), 50, 10, -PI/7)),
       new Ice(1.05, new Rectangle(new PVector(80,80), 20, 20)),
     };
   }
   if(key=='c'){
-    table = new RectangleTable(54*6, 27*6, .98, 15, 20);
+    table = new RectangleTable(54*6, 27*6, .98, 15, 20, -PI/9);
     makeBreak(0, 0, 10);
     ui = new UI();
     table.obstacles = new Obstacle[] {
@@ -106,10 +106,10 @@ public void keyPressed(){
 }
   
 public void draw() {
-  background(255);
+  background(BLACK);
   textAlign(CENTER);
   PVector mouse = new PVector(mouseX, mouseY).sub(VISUAL_OFFSET);
-  fill(BROWN); textSize(12);
+  fill(YELLOW); textSize(12);
   if(!debugOn){
     text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
   }else{
@@ -162,7 +162,7 @@ public void draw() {
   }
   
   if(ui.gameOver){
-    fill(0);
+    fill(WHITE);
     textSize(60);
     text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
   }

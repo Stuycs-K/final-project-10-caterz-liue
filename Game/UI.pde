@@ -42,16 +42,16 @@ public class UI {
   public void render(Ball[] balls){
     if(!gameOver){
       textSize(60);
-      fill(0,0,0);
+      fill(WHITE);
       textAlign(CENTER);
       text("PLAYER " + currentPlayer + "'S TURN", 0, VISUAL_OFFSET.y*3/5);
     }
     
-    fill(220,220,220); noStroke();
+    fill(110,110,110); noStroke();
     rect(-VISUAL_OFFSET.x/4*3+80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
     rect( VISUAL_OFFSET.x/4*3-80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
     textSize(40);
-    fill(0,0,0);
+    fill(WHITE);
     if(player1.equals("solid")){
       textAlign(CENTER);
       text("PLAYER ONE", -220, 310);
