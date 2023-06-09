@@ -106,7 +106,7 @@ public abstract class Ball {
     for(Obstacle o : obstacles){
       if(o.shape.equals("rect")   && abs(position.x-o.position.x)<o.w && abs(position.y-o.position.y)<o.h ||
          o.shape.equals("ellipse") && pow(position.x-o.position.x, 2) / o.w / o.w + pow(position.y-o.position.y, 2) / o.h / o.h < 1){
-        System.out.println(o.type);
+        //System.out.println(o.type);
         velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
       }
     }
@@ -116,7 +116,7 @@ public abstract class Ball {
     if(size>0){
     size--;
     }else{
-      if(ui.firstBallPocketedInATurn != 16){
+      if(ui.firstBallPocketedInATurn == 16){
         ui.firstBallPocketedInATurn = number;
       }
       if(number == 0){

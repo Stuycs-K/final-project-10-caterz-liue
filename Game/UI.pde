@@ -31,7 +31,9 @@ public class UI {
   "Player 1 pocketed the wrong ball type.",
   "Player 2 pocketed the wrong ball type.",
   "Player 1 illegally pocketed the 8-ball.",
-  "Player 2 illegally pocketed the 8-ball."
+  "Player 2 illegally pocketed the 8-ball.",
+  "Player 1 pocketed the cue ball.",
+  "Player 2 pocketed the cue ball."
   };
   
   public UI(){
@@ -145,6 +147,7 @@ public class UI {
     } else {
       currentPlayer = 1;
     }
+    cuestickUsed = false;
     firstBallHitInATurn = 16; // 16 means no ball
     firstBallPocketedInATurn = 16; // 16 means no ball
     return currentPlayer;
@@ -183,6 +186,26 @@ public class UI {
     }
   }
   
+  public void messageCheck(){
+    System.out.println(ui.currentPlayer + " " + ui.player1 + " " + ui.firstBallPocketedInATurn);
+    if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallPocketedInATurn < 8
+    || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16){ // first ball pocketed is wrong type
+      System.out.println("test1");
+      ui.displayMessage("wrongTypePocketed1");
+      ui.nextTurn();
+      ui.stripePotted = false;
+      ui.solidPotted = false;
+    }
+    if(ui.currentPlayer==2 && ui.player1.equals("striped") && ui.firstBallPocketedInATurn < 8
+    || ui.currentPlayer==2 && ui.player1.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16){ // first ball pocketed is wrong type
+      System.out.println("test2");
+      ui.displayMessage("wrongTypePocketed2");
+      ui.nextTurn();
+      ui.stripePotted = true;
+      ui.solidPotted = true;
+    }
+  }
+  
   public void displayMessage(String message){
     String messageToDisplay = messages[0]; // temporary initialization
     if(message.equals("notHit1")) messageToDisplay = messages[0];
@@ -195,7 +218,7 @@ public class UI {
     if(message.equals("8ball2")) messageToDisplay = messages[7];
     
     fill(0);
-    textSize(30);
+    textSize(30.0);
     textAlign(LEFT);
     text(messageToDisplay, 0, 60);
   }

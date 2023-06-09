@@ -12,6 +12,7 @@ Ball ball0, ball1, ball2, ball3, ball4, ball5,
 Ball[] balls;
 CueStick stick;
 boolean debugOn;
+boolean cuestickUsed;
 UI ui;
 
 public static final PVector VISUAL_OFFSET = new PVector(400,400);
@@ -118,7 +119,7 @@ public void draw() {
   if(!ui.gameOver && (allStopped || debugOn)){
     stick.show();
     stick.render(table, ball0);
-    if(!ui.stripePotted && !ui.stripePotted || // i hate this
+    /*if(!ui.stripePotted && !ui.stripePotted || // i hate this
        ui.currentPlayer==1 && ui.player1.equals("striped") && !ui.stripePotted ||
 //       ui.currentPlayer==1 && ui.player1.equals("striped") && ui.solidPotted ||
        ui.currentPlayer==1 && ui.player1.equals("solid") && !ui.solidPotted ||
@@ -127,10 +128,18 @@ public void draw() {
 //       ui.currentPlayer==2 && ui.player2.equals("striped") && ui.solidPotted ||
        ui.currentPlayer==2 && ui.player2.equals("solid") && !ui.solidPotted){
 //       ui.currentPlayer==2 && ui.player2.equals("solid") && ui.stripePotted){
+        ui.nextTurn();
+        ui.stripePotted = true;
+        ui.solidPotted = true;
+    }*/
+    if(allStopped == true && cuestickUsed == true){
+      ui.messageCheck();
       ui.nextTurn();
-      ui.stripePotted = true;
-      ui.solidPotted = true;
+      ui.stripePotted = false;
+      ui.solidPotted = false;
     }
+    
+    
   }else{
     stick.hide();
   }
@@ -144,6 +153,7 @@ public void draw() {
 }
 
 public void mouseReleased(){
+  cuestickUsed = true;
   stick.strike(ball0, ui, balls);
 }
   
