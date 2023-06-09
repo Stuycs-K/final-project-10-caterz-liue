@@ -87,3 +87,8 @@ ball type, illegally pocketing the 8-ball, and pocketing the cueball
 - fixing player alternation
 - moved player turn display to upper left so it wouldn't block the table, and made the display red
 - i think i got rid of the big 8 that sometimes appears when the 8ball is pocketed
+
+### 9 Jun 2023
+
+- merged onto main and fixed the many merge conflicts
+- need to figure out if cueball can be moved during other fouls?
