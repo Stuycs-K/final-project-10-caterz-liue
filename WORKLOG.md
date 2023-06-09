@@ -70,10 +70,25 @@ players are implemented, ball should shrink and disappear into hole
 
 - fixed merge conflict
 
-### 3 Jun 2023
+### 4 Jun 2023
 
 - merged blob table new code onto erica branch
 - added instruction to regenerate blob table
 - added in Sand and Ice Obstacles, changed up some constructors in the process
 - added the obstacles' effects and rendered them
 - added different positions for obstacles for each table type
+
+### 8 Jun 2023
+
+- implemented ui messages, and they should now mostly work besides some minor bugs (ex.
+  regenerating a table might make a notification pop up)
+- ui messages implemented: not hitting any balls, hitting the wrong ball type, pocketing the wrong
+ball type, illegally pocketing the 8-ball, and pocketing the cueball
+- fixing player alternation
+- moved player turn display to upper left so it wouldn't block the table, and made the display red
+- i think i got rid of the big 8 that sometimes appears when the 8ball is pocketed
+
+### 9 Jun 2023
+
+- merged onto main and fixed the many merge conflicts
+- need to figure out if cueball can be moved during other fouls?

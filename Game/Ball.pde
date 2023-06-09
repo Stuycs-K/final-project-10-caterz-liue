@@ -40,7 +40,9 @@ public abstract class Ball {
       fill(BLACK);
       textSize(size*1.5);
       textAlign(CENTER);
-      text(number, position.x-1, position.y+4);
+      if(!(number == 8 && ui.gameOver == true)){
+        text(number, position.x-1, position.y+4);
+      }
     }
   }
 
@@ -79,6 +81,9 @@ public abstract class Ball {
         Ball other = balls[i];
         if (nextSpot.dist(PVector.add(other.position, other.velocity)) < size+other.size) {
           hitSomething = true;
+          if(ui.firstBallHitInATurn == 16){
+            ui.firstBallHitInATurn = i;
+          }
           // https://www.gamedeveloper.com/programming/pool-hall-lessons-fast-accurate-collision-detection-between-circles-or-spheres
           PVector dir = PVector.sub(position, other.position).normalize();
           float momentumChange = 2 * (dir.dot(velocity) - dir.dot(other.velocity)) / (weight + other.weight);
@@ -95,8 +100,8 @@ public abstract class Ball {
   }
   
   public void checkPockets(Hole[] pockets){
-    for(Hole h : pockets){
-      if(position.dist(new PVector(h.x, h.y)) < h.size){
+    for(Hole pocket : pockets){
+      if(position.dist(pocket.position) < pocket.size){
         pocketed = true;
       }
     }
@@ -104,17 +109,8 @@ public abstract class Ball {
   
   public void checkObstacles(Obstacle[] obstacles){
     for(Obstacle o : obstacles){
-      if(o.type.equals("sand")){ // sand
-        if(position.dist(new PVector(o.position.x, o.position.y)) < o.radius){
-          System.out.println(1);
-          velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
-        }
-      } else { // ice
-      System.out.println(4);
-        if(position.dist(new PVector(o.position.x, o.position.y)) < o.radius){
-          System.out.println(2);
-          velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
-        }
+      if(o.shape.touching(position)){
+        velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
       }
     }
   }
@@ -123,18 +119,19 @@ public abstract class Ball {
     if(size>0){
     size--;
     }else{
+      if(ui.firstBallPocketedInATurn == 16){
+        ui.firstBallPocketedInATurn = number;
+      }
       if(number == 0){
+        ui.cueballPocketedOnTurn = true;
         size = originalSize;
         pocketed = false;
-        if(!ui.firstBallPocketed){ // if needs to be rebroken
-          position = new PVector(-4 * (size+1) * sqrt(3), 0);
-        }else{
-          position = new PVector(0, 0);
-        }
-        velocity = new PVector(0, 0); 
+        position = getMouse();
+        velocity = new PVector(0, 0);
+        movingCueBall = true;
       }
       if (number == 8){
-        ui.check8ball(balls);
+          ui.check8ball(balls);
       }
       if(number!=0 && number!=8){
         balls[number] = null;
@@ -145,14 +142,13 @@ public abstract class Ball {
           ui.solidPotted = true;
         }
         if(!ui.firstBallPocketed) {
-          ui.firstBallPocketed = true;
-          if(ui.currentPlayer == 1){
-            ui.player1 = type;
-            ui.player2 = ui.other(type);
-          }else{
-            ui.player1 = ui.other(type);
-            ui.player2 = type;
-          }
+          ui.canInitializeUI = type;
+          
+          // below is merged code; we'll see if this messes with anything
+          //ui.firstBallPocketed = true;
+          ui.players[ui.currentPlayer * 2 % 3 - 1] = type;
+          ui.players[ui.currentPlayer - 1] = ui.other(type);
+          
         }
       }
     }

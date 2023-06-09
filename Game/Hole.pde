@@ -1,20 +1,22 @@
 public class Hole {
-  float x, y, size;
+  PVector position;
+  float size;
+  int number;
   
-  public Hole(float x, float y, float size){
-    this.x = x;
-    this.y = y;
+  public Hole(float x, float y, float size, int number){
+    this.position = new PVector(x,y);
     this.size = size;
+    this.number = number;
   }
   
-  public Hole(PVector p, float size){
-  this.x = p.x;
-  this.y = p.y;
-  this.size = size;
+  public Hole(PVector position, float size, int number){
+    this.position = position;
+    this.size = size;
+    this.number = number;
   }
   
   public void renderHole(){
-    fill(0); noStroke();
-    circle(x,y,size);
+    fill(BLACK); noStroke();
+    circle(position.x,position.y,size);
   }
 }
