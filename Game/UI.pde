@@ -1,15 +1,12 @@
 public class UI {
   int currentPlayer = 1;
-  String player1;
-  String player2;
+  String[] players;
   boolean stripesDone;
   boolean stripePotted;
   boolean solidsDone;
   boolean solidPotted;
   boolean stripes8balled;
   boolean solids8balled;
-  int nullCounter;
-  int previousTurnNulls;
   boolean firstBallPocketed;
   boolean gameOver;
   float size;
@@ -19,13 +16,6 @@ public class UI {
   boolean showMessage = false;
   String canInitializeUI = null;
   boolean cueballPocketedOnTurn = false;
-  
-  /*PVector[] trackerPositions = new PVector[]{
-  new PVector(0,0), // for cue ball
-  new PVector(-340,340), new PVector(-300,340), new PVector(-260,340), new PVector(-220,340), new PVector(-180,340), new PVector(-140,340), new PVector(-100,340),
-  new PVector(0,0), // for eight ball
-  new PVector(100,340), new PVector(140,340), new PVector(180,340), new PVector(220,340), new PVector(260,340), new PVector(300,340), new PVector(340,340)
-  };*/
   
   String[] messages = new String[]{
   "Player 1 did not hit any balls.",
@@ -41,16 +31,13 @@ public class UI {
   };
   
   public UI(){
-    player1 = "";
-    player2 = "";
+    players = new String[] {"", ""};
     stripesDone = false;
     stripePotted = true;
     solidsDone = false;
     solidPotted = true;
     stripes8balled = false;
     solids8balled = false;
-    nullCounter = 0;
-    previousTurnNulls = -1;
     firstBallPocketed = false;
     gameOver = false;
     size = 2;
@@ -64,29 +51,32 @@ public class UI {
       text("PLAYER", -380, -340);
       text(currentPlayer + "'S", -380, -280);
       text("TURN", -380, -215);
+      /*
+      fill(WHITE);
+      textAlign(CENTER);
+      text("PLAYER " + (currentPlayer+1) + "'S TURN", 0, VISUAL_OFFSET.y*3/5);
+      */
     }
     
-    fill(220,220,220);
+    fill(110,110,110); noStroke();
     rect(-VISUAL_OFFSET.x/4*3+80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
     rect( VISUAL_OFFSET.x/4*3-80, VISUAL_OFFSET.y*4/5, VISUAL_OFFSET.x/4+60, VISUAL_OFFSET.y/5-20);
     textSize(40);
-    fill(0,0,0);
-    if(player1.equals("solid")){
+    fill(WHITE);
+    if(players[0].equals("solid")){
       textAlign(CENTER);
       text("PLAYER ONE", -220, 310);
       text("PLAYER TWO", 220, 310);
     }
-    if(player1.equals("striped")){
+    if(players[0].equals("striped")){
       textAlign(CENTER);
       text("PLAYER ONE", 220, 310);
       text("PLAYER TWO", -220, 310);
     }
     
     // only start rendering balls in UI when player types are determined
-    if(player1.length() != 0){
-      nullCounter = countNulls(1,7,balls);
-      //System.out.println(nullCounter);
-      if(nullCounter != 7){
+    if(players[0].length() != 0){
+      if(countNulls(1,7,balls) != 7){
         for(int i = 1; i <= 7; i++){
           if(balls[i] != null){
             dispBall(-380+40*i, 340, 10, i, balls);
@@ -100,8 +90,7 @@ public class UI {
         }
       }
       
-      nullCounter = countNulls(9,15,balls);
-      if(nullCounter != 7){
+      if(countNulls(9,15,balls) != 7){
         for(int i = 9; i <= 15; i++){
           if(balls[i] != null){
             dispBall(340-40*(15-i), 340, 10, i, balls);
@@ -119,7 +108,29 @@ public class UI {
   }
   
   public void check8ball(Ball[] balls){
-      // called when the 8ball is pocketed
+    // called when the 8ball is pocketed
+    int nullCounter = 0;
+    if(players[currentPlayer - 1].equals("solids")){
+      nullCounter = countNulls(1,7,balls);
+    }
+    if(players[currentPlayer - 1].equals("stripes")){
+      nullCounter = countNulls(9,15,balls);
+    }
+
+    
+    /*if(nullCounter == 7){ // got rid of all balls already
+      fill(255);
+      textSize(60);
+      text("PLAYER " + (currentPlayer+1) + " WINS!", 0, -VISUAL_OFFSET.y/2);
+      gameOver = true;
+    } else {
+      fill(255);
+      textSize(60);
+      text("PLAYER " + (1-currentPlayer+1) + " WINS!", 0, -VISUAL_OFFSET.y/2);
+      gameOver = true;
+    }*/
+  
+      /*// called when the 8ball is pocketed
       if(currentPlayer == 1 && player1.equals("solids")){
         nullCounter = countNulls(1,7,balls);
       }
@@ -131,7 +142,7 @@ public class UI {
       }
       if(currentPlayer == 2 && player2.equals("stripes")){
         nullCounter = countNulls(9,15,balls);
-      }
+      }*/
   
       
       if(nullCounter == 7){ // got rid of all balls already
@@ -140,7 +151,7 @@ public class UI {
         text("PLAYER " + currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
         gameOver = true;
       } else {
-        fill(0);
+        fill(255);
         textSize(60);
         if(currentPlayer == 1) text("PLAYER 2 WINS!", 0, -VISUAL_OFFSET.y/2);
         else if(currentPlayer == 2) text("PLAYER 1 WINS!", 0, -VISUAL_OFFSET.y/2);
@@ -148,7 +159,7 @@ public class UI {
         setMessage("8balllossfor" + currentPlayer);
         textAlign(CENTER);
         textSize(30);
-        fill(0);
+        fill(255);
         text("FOUL!", 220, -335);
         textSize(20);
         text(messageToDisplay, 220, -300);
@@ -157,17 +168,20 @@ public class UI {
   }
   
   public int nextTurn(){
-    if(currentPlayer == 1){
+    /*if(currentPlayer == 1){
       currentPlayer = 2;
     } else {
       currentPlayer = 1;
-    }
+    }*/
+    currentPlayer = currentPlayer * 2 % 3;
     
     ui.stripePotted = false;
     ui.solidPotted = false;
     firstBallHitInATurn = 16; // 16 means no ball
     firstBallPocketedInATurn = 16; // 16 means no ball
-    cueballPocketedOnTurn = false;
+    cueballPocketedOnTurn = false;    
+  
+    //currentPlayer = 1 - currentPlayer;
     return currentPlayer;
   }
   
@@ -182,7 +196,7 @@ public class UI {
   }
   
   public void dispBall(float x, float y, float size, int i, Ball[] balls){
-    fill(balls[i].ballColor);
+    fill(balls[i].ballColor); noStroke();
     circle(x, y, size * 1.5);
     fill(WHITE);
     if(balls[i].type.equals("striped")){
@@ -205,7 +219,7 @@ public class UI {
   }
   
   public void messageCheck(){
-    System.out.println(player1 + " " + player2 + " " + firstBallHitInATurn + " " + firstBallPocketedInATurn);
+    System.out.println(players[0] + " " + players[1] + " " + firstBallHitInATurn + " " + firstBallPocketedInATurn);
     if(ui.currentPlayer==1 && cueballPocketedOnTurn == true){
         ui.setMessage("cueball1");
         ui.nextTurn();
@@ -226,26 +240,26 @@ public class UI {
         ui.nextTurn();
         return;
       }
-      if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallPocketedInATurn < 8 && firstBallPocketed == true
-      || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16 && firstBallPocketed == true){ // first ball pocketed is wrong type
+      if(ui.currentPlayer==1 && players[0].equals("striped") && ui.firstBallPocketedInATurn < 8 && firstBallPocketed == true
+      || ui.currentPlayer==1 && players[0].equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16 && firstBallPocketed == true){ // first ball pocketed is wrong type
         ui.setMessage("wrongTypePocketed1");
         ui.nextTurn();
         return;
       }
-      if(ui.currentPlayer==2 && ui.player2.equals("striped") && ui.firstBallPocketedInATurn < 8 && firstBallPocketed == true
-      || ui.currentPlayer==2 && ui.player2.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16 && firstBallPocketed == true){ // first ball pocketed is wrong type
+      if(ui.currentPlayer==2 && players[1].equals("striped") && ui.firstBallPocketedInATurn < 8 && firstBallPocketed == true
+      || ui.currentPlayer==2 && players[1].equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16 && firstBallPocketed == true){ // first ball pocketed is wrong type
         ui.setMessage("wrongTypePocketed2");
         ui.nextTurn();
         return;
       }
-      if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
-      || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
+      if(ui.currentPlayer==1 && players[0].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
+      || ui.currentPlayer==1 && players[0].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
         ui.setMessage("wrongTypeHit1");
         ui.nextTurn();
         return;
       }
-      if(ui.currentPlayer==2 && ui.player2.equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
-      || ui.currentPlayer==2 && ui.player2.equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
+      if(ui.currentPlayer==2 && players[1].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
+      || ui.currentPlayer==2 && players[1].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
         ui.setMessage("wrongTypeHit2");
         ui.nextTurn();
         return;
@@ -284,11 +298,11 @@ public class UI {
   public void initializeUI(String type){
     firstBallPocketed = true;
     if(currentPlayer == 1){
-      player1 = type;
-      player2 = other(type);
+      players[0] = type;
+      players[1] = other(type);
     }else{
-      player1 = other(type);
-      player2 = type;
+      players[0] = other(type);
+      players[1] = type;
     }
   }
 }

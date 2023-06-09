@@ -100,8 +100,8 @@ public abstract class Ball {
   }
   
   public void checkPockets(Hole[] pockets){
-    for(Hole h : pockets){
-      if(position.dist(new PVector(h.x, h.y)) < h.size){
+    for(Hole pocket : pockets){
+      if(position.dist(pocket.position) < pocket.size){
         pocketed = true;
       }
     }
@@ -109,9 +109,7 @@ public abstract class Ball {
   
   public void checkObstacles(Obstacle[] obstacles){
     for(Obstacle o : obstacles){
-      if(o.shape.equals("rect")   && abs(position.x-o.position.x)<o.w && abs(position.y-o.position.y)<o.h ||
-         o.shape.equals("ellipse") && pow(position.x-o.position.x, 2) / o.w / o.w + pow(position.y-o.position.y, 2) / o.h / o.h < 1){
-        //System.out.println(o.type);
+      if(o.shape.touching(position)){
         velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
       }
     }
@@ -128,12 +126,9 @@ public abstract class Ball {
         ui.cueballPocketedOnTurn = true;
         size = originalSize;
         pocketed = false;
-        if(!ui.firstBallPocketed){ // if needs to be rebroken
-          position = new PVector(-4 * (size+1) * sqrt(3), 0);
-        }else{
-          position = new PVector(0, 0);
-        }
-        velocity = new PVector(0, 0); 
+        position = getMouse();
+        velocity = new PVector(0, 0);
+        movingCueBall = true;
       }
       if (number == 8){
           ui.check8ball(balls);
@@ -148,6 +143,12 @@ public abstract class Ball {
         }
         if(!ui.firstBallPocketed) {
           ui.canInitializeUI = type;
+          
+          // below is merged code; we'll see if this messes with anything
+          //ui.firstBallPocketed = true;
+          ui.players[ui.currentPlayer * 2 % 3 - 1] = type;
+          ui.players[ui.currentPlayer - 1] = ui.other(type);
+          
         }
       }
     }
