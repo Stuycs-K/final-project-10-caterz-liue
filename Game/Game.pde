@@ -143,12 +143,6 @@ public void draw() {
       ui.showMessage = false;
     }
   }
-  
-  if(ui.gameOver){
-    fill(0);
-    textSize(60);
-    //text("PLAYER " + ui.currentPlayer + " WINS!", 0, -VISUAL_OFFSET.y/2);
-  }
     
 }
 

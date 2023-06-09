@@ -238,14 +238,14 @@ public class UI {
         ui.nextTurn();
         return;
       }
-      if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallHitInATurn < 8 && firstBallPocketed == true
-      || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
+      if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
+      || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
         ui.setMessage("wrongTypeHit1");
         ui.nextTurn();
         return;
       }
-      if(ui.currentPlayer==2 && ui.player2.equals("striped") && ui.firstBallHitInATurn < 8 && firstBallPocketed == true
-      || ui.currentPlayer==2 && ui.player2.equals("solid") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
+      if(ui.currentPlayer==2 && ui.player2.equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
+      || ui.currentPlayer==2 && ui.player2.equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
         ui.setMessage("wrongTypeHit2");
         ui.nextTurn();
         return;

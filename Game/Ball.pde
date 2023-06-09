@@ -40,7 +40,9 @@ public abstract class Ball {
       fill(BLACK);
       textSize(size*1.5);
       textAlign(CENTER);
-      text(number, position.x-1, position.y+4);
+      if(!(number == 8 && ui.gameOver == true)){
+        text(number, position.x-1, position.y+4);
+      }
     }
   }
 
