@@ -79,6 +79,9 @@ public abstract class Ball {
         Ball other = balls[i];
         if (nextSpot.dist(PVector.add(other.position, other.velocity)) < size+other.size) {
           hitSomething = true;
+          if(ui.firstBallHitInATurn == 16){
+            ui.firstBallHitInATurn = i;
+          }
           // https://www.gamedeveloper.com/programming/pool-hall-lessons-fast-accurate-collision-detection-between-circles-or-spheres
           PVector dir = PVector.sub(position, other.position).normalize();
           float momentumChange = 2 * (dir.dot(velocity) - dir.dot(other.velocity)) / (weight + other.weight);
@@ -141,14 +144,7 @@ public abstract class Ball {
           ui.solidPotted = true;
         }
         if(!ui.firstBallPocketed) {
-          ui.firstBallPocketed = true;
-          if(ui.currentPlayer == 1){
-            ui.player1 = type;
-            ui.player2 = ui.other(type);
-          }else{
-            ui.player1 = ui.other(type);
-            ui.player2 = type;
-          }
+          ui.canInitializeUI = type;
         }
       }
     }

@@ -135,6 +135,12 @@ public void draw() {
     }*/
     if(allStopped == true && cuestickUsed == true){
       ui.messageCheck();
+      if(ui.canInitializeUI != null){
+        System.out.println("t");
+        ui.initializeUI(ui.canInitializeUI);
+        ui.canInitializeUI = null;
+      }
+      cuestickUsed = false;
     }
     
     
@@ -143,7 +149,7 @@ public void draw() {
   }
   
   if(ui.showMessage == true){
-    ui.displayMessageHelper(ui.messageToDisplay, messageTimer + 1);
+    ui.displayMessage(ui.messageToDisplay, messageTimer + 1);
     messageTimer++;
     if(messageTimer == 255){
       messageTimer = 0;

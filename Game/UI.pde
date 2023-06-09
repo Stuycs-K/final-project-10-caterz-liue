@@ -15,8 +15,9 @@ public class UI {
   float size;
   int firstBallHitInATurn = 16; // 16 means no ball
   int firstBallPocketedInATurn = 16; // 16 means no ball
-  String messageToDisplay;
-  boolean showMessage;
+  String messageToDisplay = null;
+  boolean showMessage = false;
+  String canInitializeUI = null;
   
   /*PVector[] trackerPositions = new PVector[]{
   new PVector(0,0), // for cue ball
@@ -149,6 +150,7 @@ public class UI {
     } else {
       currentPlayer = 1;
     }
+    
     ui.stripePotted = false;
     ui.solidPotted = false;
     cuestickUsed = false;
@@ -191,50 +193,64 @@ public class UI {
   }
   
   public void messageCheck(){
-    System.out.println(ui.currentPlayer + " " + ui.player1 + " " + ui.firstBallPocketedInATurn);
+    /*if(ui.player1.equals("solid") && ui.firstBallHitInATurn < 8
+    || ui.player1.equals("striped") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16
+    || ui.player1 == null
+    || ui.player2.equals("solid") && ui.firstBallHitInATurn < 8
+    || ui.player2.equals("striped") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16
+    || ui.player2 == null){ // ball hits well
+      ui.nextTurn();
+    } else { // ball hits badly
+      
+  }*/
+  System.out.println(player1 + " " + player2 + " " + firstBallHitInATurn + " " + firstBallPocketedInATurn);
     if(ui.currentPlayer==1 && ui.firstBallHitInATurn == 16){
-      System.out.println("h1");
-      ui.displayMessage("notHit1");
+        System.out.println("h1");
+        ui.setMessage("notHit1");
+        ui.nextTurn();
+        return;
+      }
+      if(ui.currentPlayer==2 && ui.firstBallHitInATurn == 16){
+        System.out.println("h2");
+        ui.setMessage("notHit2");
+        ui.nextTurn();
+        return;
+      }
+      if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallPocketedInATurn < 8 && firstBallPocketed == true
+      || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16 && firstBallPocketed == true){ // first ball pocketed is wrong type
+        System.out.println("test1");
+        ui.setMessage("wrongTypePocketed1");
+        ui.nextTurn();
+        return;
+      }
+      if(ui.currentPlayer==2 && ui.player2.equals("striped") && ui.firstBallPocketedInATurn < 8 && firstBallPocketed == true
+      || ui.currentPlayer==2 && ui.player2.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16 && firstBallPocketed == true){ // first ball pocketed is wrong type
+        System.out.println("test2");
+        ui.setMessage("wrongTypePocketed2");
+        ui.nextTurn();
+        return;
+      }
+      if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallHitInATurn < 8 && firstBallPocketed == true
+      || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
+        System.out.println("test1");
+        ui.setMessage("wrongTypeHit1");
+        ui.nextTurn();
+        return;
+      }
+      if(ui.currentPlayer==2 && ui.player2.equals("striped") && ui.firstBallHitInATurn < 8 && firstBallPocketed == true
+      || ui.currentPlayer==2 && ui.player2.equals("solid") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true){ // first ball hit is wrong type
+        System.out.println("test2");
+        ui.setMessage("wrongTypeHit2");
+        ui.nextTurn();
+        return;
+      }
+      
+    if(!stripePotted && !solidPotted){
       ui.nextTurn();
-      return;
-    }
-    if(ui.currentPlayer==2 && ui.firstBallHitInATurn == 16){
-      System.out.println("h2");
-      ui.displayMessage("notHit2");
-      ui.nextTurn();
-      return;
-    }
-    if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallHitInATurn < 8
-    || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16){ // first ball hit is wrong type
-      System.out.println("test1");
-      ui.displayMessage("wrongTypeHit1");
-      ui.nextTurn();
-      return;
-    }
-    if(ui.currentPlayer==2 && ui.player1.equals("striped") && ui.firstBallHitInATurn < 8
-    || ui.currentPlayer==2 && ui.player1.equals("solid") && ui.firstBallHitInATurn > 8 && ui.firstBallHitInATurn < 16){ // first ball hit is wrong type
-      System.out.println("test2");
-      ui.displayMessage("wrongTypeHit2");
-      ui.nextTurn();
-      return;
-    }
-    if(ui.currentPlayer==1 && ui.player1.equals("striped") && ui.firstBallPocketedInATurn < 8
-    || ui.currentPlayer==1 && ui.player1.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16){ // first ball pocketed is wrong type
-      System.out.println("test1");
-      ui.displayMessage("wrongTypePocketed1");
-      ui.nextTurn();
-      return;
-    }
-    if(ui.currentPlayer==2 && ui.player1.equals("striped") && ui.firstBallPocketedInATurn < 8
-    || ui.currentPlayer==2 && ui.player1.equals("solid") && ui.firstBallPocketedInATurn > 8 && ui.firstBallPocketedInATurn < 16){ // first ball pocketed is wrong type
-      System.out.println("test2");
-      ui.displayMessage("wrongTypePocketed2");
-      ui.nextTurn();
-      return;
     }
   }
   
-  public void displayMessage(String message){
+  public void setMessage(String message){
     messageToDisplay = messages[0]; // temporary initialization
     if(message.equals("notHit1")) messageToDisplay = messages[0];
     if(message.equals("notHit2")) messageToDisplay = messages[1];
@@ -247,7 +263,7 @@ public class UI {
     showMessage = true;
   }
   
-  public void displayMessageHelper(String messageToDisplay, int brightness){
+  public void displayMessage(String messageToDisplay, int brightness){
     textAlign(CENTER);
     textSize(30);
     fill(brightness);
@@ -255,5 +271,16 @@ public class UI {
     textSize(20);
     text(messageToDisplay, 220, -300);
     if(brightness == 255) showMessage = false;
+  }
+  
+  public void initializeUI(String type){
+    firstBallPocketed = true;
+    if(currentPlayer == 1){
+      player1 = type;
+      player2 = other(type);
+    }else{
+      player1 = other(type);
+      player2 = type;
+    }
   }
 }
