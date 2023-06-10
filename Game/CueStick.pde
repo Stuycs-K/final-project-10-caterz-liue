@@ -51,6 +51,6 @@ public class CueStick {
     PVector pointing = relativePos.rotate(PI).div(len).mult(4);
     target.applyForce(pointing);
     ui.solidPotted = false;
-    ui.stripePotted = false;
+    ui.stripedPotted = false;
   }
 }
