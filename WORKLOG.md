@@ -94,3 +94,9 @@ ball type, illegally pocketing the 8-ball, and pocketing the cueball
 - need to figure out if cueball can be moved during other fouls?
 - rounded ui corners
 - bug discovered: PLAYER ONE/TWO swap visibly after a ball gets pocketed
+- standardized names to "striped" and "solid"
+- fixed 8ball win condition bug
+- got rid of big number appearing when a ball is pocketed
+- fixed the glitch where the ui balls display shows before the round where the
+first ball is pocketed is done
+- cleaned up comments and auto formatted
