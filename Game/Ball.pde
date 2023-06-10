@@ -32,36 +32,36 @@ public abstract class Ball {
     circle(position.x, position.y, size);
     fill(WHITE);
     if (number!=0) {
-      if(type.equals("striped")){
-        arc(position.x, position.y, size, size,     asin(2./3), PI-asin(2./3), CHORD);
-        arc(position.x, position.y, size, size, -PI+asin(2./3),   -asin(2./3), CHORD);
-      }else{
+      if (type.equals("striped")) {
+        arc(position.x, position.y, size, size, asin(2./3), PI-asin(2./3), CHORD);
+        arc(position.x, position.y, size, size, -PI+asin(2./3), -asin(2./3), CHORD);
+      } else {
         circle(position.x, position.y, size*2/3);
       }
       fill(BLACK);
       textSize(size*1.5);
       textAlign(CENTER);
-      if(!(number == 8 && ui.gameOver == true) && showNumber == true){
+      if (!(number == 8 && ui.gameOver == true) && showNumber == true) {
         text(number, position.x-1, position.y+4);
       }
     }
   }
 
   public void roll(PoolTable table, Ball[] balls, Obstacle[] obstacles) {
-    if(!pocketed){
+    if (!pocketed) {
       PVector nextSpot = PVector.add(position, velocity);
       boolean everHit = bounceCushion(table, nextSpot) | bounceAmong(balls, nextSpot);
       position.add(velocity);
-      if(!everHit){
+      if (!everHit) {
         velocity.mult(table.smoothness);
-        if(velocity.mag()<.1){
+        if (velocity.mag()<.1) {
           velocity.setMag(0);
         }
       }
       checkPockets(table.pockets);
       checkObstacles(obstacles);
     }
-    if(pocketed){
+    if (pocketed) {
       fall();
     }
   }
@@ -82,7 +82,7 @@ public abstract class Ball {
         Ball other = balls[i];
         if (nextSpot.dist(PVector.add(other.position, other.velocity)) < size+other.size) {
           hitSomething = true;
-          if(ui.firstBallHitInATurn == 16){
+          if (ui.firstBallHitInATurn == 16) {
             ui.firstBallHitInATurn = i;
           }
           // https://www.gamedeveloper.com/programming/pool-hall-lessons-fast-accurate-collision-detection-between-circles-or-spheres
@@ -99,32 +99,32 @@ public abstract class Ball {
   public void applyForce(PVector force) {
     velocity.add(force);
   }
-  
-  public void checkPockets(Hole[] pockets){
-    for(Hole pocket : pockets){
-      if(position.dist(pocket.position) < pocket.size){
+
+  public void checkPockets(Hole[] pockets) {
+    for (Hole pocket : pockets) {
+      if (position.dist(pocket.position) < pocket.size) {
         pocketed = true;
       }
     }
   }
-  
-  public void checkObstacles(Obstacle[] obstacles){
-    for(Obstacle o : obstacles){
-      if(o.shape.touching(position)){
+
+  public void checkObstacles(Obstacle[] obstacles) {
+    for (Obstacle o : obstacles) {
+      if (o.shape.touching(position)) {
         velocity = new PVector(velocity.x * o.strength, velocity.y * o.strength);
       }
     }
   }
-  
-  public void fall(){
-    if(size>0){
-    size--;
-    }else{
+
+  public void fall() {
+    if (size>0) {
+      size--;
+    } else {
       showNumber = false;
-      if(ui.firstBallPocketedInATurn == 16){
+      if (ui.firstBallPocketedInATurn == 16) {
         ui.firstBallPocketedInATurn = number;
       }
-      if(number == 0){
+      if (number == 0) {
         ui.cueballPocketedOnTurn = true;
         size = originalSize;
         pocketed = false;
@@ -132,28 +132,21 @@ public abstract class Ball {
         velocity = new PVector(0, 0);
         movingCueBall = true;
       }
-      if (number == 8){
-          ui.check8ball(balls);
+      if (number == 8) {
+        ui.check8ball(balls);
       }
-      if(number!=0 && number!=8){
+      if (number!=0 && number!=8) {
         balls[number] = null;
-        if(type.equals("striped")){
+        if (type.equals("striped")) {
           ui.stripedPotted = true;
         }
-        if(type.equals("solid")){
+        if (type.equals("solid")) {
           ui.solidPotted = true;
         }
-        if(!ui.firstBallPocketed) {
+        if (!ui.firstBallPocketed) {
           ui.canInitializeUI = type;
-          
-          // below is merged code; we'll see if this messes with anything
-          //ui.firstBallPocketed = true;
-          //ui.players[ui.currentPlayer * 2 % 3 - 1] = type;
-          //ui.players[ui.currentPlayer - 1] = ui.other(type);
-          
         }
       }
     }
   }
-  
 }
