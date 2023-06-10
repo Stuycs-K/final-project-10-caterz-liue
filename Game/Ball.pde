@@ -31,7 +31,7 @@ public abstract class Ball {
     circle(position.x, position.y, size);
     fill(WHITE);
     if (number!=0) {
-      if(type.equals("striped")){
+      if(type.equals("stripe")){
         arc(position.x, position.y, size, size,     asin(2./3), PI-asin(2./3), CHORD);
         arc(position.x, position.y, size, size, -PI+asin(2./3),   -asin(2./3), CHORD);
       }else{
@@ -135,7 +135,7 @@ public abstract class Ball {
       }
       if(number!=0 && number!=8){
         balls[number] = null;
-        if(type.equals("striped")){
+        if(type.equals("stripe")){
           ui.stripePotted = true;
         }
         if(type.equals("solid")){

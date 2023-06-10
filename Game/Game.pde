@@ -117,7 +117,7 @@ public void draw() {
     text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
   }
   text("press [x] to regenerate elliptical table\npress [c] to regenerate rectangular table\npress [z] to regenerate blob table", width/2, textAscent()*5);
-  text("press [a] to wipe out all solid balls\npress [s] to wipe out all striped balls\npress [d] to wipe out the eight ball", width/2, textAscent()*11);
+  text("press [a] to wipe out all solid balls\npress [s] to wipe out all stripe balls\npress [d] to wipe out the eight ball", width/2, textAscent()*11);
   
   translate(VISUAL_OFFSET.x,VISUAL_OFFSET.y);
   table.render();
@@ -158,7 +158,7 @@ public void draw() {
     /* 
     if(allStopped && (
        !ui.stripePotted && !ui.stripePotted ||
-       ui.players[ui.currentPlayer].equals("striped") && !ui.stripePotted ||
+       ui.players[ui.currentPlayer].equals("stripe") && !ui.stripePotted ||
        ui.players[ui.currentPlayer].equals("solid") && !ui.solidPotted)){
       ui.nextTurn();
       ui.stripePotted = true;
@@ -230,13 +230,13 @@ public void makeBreak(float x, float y, int size){ // wip
   ball6  = new NormalBall(x+2*x_off, y+2*y_off, size, 6,  GREEN,    "solid");
   ball7  = new NormalBall(x+3*x_off, y-3*y_off, size, 7,  BURGUNDY, "solid");
   ball8  = new EightBall( x+3*x_off, y-1*y_off, size);
-  ball9  = new NormalBall(x+3*x_off, y+1*y_off, size, 9,  YELLOW,   "striped");
-  ball10 = new NormalBall(x+3*x_off, y+3*y_off, size, 10, BLUE,     "striped");
-  ball11 = new NormalBall(x+4*x_off, y-4*y_off, size, 11, RED,      "striped");
-  ball12 = new NormalBall(x+4*x_off, y-2*y_off, size, 12, PURPLE,   "striped");
-  ball13 = new NormalBall(x+4*x_off, y+0*y_off, size, 13, ORANGE,   "striped");
-  ball14 = new NormalBall(x+4*x_off, y+2*y_off, size, 14, GREEN,    "striped");
-  ball15 = new NormalBall(x+4*x_off, y+4*y_off, size, 15, BURGUNDY, "striped");
+  ball9  = new NormalBall(x+3*x_off, y+1*y_off, size, 9,  YELLOW,   "stripe");
+  ball10 = new NormalBall(x+3*x_off, y+3*y_off, size, 10, BLUE,     "stripe");
+  ball11 = new NormalBall(x+4*x_off, y-4*y_off, size, 11, RED,      "stripe");
+  ball12 = new NormalBall(x+4*x_off, y-2*y_off, size, 12, PURPLE,   "stripe");
+  ball13 = new NormalBall(x+4*x_off, y+0*y_off, size, 13, ORANGE,   "stripe");
+  ball14 = new NormalBall(x+4*x_off, y+2*y_off, size, 14, GREEN,    "stripe");
+  ball15 = new NormalBall(x+4*x_off, y+4*y_off, size, 15, BURGUNDY, "stripe");
   balls = new Ball[] {ball0, ball1, ball2, ball3, ball4, ball5, 
                       ball6, ball7, ball8, ball9, ball10, 
                       ball11, ball12, ball13, ball14, ball15};
