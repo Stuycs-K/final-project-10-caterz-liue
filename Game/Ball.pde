@@ -8,6 +8,7 @@ public abstract class Ball {
   float originalSize;
   int weight;
   String type;
+  boolean showNumber = true;
 
   public Ball(PVector position, float size, int number, color ballColor, String type) {
     this.position = position;
@@ -40,7 +41,7 @@ public abstract class Ball {
       fill(BLACK);
       textSize(size*1.5);
       textAlign(CENTER);
-      if(!(number == 8 && ui.gameOver == true)){
+      if(!(number == 8 && ui.gameOver == true) && showNumber == true){
         text(number, position.x-1, position.y+4);
       }
     }
@@ -119,6 +120,7 @@ public abstract class Ball {
     if(size>0){
     size--;
     }else{
+      showNumber = false;
       if(ui.firstBallPocketedInATurn == 16){
         ui.firstBallPocketedInATurn = number;
       }
