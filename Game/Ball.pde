@@ -148,8 +148,8 @@ public abstract class Ball {
           
           // below is merged code; we'll see if this messes with anything
           //ui.firstBallPocketed = true;
-          ui.players[ui.currentPlayer * 2 % 3 - 1] = type;
-          ui.players[ui.currentPlayer - 1] = ui.other(type);
+          //ui.players[ui.currentPlayer * 2 % 3 - 1] = type;
+          //ui.players[ui.currentPlayer - 1] = ui.other(type);
           
         }
       }

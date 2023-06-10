@@ -306,13 +306,16 @@ public class UI {
   }
   
   public void initializeUI(String type){
+    
     firstBallPocketed = true;
-    if(currentPlayer == 1){
+    ui.players[ui.currentPlayer * 2 % 3 - 1] = other(type);
+    ui.players[ui.currentPlayer - 1] = type;
+    /*if(currentPlayer == 1){
       players[0] = type;
       players[1] = other(type);
     }else{
       players[0] = other(type);
       players[1] = type;
-    }
+    }*/
   }
 }
