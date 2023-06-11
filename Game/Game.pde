@@ -100,10 +100,16 @@ public void keyPressed() {
     for (int i=1; i<=7; i++) {
       balls[i] = null;
     }
+    if(ui.firstBallPocketed == false){
+      ui.initializeUI("solid");
+    }
   }
   if (key=='s') {
     for (int i=9; i<=15; i++) {
       balls[i] = null;
+    }
+    if(ui.firstBallPocketed == false){
+      ui.initializeUI("striped");
     }
   }
   if (key=='d') {
@@ -156,7 +162,6 @@ public void draw() {
     if (allStopped == true && cuestickUsed == true) {
       ui.messageCheck();
       if (ui.canInitializeUI != null) {
-        System.out.println("t");
         ui.initializeUI(ui.canInitializeUI);
         ui.canInitializeUI = null;
       }
