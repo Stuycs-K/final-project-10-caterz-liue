@@ -256,9 +256,10 @@ public void mouseReleased() {
   if (movingCueBall && table.onTable(ball0.position)) {
     boolean valid = true;
     for (int i=1; i<balls.length; i++) {
-      if (balls[i]!=null) {
-        valid = valid && ball0.position.dist(balls[i].position) > (ball0.size+balls[i].size);
-      }
+      valid = valid && (balls[i]==null || ball0.position.dist(balls[i].position) > (ball0.size+balls[i].size));
+    }
+    for (Hole pocket : table.pockets){
+      valid = valid && ball0.position.dist(pocket.position) > (ball0.size+pocket.size);
     }
     if (valid) {
       movingCueBall = false;
