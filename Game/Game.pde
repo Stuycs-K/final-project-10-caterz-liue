@@ -6,6 +6,7 @@ Ball[] balls;
 CueStick stick;
 int messageTimer = 255;
 boolean debugOn, movingCueBall, cuestickUsed;
+boolean showInstructions = true;
 UI ui;
 
 public static final PVector VISUAL_OFFSET = new PVector(400, 400);
@@ -41,8 +42,8 @@ public void setup() {
   makeBreak(0, 0, 10);
   ui = new UI();
   table.obstacles = new Obstacle[] {
-    new Sand(0.77777, new Ellipse(new PVector(-80, -80), 40, 30)),
-    new Sand(0.77777, new Rectangle(new PVector(20, 80), 30, 20)),
+    new Sand(0.88888, new Ellipse(new PVector(-80, -80), 40, 30)),
+    new Sand(0.88888, new Rectangle(new PVector(20, 80), 30, 20)),
     new Ice(1.05, new Ellipse(new PVector(40, -60), 30, 60)),
     new Ice(1.05, new Rectangle(new PVector(-80, 80), 20, 10)),
     new Ice(1.05, new Blob(new PVector(-135, 115), new PVector[] {new PVector(-100, 100), new PVector(-150, 100), new PVector(-151, 150)}, new PVector[] {new PVector(-125, 80), new PVector(-170, 120), new PVector(-80, 120)})),
@@ -63,8 +64,8 @@ public void keyPressed() {
     makeBreak(0, 0, 10);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.77777, new Ellipse(new PVector(80, -80), 40, 50, -PI/5)),
-      new Sand(0.77777, new Rectangle(new PVector(-80, 80), 30, 30)),
+      new Sand(0.88888, new Ellipse(new PVector(80, -80), 40, 50, -PI/5)),
+      new Sand(0.88888, new Rectangle(new PVector(-80, 80), 30, 30)),
       new Ice(1.05, new Ellipse(new PVector(-80, -80), 50, 10, -PI/7)),
       new Ice(1.05, new Rectangle(new PVector(80, 80), 20, 20)),
     };
@@ -75,8 +76,8 @@ public void keyPressed() {
     makeBreak(0, 0, 15);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.77777, new Ellipse(new PVector(80, -80), 40, 50, -PI/5)),
-      new Sand(0.77777, new Rectangle(new PVector(-80, 80), 30, 30)),
+      new Sand(0.88888, new Ellipse(new PVector(80, -80), 40, 50, -PI/5)),
+      new Sand(0.88888, new Rectangle(new PVector(-80, 80), 30, 30)),
       new Ice(1.05, new Ellipse(new PVector(-80, -80), 50, 10, -PI/7)),
       new Ice(1.05, new Rectangle(new PVector(80, 80), 20, 20)),
     };
@@ -87,8 +88,8 @@ public void keyPressed() {
     makeBreak(0, 0, 10);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.77777, new Ellipse(new PVector(-80, 80), 40, 40)),
-      new Sand(0.77777, new Rectangle(new PVector(80, -80), 30, 30)),
+      new Sand(0.88888, new Ellipse(new PVector(-80, 80), 40, 40)),
+      new Sand(0.88888, new Rectangle(new PVector(80, -80), 30, 30)),
       new Ice(1.05, new Ellipse(new PVector(80, 80), 30, 30)),
       new Ice(1.05, new Rectangle(new PVector(-80, -80), 20, 20)),
     };
@@ -99,8 +100,8 @@ public void keyPressed() {
     makeBreak(0, 0, 15);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.77777, new Ellipse(new PVector(-80, 80), 40, 40)),
-      new Sand(0.77777, new Rectangle(new PVector(80, -80), 30, 30)),
+      new Sand(0.88888, new Ellipse(new PVector(-80, 80), 40, 40)),
+      new Sand(0.88888, new Rectangle(new PVector(80, -80), 30, 30)),
       new Ice(1.05, new Ellipse(new PVector(80, 80), 30, 30)),
       new Ice(1.05, new Rectangle(new PVector(-80, -80), 20, 20)),
     };
@@ -112,8 +113,8 @@ public void keyPressed() {
     makeBreak(0, 0, 10);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.77777, new Ellipse(new PVector(-80, -80), 40, 30)),
-      new Sand(0.77777, new Rectangle(new PVector(20, 80), 30, 20)),
+      new Sand(0.88888, new Ellipse(new PVector(-80, -80), 40, 30)),
+      new Sand(0.88888, new Rectangle(new PVector(20, 80), 30, 20)),
       new Ice(1.05, new Ellipse(new PVector(40, -60), 30, 60)),
       new Ice(1.05, new Rectangle(new PVector(-80, 80), 20, 10)),
       new Ice(1.05, new Blob(new PVector(-135, 115), new PVector[] {new PVector(-100, 100), new PVector(-150, 100), new PVector(-151, 150)}, new PVector[] {new PVector(-125, 80), new PVector(-170, 120), new PVector(-80, 120)})),
@@ -142,21 +143,14 @@ public void keyPressed() {
     balls[8].pocketed = true;
     ui.check8ball(balls);
   }
+  if (key=='i') {
+    if(showInstructions == true) showInstructions = false;
+    else if(showInstructions == false) showInstructions = true;
+  }
 }
 
 public void draw() {
   background(BLACK);
-  textAlign(CENTER);
-  fill(YELLOW);
-  textSize(12);
-  if (!debugOn) {
-    text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
-  } else {
-    text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", width/2, textAscent());
-  }
-  text("press [x] to regenerate elliptical table w/ normal sized balls, [n] for bigger balls\npress [c] to regenerate rectangular table w/ normal sized balls, [m] for bigger balls\npress [z] to regenerate blob table", width/2, textAscent()*5);
-  text("press [a] to wipe out all solid balls\npress [s] to wipe out all striped balls\npress [d] to wipe out the eight ball", width/2, textAscent()*11);
-
   translate(VISUAL_OFFSET.x, VISUAL_OFFSET.y);
   table.render();
   ui.render(balls);
@@ -206,6 +200,34 @@ public void draw() {
     }
   }
 
+  if(showInstructions == true){
+    fill(150);
+    noStroke();
+    rect(0, 0, 200, 270, 28);
+    textAlign(CENTER);
+    fill(WHITE);
+    textSize(40);
+    text("INSTRUCTIONS", 0, -220);
+    textSize(20);
+    text("press [i] to hide", 0, -190);
+    textSize(25);
+    text("--- DEBUGGING ---", 0, -140);
+    textSize(15);
+    if (!debugOn) {
+      text("press [space] to turn on debug and allow for some\nhigh-quality unlimited cuesticking action.", 0, -110);
+    } else {
+      text("press [space] to turn off debug and destroy your dreams of\nhigh-quality unlimited cuesticking action.", 0, -110);
+    }
+    textSize(25);
+    text("--- REGENERATING TABLES ---", 0, -40);
+    textSize(15);
+    text("[x]: elliptical table w/ normal-sized balls\n[n]: elliptical table w/ bigger balls\n[c]: rectangular table w/ normal-sized balls\n[m]: rectangular table w/ bigger balls\n[z]: blob table w/ normal-sized balls", 0, -10);
+    textSize(25);
+    text("--- ELIMINATING BALLS ---", 0, 140);
+    textSize(15);
+    text("press [a] to wipe out all solid balls\npress [s] to wipe out all striped balls\npress [d] to wipe out the eight ball", 0, 170);    
+  } else {
+  }
   //Shape test = new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)});
   //testVisible(table.shape);
 }
