@@ -109,3 +109,7 @@ first ball is pocketed is done
 by pressing a key
 - stopped the end game messages from flashing when the 8ball is pocketed with [d]
 - took out testing messages that use System.out.println
+- adjusted strength of sand to be universal
+- added ball sizes
+- added instructions page
+- updated readme
