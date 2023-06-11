@@ -130,7 +130,6 @@ public abstract class Ball {
         pocketed = false;
         position = getMouse();
         velocity = new PVector(0, 0);
-        movingCueBall = true;
       }
       if (number == 8) {
         ui.check8ball(balls);

@@ -227,6 +227,7 @@ public class UI {
   }
 
   public void setMessage(String message) {
+    messageToDisplay = null;
     if (message.equals("notHit1")) messageToDisplay = messages[0];
     if (message.equals("notHit2")) messageToDisplay = messages[1];
     if (message.equals("wrongTypeHit1")) messageToDisplay = messages[2];
@@ -238,6 +239,10 @@ public class UI {
     if (message.equals("cueball1")) messageToDisplay = messages[8];
     if (message.equals("cueball2")) messageToDisplay = messages[9];
     showMessage = true;
+    if (messageToDisplay!=null){
+      movingCueBall = true;
+      messageTimer = 255;
+    }
   }
 
   public void displayMessage(String messageToDisplay, int brightness) {
