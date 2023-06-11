@@ -227,6 +227,10 @@ public void draw() {
     textSize(15);
     text("press [a] to wipe out all solid balls\npress [s] to wipe out all striped balls\npress [d] to wipe out the eight ball", 0, 170);    
   } else {
+    fill(WHITE);
+    textSize(20);
+    textAlign(LEFT);
+    text("press [i] to toggle\ninstructions for controls", -375, -180);
   }
   //Shape test = new Blob(new PVector(-135,115), new PVector[] {new PVector(-100,100), new PVector(-150,100), new PVector(-151,150)}, new PVector[] {new PVector(-125, 80), new PVector(-170,120), new PVector(-80, 120)});
   //testVisible(table.shape);
