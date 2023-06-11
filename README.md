@@ -1,10 +1,7 @@
 # APCS Final Project
 THIS DOCUMENT IS REQUIRED
 ## Group Info
-Gasliught, Caterkeep, Girlboss
-Zameen Cater
-Erica Liu
-APCS PD10
+Gasliught, Caterkeep, Girlboss: Zameen Cater & Erica Liu (APCS PD10)
 ## Overview
 Our project is a hybrid of 8-ball pool and golf. The goal of the game is to pocket all of the balls of your type (solid or striped) and then pocket the 8-ball to win. The rules follow standard pool rules, but the golf aspect is the addition of obstacles: sand slows down the balls while ice accelerates the balls. There are also different shapes for the tables.
 ## Instructions
@@ -19,11 +16,12 @@ Our project is a hybrid of 8-ball pool and golf. The goal of the game is to pock
 Our project follows the majority of rules in 8-ball pool.
 
 DESCRIPTIONS OF RULES OF POOL EDITED FROM https://www.rulesofsport.com/sports/pool.html:
+
 The object of pool is to pot all of your designated balls (either stripes or solids) and then pot the 8 ball, thus winning the game. 16 balls in total, comprising a white cue ball, seven striped balls, seven solid balls, and one black ball (8 ball).
 
 8-ball pool is won when one of the following occurs:
-- A player pots all of their designated balls and then legally pockets the 8 ball into their nominated pocket.
-- The opposing player illegally pots the 8 ball before clearing their own set of balls.
+  - A player pots all of their designated balls and then legally pockets the 8 ball into their nominated pocket.
+  - The opposing player illegally pots the 8 ball before clearing their own set of balls.
 
 - Before the game begins, the object balls are placed in a triangular rack.
 - The first player to pot an object ball will then have to continue to pot the balls from that category (stripes or solids). The opposition player will have to pot the other group.
@@ -32,5 +30,4 @@ The object of pool is to pot all of your designated balls (either stripes or sol
   - Failing to hit your own object balls.
   - Potting one of the opposition's object balls.
   - Pocketing the cue ball
-
 - Once all of a player’s balls have been potted, they must then sink the 8 ball to win.
