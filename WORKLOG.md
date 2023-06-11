@@ -100,3 +100,12 @@ ball type, illegally pocketing the 8-ball, and pocketing the cueball
 - fixed the glitch where the ui balls display shows before the round where the
 first ball is pocketed is done
 - cleaned up comments and auto formatted
+
+### 11 Jun 2023
+
+- fixed bug where a foul pops up when a table is regenerated
+- fixed bug where the 8ball being hit after all of the balls of a type are done gives a foul
+- ball types are now decided for each player when all balls of a type are eliminated at the start
+by pressing a key
+- stopped the end game messages from flashing when the 8ball is pocketed with [d]
+- took out testing messages that use System.out.println

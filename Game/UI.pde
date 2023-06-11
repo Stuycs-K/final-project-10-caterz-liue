@@ -1,7 +1,7 @@
 public class UI {
   int currentPlayer = 1;
   String[] players;
-  boolean stripedone;
+  boolean stripedDone;
   boolean stripedPotted;
   boolean solidDone;
   boolean solidPotted;
@@ -32,7 +32,7 @@ public class UI {
 
   public UI() {
     players = new String[] {"", ""};
-    stripedone = false;
+    stripedDone = false;
     stripedPotted = true;
     solidDone = false;
     solidPotted = true;
@@ -92,7 +92,7 @@ public class UI {
           }
         }
       } else {
-        stripedone = true;
+        stripedDone = true;
         if (balls[8] != null) {
           dispBall(220, 340, 10, 8, balls);
         }
@@ -103,19 +103,11 @@ public class UI {
   public void check8ball(Ball[] balls) {
     // called when the 8ball is pocketed
     int nullCounter = 0;
-    System.out.println(players[currentPlayer - 1]);
     if (players[currentPlayer - 1].equals("solid")) {
       nullCounter = countNulls(1, 7, balls);
-      System.out.println("1runs");
     } else if (players[currentPlayer - 1].equals("striped")) {
       nullCounter = countNulls(9, 15, balls);
-      System.out.println("2runs");
     }
-
-    for (int i = 0; i < balls.length; i++) {
-      System.out.println(balls[i]);
-    }
-    System.out.println(nullCounter);
 
     if (nullCounter == 7) { // got rid of all balls already
       fill(255);
@@ -156,7 +148,6 @@ public class UI {
         acc++;
       }
     }
-    System.out.println(acc);
     return acc;
   }
 
@@ -217,14 +208,14 @@ public class UI {
       ui.nextTurn();
       return;
     }
-    if (ui.currentPlayer==1 && players[0].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
-      || ui.currentPlayer==1 && players[0].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true) { // first ball hit is wrong type
+    if (ui.currentPlayer==1 && players[0].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true && solidDone == false
+      || ui.currentPlayer==1 && players[0].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true && stripedDone == false) { // first ball hit is wrong type
       ui.setMessage("wrongTypeHit1");
       ui.nextTurn();
       return;
     }
-    if (ui.currentPlayer==2 && players[1].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
-      || ui.currentPlayer==2 && players[1].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true) { // first ball hit is wrong type
+    if (ui.currentPlayer==2 && players[1].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true && solidDone == false
+      || ui.currentPlayer==2 && players[1].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true && stripedDone == false) { // first ball hit is wrong type
       ui.setMessage("wrongTypeHit2");
       ui.nextTurn();
       return;
@@ -236,7 +227,6 @@ public class UI {
   }
 
   public void setMessage(String message) {
-    messageToDisplay = messages[0]; // temporary initialization
     if (message.equals("notHit1")) messageToDisplay = messages[0];
     if (message.equals("notHit2")) messageToDisplay = messages[1];
     if (message.equals("wrongTypeHit1")) messageToDisplay = messages[2];
