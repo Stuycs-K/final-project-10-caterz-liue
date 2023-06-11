@@ -176,10 +176,8 @@ public void draw() {
     }
   }
 
-  if (!ui.gameOver && !movingCueBall && (allStopped || debugOn)) {  // rewrite this whole thing
-    stick.show();
-    stick.render(table, ball0);
-    if (allStopped == true && cuestickUsed == true) {
+  if (!ui.gameOver && allStopped) {  // rewrite this whole thing
+    if(cuestickUsed) {
       ui.messageCheck();
       if (ui.canInitializeUI != null) {
         ui.initializeUI(ui.canInitializeUI);
@@ -187,7 +185,12 @@ public void draw() {
       }
       cuestickUsed = false;
     }
-  } else {
+  } 
+  
+  if(!ui.gameOver && !movingCueBall && (allStopped || debugOn)){
+    stick.show();
+    stick.render(table, ball0);
+  }else {
     stick.hide();
   }
 
@@ -250,20 +253,19 @@ public void testVisible(Shape shape) {
 
 
 public void mouseReleased() {
-  cuestickUsed = true;
-  //stick.strike(ball0, ui, balls);
-
   if (movingCueBall && table.onTable(ball0.position)) {
     boolean valid = true;
     for (int i=1; i<balls.length; i++) {
-      if (balls[i]!=null) {
-        valid = valid && ball0.position.dist(balls[i].position) > (ball0.size+balls[i].size);
-      }
+      valid = valid && (balls[i]==null || ball0.position.dist(balls[i].position) > (ball0.size+balls[i].size));
+    }
+    for (Hole pocket : table.pockets){
+      valid = valid && ball0.position.dist(pocket.position) > (ball0.size+pocket.size);
     }
     if (valid) {
       movingCueBall = false;
     }
   } else {
+    cuestickUsed = true;
     stick.strike(ball0, ui);
   }
 }
