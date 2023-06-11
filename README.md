@@ -5,10 +5,13 @@ Gasliught, Caterkeep, Girlboss: Zameen Cater & Erica Liu (APCS PD10)
 ## Overview
 Our project is a hybrid of 8-ball pool and golf. The goal of the game is to pocket all of the balls of your type (solid or striped) and then pocket the 8-ball to win. The rules follow standard pool rules, but the golf aspect is the addition of obstacles: sand slows down the balls while ice accelerates the balls. There are also different shapes for the tables.
 ## Instructions
-- Press space to turn on debug and allow for unlimited cuesticking action.
-- Press [x] to regenerate the elliptical table.
-- Press [c] to regenerate the rectangular table.
-- Press [z] to regenerate the blob table.
+- Press [i] to show instructions for controls.
+- Press space to toggle debugging to allow for unlimited cuesticking action.
+- Press [x] to regenerate the elliptical table with normal-sized balls.
+- Press [n] to regenerate the elliptical table with bigger balls.
+- Press [c] to regenerate the rectangular table with normal-sized balls.
+- Press [c] to regenerate the rectangular table with bigger balls.
+- Press [z] to regenerate the blob table with normal-sized balls.
 - Press [a] to wipe out all solid balls.
 - Press [s] to wipe out all striped balls.
 - Press [d] to wipe out the eight ball.
