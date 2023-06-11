@@ -223,8 +223,8 @@ public class UI {
       ui.nextTurn();
       return;
     }
-    if (ui.currentPlayer==2 && players[1].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
-      || ui.currentPlayer==2 && players[1].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true) { // first ball hit is wrong type
+    if (ui.currentPlayer==2 && players[1].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true && solidDone == false
+      || ui.currentPlayer==2 && players[1].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true && stripedDone == false) { // first ball hit is wrong type
       ui.setMessage("wrongTypeHit2");
       ui.nextTurn();
       return;
