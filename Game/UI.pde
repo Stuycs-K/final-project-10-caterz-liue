@@ -1,7 +1,7 @@
 public class UI {
   int currentPlayer = 1;
   String[] players;
-  boolean stripedone;
+  boolean stripedDone;
   boolean stripedPotted;
   boolean solidDone;
   boolean solidPotted;
@@ -32,7 +32,7 @@ public class UI {
 
   public UI() {
     players = new String[] {"", ""};
-    stripedone = false;
+    stripedDone = false;
     stripedPotted = true;
     solidDone = false;
     solidPotted = true;
@@ -92,7 +92,7 @@ public class UI {
           }
         }
       } else {
-        stripedone = true;
+        stripedDone = true;
         if (balls[8] != null) {
           dispBall(220, 340, 10, 8, balls);
         }
@@ -217,8 +217,8 @@ public class UI {
       ui.nextTurn();
       return;
     }
-    if (ui.currentPlayer==1 && players[0].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true
-      || ui.currentPlayer==1 && players[0].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true) { // first ball hit is wrong type
+    if (ui.currentPlayer==1 && players[0].equals("striped") && ui.firstBallHitInATurn <= 8 && firstBallPocketed == true && solidDone == false
+      || ui.currentPlayer==1 && players[0].equals("solid") && ui.firstBallHitInATurn >= 8 && ui.firstBallHitInATurn < 16 && firstBallPocketed == true && stripedDone == false) { // first ball hit is wrong type
       ui.setMessage("wrongTypeHit1");
       ui.nextTurn();
       return;
