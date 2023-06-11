@@ -253,8 +253,8 @@ public void testVisible(Shape shape) {
 
 
 public void mouseReleased() {
-  if (movingCueBall && table.onTable(ball0.position)) {
-    boolean valid = true;
+  if (movingCueBall) {
+    boolean valid = table.onTable(ball0.position);
     for (int i=1; i<balls.length; i++) {
       valid = valid && (balls[i]==null || ball0.position.dist(balls[i].position) > (ball0.size+balls[i].size));
     }
