@@ -19,7 +19,7 @@ DESCRIPTIONS OF RULES OF POOL EDITED FROM https://www.rulesofsport.com/sports/po
 
 The object of pool is to pot all of your designated balls (either stripes or solids) and then pot the 8 ball, thus winning the game. 16 balls in total, comprising a white cue ball, seven striped balls, seven solid balls, and one black ball (8 ball).
 
-8-ball pool is won when one of the following occurs:
+- 8-ball pool is won when one of the following occurs:
   - A player pots all of their designated balls and then legally pockets the 8 ball into their nominated pocket.
   - The opposing player illegally pots the 8 ball before clearing their own set of balls.
 
