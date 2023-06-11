@@ -236,7 +236,6 @@ public class UI {
   }
 
   public void setMessage(String message) {
-    messageToDisplay = messages[0]; // temporary initialization
     if (message.equals("notHit1")) messageToDisplay = messages[0];
     if (message.equals("notHit2")) messageToDisplay = messages[1];
     if (message.equals("wrongTypeHit1")) messageToDisplay = messages[2];

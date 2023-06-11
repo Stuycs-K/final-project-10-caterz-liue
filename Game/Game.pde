@@ -68,6 +68,7 @@ public void keyPressed() {
       new Ice(1.05, new Ellipse(new PVector(-80, -80), 50, 10, -PI/7)),
       new Ice(1.05, new Rectangle(new PVector(80, 80), 20, 20)),
     };
+    cuestickUsed = false;
   }
   if (key=='c') {
     table = new RectangleTable(54*6, 27*6, .98, 15, 20, -PI/9);
@@ -79,6 +80,7 @@ public void keyPressed() {
       new Ice(1.05, new Ellipse(new PVector(80, 80), 30, 30)),
       new Ice(1.05, new Rectangle(new PVector(-80, -80), 20, 20)),
     };
+    cuestickUsed = false;
   }
   if (key=='z') {
     table = new BlobTable(new PVector[] {new PVector(-180, 160), new PVector(10, 240), new PVector(100, 150), new PVector(150, -100), new PVector(-50, -200), new PVector(-240, -1)},
@@ -92,6 +94,7 @@ public void keyPressed() {
       new Ice(1.05, new Rectangle(new PVector(-80, 80), 20, 10)),
       new Ice(1.05, new Blob(new PVector(-135, 115), new PVector[] {new PVector(-100, 100), new PVector(-150, 100), new PVector(-151, 150)}, new PVector[] {new PVector(-125, 80), new PVector(-170, 120), new PVector(-80, 120)})),
     };
+    cuestickUsed = false;
   }
   if (key=='a') {
     for (int i=1; i<=7; i++) {
