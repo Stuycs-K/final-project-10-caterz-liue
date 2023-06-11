@@ -41,7 +41,7 @@ public void setup() {
   makeBreak(0, 0, 10);
   ui = new UI();
   table.obstacles = new Obstacle[] {
-    new Sand(0.99999, new Ellipse(new PVector(-80, -80), 40, 30)),
+    new Sand(0.77777, new Ellipse(new PVector(-80, -80), 40, 30)),
     new Sand(0.77777, new Rectangle(new PVector(20, 80), 30, 20)),
     new Ice(1.05, new Ellipse(new PVector(40, -60), 30, 60)),
     new Ice(1.05, new Rectangle(new PVector(-80, 80), 20, 10)),
@@ -63,7 +63,7 @@ public void keyPressed() {
     makeBreak(0, 0, 10);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.99999, new Ellipse(new PVector(80, -80), 40, 50, -PI/5)),
+      new Sand(0.77777, new Ellipse(new PVector(80, -80), 40, 50, -PI/5)),
       new Sand(0.77777, new Rectangle(new PVector(-80, 80), 30, 30)),
       new Ice(1.05, new Ellipse(new PVector(-80, -80), 50, 10, -PI/7)),
       new Ice(1.05, new Rectangle(new PVector(80, 80), 20, 20)),
@@ -75,7 +75,7 @@ public void keyPressed() {
     makeBreak(0, 0, 15);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.99999, new Ellipse(new PVector(80, -80), 40, 50, -PI/5)),
+      new Sand(0.77777, new Ellipse(new PVector(80, -80), 40, 50, -PI/5)),
       new Sand(0.77777, new Rectangle(new PVector(-80, 80), 30, 30)),
       new Ice(1.05, new Ellipse(new PVector(-80, -80), 50, 10, -PI/7)),
       new Ice(1.05, new Rectangle(new PVector(80, 80), 20, 20)),
@@ -87,7 +87,7 @@ public void keyPressed() {
     makeBreak(0, 0, 10);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.99999, new Ellipse(new PVector(-80, 80), 40, 40)),
+      new Sand(0.77777, new Ellipse(new PVector(-80, 80), 40, 40)),
       new Sand(0.77777, new Rectangle(new PVector(80, -80), 30, 30)),
       new Ice(1.05, new Ellipse(new PVector(80, 80), 30, 30)),
       new Ice(1.05, new Rectangle(new PVector(-80, -80), 20, 20)),
@@ -99,7 +99,7 @@ public void keyPressed() {
     makeBreak(0, 0, 15);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.99999, new Ellipse(new PVector(-80, 80), 40, 40)),
+      new Sand(0.77777, new Ellipse(new PVector(-80, 80), 40, 40)),
       new Sand(0.77777, new Rectangle(new PVector(80, -80), 30, 30)),
       new Ice(1.05, new Ellipse(new PVector(80, 80), 30, 30)),
       new Ice(1.05, new Rectangle(new PVector(-80, -80), 20, 20)),
@@ -112,7 +112,7 @@ public void keyPressed() {
     makeBreak(0, 0, 10);
     ui = new UI();
     table.obstacles = new Obstacle[] {
-      new Sand(0.99999, new Ellipse(new PVector(-80, -80), 40, 30)),
+      new Sand(0.77777, new Ellipse(new PVector(-80, -80), 40, 30)),
       new Sand(0.77777, new Rectangle(new PVector(20, 80), 30, 20)),
       new Ice(1.05, new Ellipse(new PVector(40, -60), 30, 60)),
       new Ice(1.05, new Rectangle(new PVector(-80, 80), 20, 10)),
