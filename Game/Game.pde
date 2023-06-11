@@ -113,7 +113,9 @@ public void keyPressed() {
     }
   }
   if (key=='d') {
-    balls[8] = null;
+    ui.firstBallPocketedInATurn = 8;
+    balls[8].size = 0;
+    balls[8].pocketed = true;
     ui.check8ball(balls);
   }
 }

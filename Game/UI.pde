@@ -103,19 +103,11 @@ public class UI {
   public void check8ball(Ball[] balls) {
     // called when the 8ball is pocketed
     int nullCounter = 0;
-    System.out.println(players[currentPlayer - 1]);
     if (players[currentPlayer - 1].equals("solid")) {
       nullCounter = countNulls(1, 7, balls);
-      System.out.println("1runs");
     } else if (players[currentPlayer - 1].equals("striped")) {
       nullCounter = countNulls(9, 15, balls);
-      System.out.println("2runs");
     }
-
-    for (int i = 0; i < balls.length; i++) {
-      System.out.println(balls[i]);
-    }
-    System.out.println(nullCounter);
 
     if (nullCounter == 7) { // got rid of all balls already
       fill(255);
