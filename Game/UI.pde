@@ -148,7 +148,6 @@ public class UI {
         acc++;
       }
     }
-    System.out.println(acc);
     return acc;
   }
 
