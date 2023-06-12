@@ -30,6 +30,49 @@
 - wrote ball collision code
 - improved Ball code overall
 
+### 30 May 2023
+- cue stick can now be dragged (with much pain and tragedy)
+- cue stick was attempted to be renamed (it did not work)
+
+### 31 May 2023
+- implemented cue stick projection line
+- began work on the blob table
+
+### 2 June 2023
+- Increased visual size of game
+- Added stripes to balls
+- First iteration of alternating turns
+
+### 3 June 2023
+- Fixed missing eight ball on tracker
+- Fixed incorrect restart on table generation
+
+### 4 June 2023
+- more pain and tragedy, ultimately culminating in a blob table
+- fixed invisible walls
+- improved debug mode (no more duplicated numbers)
+
+### 6 June 2023
+- obstacle shapes can now be ellipses and rectangles
+- separated ConicExpression work into its own file
+- separated shapes into their own classes, separate of tables
+- obstacles now use the shapes system instead of doubled collision code
+- added the first iteration of a blob obstacle
+
+### 7 June 2023
+- blob obstacles work (later discovered to not, in fact, work)
+- struggled over bugs (I am an entomologist)
+
+### 8 June 2023
+- lots and lots of cleaning, code combination, and code separation
+- convex shapes now work!
+- blob obstacles now work!
+
+### 11 June 2023
+- cue ball can now be moved after fouls without strange bugs occurring
+- bug fixes
+
+
 ## Erica Liu
 
 ### 22 May 2023
