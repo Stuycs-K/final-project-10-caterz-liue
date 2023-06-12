@@ -30,6 +30,49 @@
 - wrote ball collision code
 - improved Ball code overall
 
+### 30 May 2023
+- cue stick can now be dragged (with much pain and tragedy)
+- cue stick was attempted to be renamed (it did not work)
+
+### 31 May 2023
+- implemented cue stick projection line
+- began work on the blob table
+
+### 2 June 2023
+- Increased visual size of game
+- Added stripes to balls
+- First iteration of alternating turns
+
+### 3 June 2023
+- Fixed missing eight ball on tracker
+- Fixed incorrect restart on table generation
+
+### 4 June 2023
+- more pain and tragedy, ultimately culminating in a blob table
+- fixed invisible walls
+- improved debug mode (no more duplicated numbers)
+
+### 6 June 2023
+- obstacle shapes can now be ellipses and rectangles
+- separated ConicExpression work into its own file
+- separated shapes into their own classes, separate of tables
+- obstacles now use the shapes system instead of doubled collision code
+- added the first iteration of a blob obstacle
+
+### 7 June 2023
+- blob obstacles work (later discovered to not, in fact, work)
+- struggled over bugs (I am an entomologist)
+
+### 8 June 2023
+- lots and lots of cleaning, code combination, and code separation
+- convex shapes now work!
+- blob obstacles now work!
+
+### 11 June 2023
+- cue ball can now be moved after fouls without strange bugs occurring
+- bug fixes
+
+
 ## Erica Liu
 
 ### 22 May 2023
@@ -70,10 +113,46 @@ players are implemented, ball should shrink and disappear into hole
 
 - fixed merge conflict
 
-### 3 Jun 2023
+### 4 Jun 2023
 
 - merged blob table new code onto erica branch
 - added instruction to regenerate blob table
 - added in Sand and Ice Obstacles, changed up some constructors in the process
 - added the obstacles' effects and rendered them
 - added different positions for obstacles for each table type
+
+### 8 Jun 2023
+
+- implemented ui messages, and they should now mostly work besides some minor bugs (ex.
+  regenerating a table might make a notification pop up)
+- ui messages implemented: not hitting any balls, hitting the wrong ball type, pocketing the wrong
+ball type, illegally pocketing the 8-ball, and pocketing the cueball
+- fixing player alternation
+- moved player turn display to upper left so it wouldn't block the table, and made the display red
+- i think i got rid of the big 8 that sometimes appears when the 8ball is pocketed
+
+### 9 Jun 2023
+
+- merged onto main and fixed the many merge conflicts
+- need to figure out if cueball can be moved during other fouls?
+- rounded ui corners
+- bug discovered: PLAYER ONE/TWO swap visibly after a ball gets pocketed
+- standardized names to "striped" and "solid"
+- fixed 8ball win condition bug
+- got rid of big number appearing when a ball is pocketed
+- fixed the glitch where the ui balls display shows before the round where the
+first ball is pocketed is done
+- cleaned up comments and auto formatted
+
+### 11 Jun 2023
+
+- fixed bug where a foul pops up when a table is regenerated
+- fixed bug where the 8ball being hit after all of the balls of a type are done gives a foul
+- ball types are now decided for each player when all balls of a type are eliminated at the start
+by pressing a key
+- stopped the end game messages from flashing when the 8ball is pocketed with [d]
+- took out testing messages that use System.out.println
+- adjusted strength of sand to be universal
+- added ball sizes
+- added instructions page
+- updated readme
