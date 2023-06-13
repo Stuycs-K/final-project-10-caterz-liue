@@ -156,3 +156,28 @@ by pressing a key
 - added ball sizes
 - added instructions page
 - updated readme
+
+## Dev Log
+
+### Working Features
+
+- A fun debug mode
+- Regenerating pool tables with different size balls
+- Eliminating all balls of a type using keys
+- Instructions screen
+- Alternating player turns
+- Fouls and UI messages
+- Moveable cue ball
+- Obstacles (sand to slow down balls, ice to speed up balls)
+- Most rules of 8-ball pool implemented
+
+### Broken Features
+
+- Cue ball can end up outside of the pool table in debug mode
+- Sometimes there are bugs with UI notifications popping up
+- Sometimes balls may get stuck together and end up orbiting each other
+
+### Useful Content Resources
+
+- Rules of pool: https://www.rulesofsport.com/sports/pool.html
+- Processing documentation: https://processing.org/reference
